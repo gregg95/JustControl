@@ -14,13 +14,24 @@
 
 
 <ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" stacked>Email</ion-label>
+      <ion-input type="email" placeholder="Type here... "></ion-input>
+    </ion-item>
   
-  
-
-    <button ion-button
-    (click)="googleLogin()">
-Login with Google      
-</button>
+    <ion-item>
+      <ion-label color="primary" stacked>Password</ion-label>
+      <ion-input type="password" placeholder="Type here... "></ion-input>
+    </ion-item>
+    
+    <button ion-button block
+            (click)="loginWithEmailAndPassword()">Sign in</button>
+  </ion-list>
+  <button ion-button
+          (click)="googleLogin()">
+    Login with Google      
+  </button>
 
 <button ion-button
     (click)="signOut()">

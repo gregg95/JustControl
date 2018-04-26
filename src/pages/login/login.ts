@@ -24,7 +24,7 @@ export class LoginPage {
         if(res && res.uid) {
           this.makeToast("user logged");
         } else {
-          this.makeToast("user not logged");
+          this.makeToast("user not logged")
         }
       });
   }
