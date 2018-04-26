@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "426681299685",
+    "firebase_url": "https://justcontrol-ab259.firebaseio.com",
+    "project_id": "justcontrol-ab259",
+    "storage_bucket": "justcontrol-ab259.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426681299685:android:3ff7a62bc40a4023",
+        "android_client_info": {
+          "package_name": "com.uek.justcontrol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426681299685-p6p8k74jb8ul81cdlfauvqr8nade5lga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uek.justcontrol",
+            "certificate_hash": "266afb7b4d9c01c71801ec60151fd3f30b45b7f5"
+          }
+        },
+        {
+          "client_id": "426681299685-15viaq14deolshshhnj80gpfrqhvli4f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLZoctrotGeX0yJomEK3u6RjjMLbR1n4g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "426681299685-15viaq14deolshshhnj80gpfrqhvli4f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
