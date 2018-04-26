@@ -21,7 +21,11 @@ export class LoginPage {
     private platform: Platform) {
       
       this.afAuth.authState.subscribe(res => {
-        this.makeToast(res.displayName);
+        if(res && res.uid) {
+          this.makeToast("user logged");
+        } else {
+          this.makeToast("user not logged");
+        }
       });
   }
 
