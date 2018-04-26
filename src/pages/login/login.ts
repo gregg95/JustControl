@@ -20,13 +20,7 @@ export class LoginPage {
     private gplus: GooglePlus, private toastCtrl: ToastController,
     private platform: Platform) {
       
-      this.afAuth.authState.subscribe(res => {
-        if(res && res.uid) {
-          this.makeToast("user logged");
-        } else {
-          this.makeToast("user not logged");
-        }
-      });
+      
   }
 
   ionViewDidLoad() {
@@ -34,7 +28,9 @@ export class LoginPage {
   }
 
 
-
+  loginWithEmailAndPassword(){
+    
+  }
 
   googleLogin() {
     if (this.platform.is('cordova')){
