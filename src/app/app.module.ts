@@ -12,6 +12,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { RegisterPage } from '../pages/register/register';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { MainPage } from '../pages/main/main';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpJ_KAdkIpjqwcE6SNcea4jCfiZ1juzWM",
@@ -27,7 +28,8 @@ const firebaseConfig = {
     MyApp,
     HomePage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    MainPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ const firebaseConfig = {
     MyApp,
     HomePage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    MainPage
   ],
   providers: [
     GooglePlus,

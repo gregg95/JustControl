@@ -7,6 +7,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { Platform } from 'ionic-angular';
 import firebase from 'firebase';
 import { RegisterPage } from '../register/register';
+import { MainPage } from '../main/main';
 
 @IonicPage()
 @Component({
@@ -27,8 +28,9 @@ export class LoginPage {
       this.afAuth.authState.subscribe(res => {
         if(res && res.uid) {
           this.makeToast("user logged");
+          navCtrl.push(MainPage);
         } else {
-          this.makeToast("user not logged")
+          navCtrl.popToRoot();
         }
       });
   }
