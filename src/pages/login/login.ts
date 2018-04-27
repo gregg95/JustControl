@@ -6,6 +6,7 @@ import { ToastController } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Platform } from 'ionic-angular';
 import firebase from 'firebase';
+import { RegisterPage } from '../register/register';
 
 @IonicPage()
 @Component({
@@ -87,6 +88,10 @@ export class LoginPage {
       duration: 3000,
       position: 'top'
     }).present();    
+  }
+
+  goToRegisterPage(){
+    this.navCtrl.push(RegisterPage);
   }
 
 }

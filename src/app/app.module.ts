@@ -10,7 +10,7 @@ import { LoginPage } from '../pages/login/login';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-
+import { RegisterPage } from '../pages/register/register';
 import { GooglePlus } from '@ionic-native/google-plus';
 
 const firebaseConfig = {
@@ -26,7 +26,8 @@ const firebaseConfig = {
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -38,7 +39,8 @@ const firebaseConfig = {
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    RegisterPage
   ],
   providers: [
     GooglePlus,
