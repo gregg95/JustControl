@@ -16,6 +16,9 @@ import { RegisterPage } from '../register/register';
 export class LoginPage {
 
   user: Observable<firebase.User>;
+  email: string;
+  password: string;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
     private gplus: GooglePlus, private toastCtrl: ToastController,
@@ -94,4 +97,12 @@ export class LoginPage {
     this.navCtrl.push(RegisterPage);
   }
 
+  loginWithEmailAndPassword() {
+    try {
+      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password);
+    }
+    catch (e) {
+      this.makeToast(e);
+    }
+  }
 }
