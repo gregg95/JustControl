@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
-
 /**
  * Generated class for the RegisterPage page.
  *
@@ -16,9 +15,9 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class RegisterPage {
 
-  repassword: String;
-  password: String;
-  email: String;
+  repassword: string;
+  password: string;
+  email: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private afAuth: AngularFireAuth, private toastCtrl: ToastController,
@@ -29,7 +28,14 @@ export class RegisterPage {
     console.log('ionViewDidLoad RegisterPage');
   }
 
-  registerWithEmailAndPassword() {
+  async registerWithEmailAndPassword() {
+    try {
+      const result = await this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password);
+      console.log(result);
+    } 
+    catch (e) {
+      console.log(e);
+    }
   }
 
 }
