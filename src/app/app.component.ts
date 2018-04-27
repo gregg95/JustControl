@@ -22,14 +22,26 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
+
+
   }
 
   logout(){
+
     this.afAuth.auth.signOut();
 
     if (this.platform.is('cordova')) {
       this.gplus.logout();      
     }
+  }
+
+  makeToast(message) {
+    this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'top'
+    }).present();    
   }
 }
 

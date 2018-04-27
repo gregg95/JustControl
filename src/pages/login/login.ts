@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import { ToastController } from 'ionic-angular';
@@ -23,7 +23,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
     private gplus: GooglePlus, private toastCtrl: ToastController,
-    private platform: Platform) {
+    private platform: Platform, private menuCtrl: MenuController) {
       
       this.afAuth.authState.subscribe(res => {
         if(res && res.uid) {
@@ -31,15 +31,29 @@ export class LoginPage {
           navCtrl.push(MainPage);
         } else {
           navCtrl.popToRoot();
+
         }
       });
+
+      
+    navCtrl.viewDidEnter.subscribe((e) => {
+      menuCtrl.enable(true, 'myMenu');
+      switch (e.instance.constructor.name){
+        case 'LoginPage':
+        menuCtrl.enable(false, 'myMenu');
+          break; 
+        case 'RegisterPage':
+        menuCtrl.enable(false, 'myMenu');
+          break; 
+      }
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
-
+  
 
 
   googleLogin() {

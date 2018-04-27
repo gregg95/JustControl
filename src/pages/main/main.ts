@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 /**
@@ -19,13 +19,15 @@ export class MainPage {
   username: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private afAuth: AngularFireAuth) {
+    private afAuth: AngularFireAuth, private menuCtrl: MenuController) {
     this.username = afAuth.auth.currentUser.displayName;
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
+    this.menuCtrl.enable(true, 'myMenu');
   }
 
-  
+
 }
