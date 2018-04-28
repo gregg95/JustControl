@@ -14,6 +14,12 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { RegisterPage } from '../pages/register/register';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { MainPage } from '../pages/main/main';
+import { UserConfigPage } from '../pages/user-config/user-config';
+import { AboutPage } from '../pages/about/about';
+import { CommonExpensesPage } from '../pages/common-expenses/common-expenses';
+import { SettingsPage } from '../pages/settings/settings';
+import { RankingPage } from '../pages/ranking/ranking';
+import { TasksHistoryPage } from '../pages/tasks-history/tasks-history';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpJ_KAdkIpjqwcE6SNcea4jCfiZ1juzWM",
@@ -30,7 +36,13 @@ const firebaseConfig = {
     HomePage,
     LoginPage,
     RegisterPage,
-    MainPage
+    MainPage,
+    UserConfigPage,
+    AboutPage,
+    CommonExpensesPage,
+    SettingsPage,
+    RankingPage,
+    TasksHistoryPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +58,13 @@ const firebaseConfig = {
     HomePage,
     LoginPage,
     RegisterPage,
-    MainPage
+    MainPage,
+    UserConfigPage,
+    AboutPage,
+    CommonExpensesPage,
+    SettingsPage,
+    RankingPage,
+    TasksHistoryPage
   ],
   providers: [
     GooglePlus,
