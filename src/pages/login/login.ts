@@ -11,6 +11,7 @@ import { MainPage } from '../main/main';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { User } from '../../app/models/user.model';
 import { UserConfigPage } from '../user-config/user-config';
+import { Globals } from '../../app/Globals';
 
 @IonicPage()
 @Component({
@@ -28,7 +29,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
     private gplus: GooglePlus, private toastCtrl: ToastController,
     private platform: Platform, private menuCtrl: MenuController,
-    public db : AngularFireDatabase ) {
+    public db : AngularFireDatabase, public globals: Globals ) {
      // this.afDb = db;
       this.afAuth.authState.subscribe(res => {
         if(res && res.uid ) {
@@ -61,6 +62,7 @@ export class LoginPage {
 
   async checkUser(res) {
 
+    //sprawdzam czy istnieje user jezeli nie to oznacza nowe logowanie
     var query = await this.db.list('users', ref => ref.orderByChild('usr_id').equalTo(res.uid));
     
     await new Promise(resolve => {
@@ -70,42 +72,26 @@ export class LoginPage {
       });
     });
 
+
+    //dodaje uzytkownika do bazy
     if (!this.user) {
       this.user = new User;
       this.user.usr_id = res.uid;
       this.user.usr_name = res.displayName;
       this.user.usr_rights = 0;
 
+
       this.userList.push(this.user); 
     }
-      
+    
+    this.globals.user = this.user;
+
+    //sprawdzenie czy uzytkonik jest poprawnie skonfigurowany
     if (this.user.usr_rights == 0) {
       this.navCtrl.push(UserConfigPage);
     } else {
       this.navCtrl.push(MainPage);
-    }
-
-    //sprawdzam czy istnieje user jezeli nie to oznacza nowe logowanie
-    /*var query = await this.db.list('users', ref => ref.orderByChild('usr_id').equalTo(res.uid));
-
-    var result = 0;
-    await new Promise(resolve => {
-      query.valueChanges().subscribe(u => {                                       
-        result = u.length;
-        resolve();
-      });
-    });*/
-
-    //dodaje uzytkownika do bazy
-    /*if (Number(await result) == 0) {
-      this.userList.push({
-        usr_id: res.uid,
-        usr_name: res.displayName,
-        usr_rights: 0
-      });
-    }*/
-
-    
+    }   
 
   }
 
