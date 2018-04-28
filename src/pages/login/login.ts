@@ -10,6 +10,9 @@ import { RegisterPage } from '../register/register';
 import { MainPage } from '../main/main';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { User } from '../../app/models/user.model';
+import { UserConfigPage } from '../user-config/user-config';
+import { Globals } from '../../app/Globals';
+import { DIRECTION_BACK } from 'ionic-angular/navigation/nav-util';
 
 @IonicPage()
 @Component({
@@ -18,7 +21,7 @@ import { User } from '../../app/models/user.model';
 })
 export class LoginPage {
 
-  user: User;
+  public user: User;
   email: string;
   password: string;
  // afDb: AngularFireDatabase;
@@ -27,14 +30,11 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
     private gplus: GooglePlus, private toastCtrl: ToastController,
     private platform: Platform, private menuCtrl: MenuController,
-    public db : AngularFireDatabase ) {
+    public db : AngularFireDatabase, public globals: Globals ) {
      // this.afDb = db;
       this.afAuth.authState.subscribe(res => {
         if(res && res.uid ) {
-          this.checkIfUserExists(res);
-          this.makeToast("user logged ");
-          navCtrl.push(MainPage);
-          
+          this.checkUser(res);          
         } else {
           navCtrl.popToRoot();
         }
@@ -61,25 +61,45 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  async checkIfUserExists(res) {
+  async checkUser(res) {
 
+    console.log("???");
+    //sprawdzam czy istnieje user jezeli nie to oznacza nowe logowanie
     var query = await this.db.list('users', ref => ref.orderByChild('usr_id').equalTo(res.uid));
-
-    var result = 0;
+    
     await new Promise(resolve => {
-      query.valueChanges().subscribe(u => {                                       
-        result = u.length;
+      query.snapshotChanges().subscribe(u => {  
+        console.log(u);
+        if(u.length > 0) {
+          this.user = u[0].payload.val() as User;            
+          this.user.$key = u[0].key;             
+        }
         resolve();
       });
     });
 
-    if (Number(await result) == 0) {
-      this.userList.push({
-        usr_id: res.uid,
-        usr_name: res.displayName,
-        usr_rights: 1
-      });
+
+    console.log(this.user);
+    //dodaje uzytkownika do bazy
+    if (!this.user) {
+      this.user = new User;
+      this.user.usr_id = res.uid;
+      this.user.usr_name = ((res.displayName) ? res.displayName : this.globals.usr_name);
+      this.user.usr_rights = 0;
+
+
+      this.user.$key = this.userList.push(this.user).key; 
     }
+    
+    this.globals.user = this.user;
+
+    //sprawdzenie czy uzytkonik jest poprawnie skonfigurowany
+    if (this.user.usr_rights == 0) {
+      this.navCtrl.push(UserConfigPage);
+    } else {
+      this.navCtrl.push(MainPage);
+    }   
+
   }
 
 

@@ -7,12 +7,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>user-config</ion-title>
+    <ion-title>Konfiguracja konta</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <p style="text-align: center;">Wpisz kod, aby dołączyć do mieszkania</p> 
 
+  <ion-item>
+    <ion-label color="primary" stacked>Kod</ion-label>
+    <ion-input type="text" placeholder="Kod" [(ngModel)]="flt_code"></ion-input>
+  </ion-item>
+
+  <button ion-button block (click)="joinFlat()">Dołącz do mieszkania</button>
+
+  <p>lub</p>
+
+
+  <button ion-button block (click)="createNewFlat()">Utwórz mieszkanie</button>
 </ion-content>

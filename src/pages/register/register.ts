@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Globals } from '../../app/Globals';
 /**
  * Generated class for the RegisterPage page.
  *
@@ -18,10 +19,11 @@ export class RegisterPage {
   repassword: string;
   password: string;
   email: string;
+  usr_name: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private afAuth: AngularFireAuth, private toastCtrl: ToastController,
-    private platform: Platform) {
+    private platform: Platform, public globals: Globals) {
   }
 
   ionViewDidLoad() {
@@ -31,6 +33,7 @@ export class RegisterPage {
   async registerWithEmailAndPassword() {
     try {
       const result = await this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password);
+      this.globals.usr_name = this.usr_name;
       console.log(result);
     } 
     catch (e) {
