@@ -10,10 +10,28 @@
 
     <ion-list>
 
+        <button ion-button block menuClose (click)="goToMain()">
+            Główna
+        </button>
+        <button ion-button block menuClose (click)="goToTasksHistory()">
+            Historia zadań
+        </button>
+        <button ion-button block menuClose (click)="goToCommonExpanses()">
+            Wspólne wydatki
+        </button>
+        <button ion-button block menuClose (click)="goToRanking()">
+            Ranking
+        </button>
+        <button ion-button block menuClose (click)="goToSettings()">
+            Ustawienia
+        </button>
+        <button ion-button block menuClose (click)="goToAbout()">
+            O programie
+        </button>
 
-            <button ion-button block menuClose (click)="logout()">
-                Logout
-            </button>
+        <button ion-button block menuClose (click)="logout()">
+            Logout
+        </button>
 
         </ion-list>
 </ion-content>
