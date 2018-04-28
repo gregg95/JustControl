@@ -14,6 +14,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { RegisterPage } from '../pages/register/register';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { MainPage } from '../pages/main/main';
+import { UserConfigPage } from '../pages/user-config/user-config';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpJ_KAdkIpjqwcE6SNcea4jCfiZ1juzWM",
@@ -30,7 +31,8 @@ const firebaseConfig = {
     HomePage,
     LoginPage,
     RegisterPage,
-    MainPage
+    MainPage,
+    UserConfigPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ const firebaseConfig = {
     HomePage,
     LoginPage,
     RegisterPage,
-    MainPage
+    MainPage,
+    UserConfigPage
   ],
   providers: [
     GooglePlus,

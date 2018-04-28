@@ -54,7 +54,6 @@ export class LoginPage {
     });
 
     this.userList = db.list('users');
-
     
   }
 
