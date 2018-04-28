@@ -8,6 +8,8 @@ import { Platform } from 'ionic-angular';
 import firebase from 'firebase';
 import { RegisterPage } from '../register/register';
 import { MainPage } from '../main/main';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { User } from '../../app/models/user.model';
 
 @IonicPage()
 @Component({
@@ -16,22 +18,25 @@ import { MainPage } from '../main/main';
 })
 export class LoginPage {
 
-  user: Observable<firebase.User>;
+  user: User;
   email: string;
   password: string;
-
+ // afDb: AngularFireDatabase;
+  userList : AngularFireList<any>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
     private gplus: GooglePlus, private toastCtrl: ToastController,
-    private platform: Platform, private menuCtrl: MenuController) {
-      
+    private platform: Platform, private menuCtrl: MenuController,
+    public db : AngularFireDatabase ) {
+     // this.afDb = db;
       this.afAuth.authState.subscribe(res => {
-        if(res && res.uid) {
-          this.makeToast("user logged");
+        if(res && res.uid ) {
+          this.checkIfUserExists(res);
+          this.makeToast("user logged ");
           navCtrl.push(MainPage);
+          
         } else {
           navCtrl.popToRoot();
-
         }
       });
 
@@ -47,13 +52,36 @@ export class LoginPage {
           break; 
       }
     });
+
+    this.userList = db.list('users');
+
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  
+  async checkIfUserExists(res) {
+
+    var query = await this.db.list('users', ref => ref.orderByChild('usr_id').equalTo(res.uid));
+
+    var result = 0;
+    await new Promise(resolve => {
+      query.valueChanges().subscribe(u => {                                       
+        result = u.length;
+        resolve();
+      });
+    });
+
+    if (Number(await result) == 0) {
+      this.userList.push({
+        usr_id: res.uid,
+        usr_name: res.displayName,
+        usr_rights: 1
+      });
+    }
+  }
 
 
   googleLogin() {
