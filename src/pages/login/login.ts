@@ -121,13 +121,6 @@ export class LoginPage {
     }
   }
 
-  signOut() {
-    this.afAuth.auth.signOut();
-    if (this.platform.is('cordova')) {
-      this.gplus.logout();
-    }
-  }
-
   makeToast(message) {
     this.toastCtrl.create({
       message: message,
