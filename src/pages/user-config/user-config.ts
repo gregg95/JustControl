@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Globals } from '../../app/Globals';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Flat } from '../../app/models/flat.model';
+import { FlatConfigPage } from '../flat-config/flat-config';
+import { MainPage } from '../main/main';
 
 /**
  * Generated class for the UserConfigPage page.
@@ -16,13 +20,53 @@ import { Globals } from '../../app/Globals';
 })
 export class UserConfigPage {
 
+  flt_code : string;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public globals : Globals) {
+    public globals : Globals, public db: AngularFireDatabase, public toastCtrl: ToastController) {
+
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserConfigPage');
-    console.log(this.globals.user);
+  }
+
+  async joinFlat() {
+    //sprawdzam czy jest takie mieszkanie i do niego dolaczam
+    var query = await this.db.list('flats', ref => ref.orderByChild('flt_code').equalTo(this.flt_code));
+    
+    await new Promise(resolve => {
+      query.snapshotChanges().subscribe(f => {  
+        if(f.length > 0) {
+          this.globals.flat = f[0].payload.val() as Flat;            
+          this.globals.flat.$key = f[0].key;             
+        }
+        resolve();
+      });
+    });
+
+    if(!this.globals.flat){
+      this.globals.makeToast("Mieszkanie o podanum numerze nie istnieje !!");
+    } else {
+      //przypisz mieszkanie do globalnej i idz do glownego okna
+      this.db.list('users')
+      .update(this.globals.user.$key, 
+        { 
+          usr_rights: 1,
+          usr_fltId : this.globals.flat.$key 
+        });
+
+      var pageId = this.navCtrl.getActive().index;
+
+      this.navCtrl.push(MainPage).then(() => {
+        this.navCtrl.remove(pageId);
+      });
+    }
+  }
+  
+  createNewFlat(){
+    this.navCtrl.push(FlatConfigPage);
   }
 
 }
