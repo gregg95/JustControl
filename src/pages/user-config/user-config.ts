@@ -58,7 +58,7 @@ export class UserConfigPage {
       this.db.list('users')
       .update(this.globals.user.$key, 
         { 
-          usr_rights: 1,
+          usr_rights: 2,
           usr_fltId : this.globals.flat.$key 
         });
 
