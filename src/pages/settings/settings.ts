@@ -19,10 +19,9 @@ import { UserConfigPage } from '../user-config/user-config';
 })
 export class SettingsPage {
 
-  currPassword : string;
-  newPassword : string;
-  rePassword : string;
-  newUsername : string;
+  newPassword : string = "";
+  rePassword : string = "";
+  newUsername : string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public afAuth : AngularFireAuth, public db : AngularFireDatabase,
@@ -34,7 +33,26 @@ export class SettingsPage {
   }
 
   changePassword() {
+    if (this.newPassword == "" || this.rePassword == "" ){
+      this.globals.makeToast("Pola nie mogą być puste !! ");
+      return;
+    }
 
+    if (this.newPassword != this.rePassword) {
+      this.globals.makeToast("Hasla do siebie nie pasują !!");
+      return;
+    }
+
+    if (this.newPassword.length < 6){
+      this.globals.makeToast("Haslo jest za krotkie");
+      return;
+    }
+
+
+    this.afAuth.auth.currentUser.updatePassword(this.newPassword).then(() => {
+
+      this.globals.makeToast("Hasło zostało zmienione");
+    });
   }
 
   changeUsername() {
