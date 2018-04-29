@@ -43,21 +43,22 @@ export class SettingsPage {
 
   leaveFlat() {
 
+    this.db.list('users')
+    .update(this.globals.user.$key, 
+      { 
+        usr_rights: 0,
+        usr_fltId : "null"
+      });
+      
     this.navCtrl.push(UserConfigPage).then(() => {
       this.navCtrl.getViews().forEach(v => {
-        if (v.index != 0 && v.index != this.navCtrl.getActive().index) {
-          this.navCtrl.remove(v.index);
+        if (v.index != 0 && v.name != this.navCtrl.getActive().name) {
+          this.navCtrl.removeView(v);
         }
       });
     });
 
-    return;
-    this.db.list('users')
-      .update(this.globals.user.$key, 
-        { 
-          usr_rights: 0,
-          usr_fltId : "null"
-        });
+    
 
     
   }
