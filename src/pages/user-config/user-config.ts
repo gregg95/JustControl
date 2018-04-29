@@ -64,6 +64,7 @@ export class UserConfigPage {
 
       var pageId = this.navCtrl.getActive().index;
 
+      
       this.navCtrl.push(MainPage).then(() => {
         this.navCtrl.remove(pageId);
       });

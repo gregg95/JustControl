@@ -38,8 +38,19 @@ export class FlatConfigPage {
     this.globals.flat.flt_address = this.flt_address;
     this.globals.flat.flt_city = this.flt_city;
     this.globals.flat.flt_code = this.flt_code;
-    
+
+
     this.globals.flat.$key = this.db.list('flats').push(this.globals.flat).key;
+
+    this.globals.flat.flt_categories = new Array<{cat_name : string}>();
+    this.globals.flat.flt_categories.push({ cat_name : "Sprzątanie"});
+    this.globals.flat.flt_categories.push({ cat_name : "Zakupy"});
+    this.globals.flat.flt_categories.push({ cat_name : "Gotowanie"});
+    
+    this.globals.flat.flt_categories.forEach(c => {
+      this.db.list('flats/' + this.globals.flat.$key + '/flt_categories').push(c);
+      console.log(c);
+    });
 
     //dopisanie uzytkonika do mieszkania
     this.db.list('users')

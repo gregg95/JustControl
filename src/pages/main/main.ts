@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Globals } from '../../app/Globals';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Flat } from '../../app/models/flat.model';
 
 /**
  * Generated class for the MainPage page.
@@ -17,17 +19,20 @@ import { Globals } from '../../app/Globals';
 })
 export class MainPage {
 
-  username: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public globals: Globals) {
+    public globals: Globals, public db : AngularFireDatabase) {
 
-      this.username = this.globals.user.usr_name;    
+      
+      
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MainPage');
+
+    
   }
 
+  
 
 }

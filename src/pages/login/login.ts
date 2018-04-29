@@ -11,6 +11,7 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { User } from '../../app/models/user.model';
 import { UserConfigPage } from '../user-config/user-config';
 import { Globals } from '../../app/Globals';
+import { Flat } from '../../app/models/flat.model';
 
 @IonicPage()
 @Component({
@@ -72,9 +73,7 @@ export class LoginPage {
         
         if(u.length > 0) {
           this.user = u[0].payload.val() as User;            
-          this.user.$key = u[0].key;      
-          console.log("Wtf");
-          console.log(this.user);       
+          this.user.$key = u[0].key;       
         }
         resolve();
       });
@@ -88,22 +87,35 @@ export class LoginPage {
       this.user.usr_id = res.uid;
       this.user.usr_name = ((res.displayName) ? res.displayName : this.globals.usr_name);
       this.user.usr_rights = 0;
-
+      this.user.usr_fltId = "null";
 
       this.user.$key = this.userList.push(this.user).key; 
     }
     
+    console.log(this.user);
     this.globals.user = this.user;
 
     //sprawdzenie czy uzytkonik jest poprawnie skonfigurowany
     if (this.user.usr_rights == 0) {
       this.navCtrl.push(UserConfigPage);
     } else {
+      await this.getFlat();
       this.navCtrl.push(MainPage);
     }   
 
+    
   }
 
+
+  async getFlat(){
+    await new Promise(resolve => { 
+
+      this.db.object('flats/' + this.globals.user.usr_fltId).valueChanges().subscribe(f => {
+        this.globals.flat = f as Flat;
+        resolve();
+      });
+    });
+  }
 
   googleLogin() {
     if (this.platform.is('cordova')){
