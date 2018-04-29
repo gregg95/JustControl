@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 import { Globals } from '../../app/Globals';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
 import { Flat } from '../../app/models/flat.model';
 import { FlatConfigPage } from '../flat-config/flat-config';
 import { MainPage } from '../main/main';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 /**
  * Generated class for the UserConfigPage page.
@@ -21,10 +23,11 @@ import { MainPage } from '../main/main';
 export class UserConfigPage {
 
   flt_code : string;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    public globals : Globals, public db: AngularFireDatabase, public toastCtrl: ToastController) {
 
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public globals : Globals, public db: AngularFireDatabase, public toastCtrl: ToastController,
+    public afAuth: AngularFireAuth, public platform : Platform, public gplus : GooglePlus) {
 
   }
 
@@ -45,6 +48,8 @@ export class UserConfigPage {
         resolve();
       });
     });
+
+    query = null;
 
     if(!this.globals.flat){
       this.globals.makeToast("Mieszkanie o podanum numerze nie istnieje !!");
@@ -69,4 +74,11 @@ export class UserConfigPage {
     this.navCtrl.push(FlatConfigPage);
   }
 
+  cancel(){
+    this.afAuth.auth.signOut();
+    if (this.platform.is('cordova')) {
+      this.gplus.logout();      
+    }
+
+  }
 }
