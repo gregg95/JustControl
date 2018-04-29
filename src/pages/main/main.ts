@@ -20,7 +20,6 @@ export class MainPage {
   username: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private afAuth: AngularFireAuth, private menuCtrl: MenuController,
     public globals: Globals) {
 
       this.username = this.globals.user.usr_name;    

@@ -22,8 +22,7 @@ export class RegisterPage {
   usr_name: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private afAuth: AngularFireAuth, private toastCtrl: ToastController,
-    private platform: Platform, public globals: Globals) {
+    private afAuth: AngularFireAuth, public globals: Globals) {
   }
 
   ionViewDidLoad() {

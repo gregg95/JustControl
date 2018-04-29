@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
 import { ToastController } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Platform } from 'ionic-angular';
@@ -12,7 +11,6 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { User } from '../../app/models/user.model';
 import { UserConfigPage } from '../user-config/user-config';
 import { Globals } from '../../app/Globals';
-import { DIRECTION_BACK } from 'ionic-angular/navigation/nav-util';
 
 @IonicPage()
 @Component({
@@ -29,14 +27,17 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
     private gplus: GooglePlus, private toastCtrl: ToastController,
-    private platform: Platform, private menuCtrl: MenuController,
+    private platform: Platform, public menuCtrl: MenuController,
     public db : AngularFireDatabase, public globals: Globals ) {
      // this.afDb = db;
       this.afAuth.authState.subscribe(res => {
+        
         if(res && res.uid ) {
+          console.log(((res.uid)));
           this.checkUser(res);          
         } else {
           navCtrl.popToRoot();
+          this.user = null;
         }
       });
 
@@ -63,23 +64,24 @@ export class LoginPage {
 
   async checkUser(res) {
 
-    console.log("???");
     //sprawdzam czy istnieje user jezeli nie to oznacza nowe logowanie
     var query = await this.db.list('users', ref => ref.orderByChild('usr_id').equalTo(res.uid));
     
     await new Promise(resolve => {
       query.snapshotChanges().subscribe(u => {  
-        console.log(u);
+        
         if(u.length > 0) {
           this.user = u[0].payload.val() as User;            
-          this.user.$key = u[0].key;             
+          this.user.$key = u[0].key;      
+          console.log("Wtf");
+          console.log(this.user);       
         }
         resolve();
       });
     });
 
+    query = null;
 
-    console.log(this.user);
     //dodaje uzytkownika do bazy
     if (!this.user) {
       this.user = new User;
@@ -132,7 +134,7 @@ export class LoginPage {
   async webGoogleLogin(): Promise<void> {
     try {
       const provider = new firebase.auth.GoogleAuthProvider();
-      const credential = await this.afAuth.auth.signInWithPopup(provider).then(r => {
+      await this.afAuth.auth.signInWithPopup(provider).then(r => {
         this.makeToast("zalogowano " + JSON.stringify(r));
       });
       
