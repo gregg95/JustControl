@@ -22,10 +22,14 @@ export class SettingsPage {
   newPassword : string = "";
   rePassword : string = "";
   newUsername : string = "";
+  passwordChangeEnabled : boolean =  true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public afAuth : AngularFireAuth, public db : AngularFireDatabase,
   public globals : Globals) {
+    if(this.afAuth.auth.currentUser.providerData[0].providerId != "password"){
+      this.passwordChangeEnabled = false;
+    }
   }
 
   ionViewDidLoad() {

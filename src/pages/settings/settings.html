@@ -17,16 +17,16 @@
     
       <ion-item>
         <ion-label color="primary" stacked>Nowe hasło</ion-label>
-        <ion-input type="password" placeholder="Type here... " [(ngModel)]="newPassword"></ion-input>
+        <ion-input type="password" placeholder="Type here... " [(ngModel)]="newPassword" [disabled]="!passwordChangeEnabled"></ion-input>
       </ion-item>
     
       <ion-item>
         <ion-label color="primary" stacked>Powtórz hasło</ion-label>
-        <ion-input type="password" placeholder="Type here... " [(ngModel)]="rePassword"></ion-input>
+        <ion-input type="password" placeholder="Type here... " [(ngModel)]="rePassword" [disabled]="!passwordChangeEnabled"></ion-input>
       </ion-item>
       
       <button ion-button block
-              (click)="changePassword()">Zmień hasło</button>
+              (click)="changePassword()" [disabled]="!passwordChangeEnabled">Zmień hasło</button>
 
       <ion-item>
         <ion-label color="primary" stacked>Nazwa użytkownika</ion-label>
