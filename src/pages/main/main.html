@@ -19,14 +19,16 @@
 
 
 <ion-content padding>
-  <p>{{ globals.flat.flt_city }}</p>
-  
 
+  <tasks-list></tasks-list>  
 
-  
-  <button *ngIf="manageTasksMode" block ion-button (click)="addTask()">Dodaj zadanie</button>
-  <button *ngIf="manageTasksMode" block ion-button (click)="toggleManageTasks()">Zakończ</button>
-
-  <button *ngIf="globals.user.usr_rights == 1 && !manageTasksMode" block ion-button (click)="toggleManageTasks()">Zarządzaj zadaniami</button>
-  <button *ngIf="globals.user.usr_rights == 2" block ion-button (click)="suggestTast()">Zaproponuj zadanie</button>
+  <ion-fab bottom left>
+      <button ion-fab style="display: none;"></button>
+      <button ion-button block *ngIf="globals.manageTasksMode"  (click)="addTask()">Dodaj zadanie</button>
+      <button ion-button block *ngIf="globals.manageTasksMode" (click)="toggleManageTasks()">Zakończ</button>
+    
+      <button ion-button block *ngIf="globals.user.usr_rights == 1 && !globals.manageTasksMode" (click)="toggleManageTasks()">Zarządzaj zadaniami</button>
+      <button ion-button block *ngIf="globals.user.usr_rights == 2"  (click)="suggestTast()">Zaproponuj zadanie</button>
+  </ion-fab>      
+      
 </ion-content>

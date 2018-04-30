@@ -39,6 +39,7 @@ export class LoginPage {
         } else {
           navCtrl.popToRoot();
           this.user = null;
+          this.globals.clearGlobals();
         }
       });
 

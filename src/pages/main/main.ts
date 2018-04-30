@@ -5,6 +5,7 @@ import { Globals } from '../../app/Globals';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Flat } from '../../app/models/flat.model';
 import { TaskConfigPage } from '../task-config/task-config';
+import { Task } from '../../app/models/task.model';
 
 /**
  * Generated class for the MainPage page.
@@ -20,18 +21,15 @@ import { TaskConfigPage } from '../task-config/task-config';
 })
 export class MainPage {
 
-  manageTasksMode : boolean = false;
-
+  tasks = [];
+  task : any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public globals: Globals, public db : AngularFireDatabase) {
-
-      
-      
 
   }
 
   toggleManageTasks() {
-    this.manageTasksMode = !this.manageTasksMode;
+    this.globals.manageTasksMode = !this.globals.manageTasksMode;
   }
 
   addTask(){
@@ -39,7 +37,7 @@ export class MainPage {
   }
 
   suggestTast() {
-
+    this.navCtrl.push(TaskConfigPage);
   }
 
   ionViewDidLoad() {

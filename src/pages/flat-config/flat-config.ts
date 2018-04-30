@@ -30,6 +30,7 @@ export class FlatConfigPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FlatConfigPage');
+    this.globals.dismissLoading();
   }
 
   async commitFlat(){
@@ -59,6 +60,9 @@ export class FlatConfigPage {
           usr_fltId : this.globals.flat.$key 
         });
 
+    this.globals.user.usr_rights = 1;
+    this.globals.user.usr_fltId = this.globals.flat.$key;
+    
     var pageId = this.navCtrl.getActive().index;
 
     this.navCtrl.push(MainPage).then(() => {

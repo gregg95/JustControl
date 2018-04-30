@@ -28,6 +28,9 @@ export class TaskConfigPage {
   public formBuilder : FormBuilder, public db : AngularFireDatabase,
     public globals : Globals) {
 
+    
+
+
     this.taskForm = this.formBuilder.group({
       tsk_usrId: ['', Validators.required],
       tsk_minCompletationDate: ['', Validators.required],
@@ -37,6 +40,17 @@ export class TaskConfigPage {
       tsk_commentary: ['', Validators.required],
       tsk_category : ['', Validators.required]
     });
+
+    if (Object.keys(navParams.data).length > 0) {
+      var task =  navParams.data as Task;
+      this.taskForm.controls['tsk_category'].setValue(task.tsk_category);
+      this.taskForm.controls['tsk_usrId'].setValue(task.tsk_usrId);
+      this.taskForm.controls['tsk_minCompletationDate'].setValue(task.tsk_minCompletationDate);
+      this.taskForm.controls['tsk_maxCompletationDate'].setValue(task.tsk_maxCompletationDate);
+      this.taskForm.controls['tsk_title'].setValue(task.tsk_title);
+      this.taskForm.controls['tsk_description'].setValue(task.tsk_description);
+      this.taskForm.controls['tsk_commentary'].setValue(task.tsk_commentary);
+    }
 
     this.db.list('flats/' + this.globals.flat.$key + "/flt_categories").snapshotChanges().subscribe(c => {
       c.forEach(cat => {
@@ -66,17 +80,21 @@ export class TaskConfigPage {
       task.tsk_modifiedBy = this.globals.user.$key;
       task.tsk_usrId = this.taskForm.controls.tsk_usrId.value; //?
       task.tsk_fltId = this.globals.flat.$key;
-      task.tsk_createdAt = new Date().toISOString();
+      task.tsk_createdAt = new Date(new Date().setHours(new Date().getHours() + 2)).toISOString();
       task.tsk_minCompletationDate = new Date(Date.parse(this.taskForm.controls.tsk_minCompletationDate.value)).toISOString();
       task.tsk_maxCompletationDate = new Date(Date.parse(this.taskForm.controls.tsk_maxCompletationDate.value)).toISOString();
       task.tsk_title = this.taskForm.controls.tsk_title.value;
       task.tsk_description = this.taskForm.controls.tsk_description.value;
       task.tsk_commentary = this.taskForm.controls.tsk_commentary.value;
-      task.tsk_status = 1
+      task.tsk_status = (this.globals.user.usr_rights == 1) ? 1 : 0;
       task.tsk_category = this.taskForm.controls.tsk_category.value;
   
   
       this.db.list('tasks').push(task);
+
+      this.globals.makeToast("Dodano zadanie!");
+
+      this.navCtrl.removeView(this.navCtrl.getActive());
     } 
     
   }
