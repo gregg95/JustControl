@@ -39,6 +39,7 @@ export class LoginPage {
         } else {
           navCtrl.popToRoot();
           this.user = null;
+          this.globals.clearGlobals();
         }
       });
 
@@ -118,6 +119,7 @@ export class LoginPage {
   }
 
   googleLogin() {
+    this.globals.showLoading();
     if (this.platform.is('cordova')){
       this.nativeGoogleLogin();
     } else {
@@ -168,6 +170,7 @@ export class LoginPage {
   }
 
   loginWithEmailAndPassword() {
+    this.globals.showLoading();
     try {
       this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password);
     }

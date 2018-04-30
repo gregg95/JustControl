@@ -1,0 +1,17 @@
+<!-- Generated template for the HistoryListComponent component -->
+
+<ion-checkbox [(ngModel)]="onlyMyTasks" (click)="filterList()">Tylko moje</ion-checkbox>
+<ion-list *ngFor="let tsk of tasks">
+  <ion-item style="background: lightgreen;">
+    <p>Tytuł: {{tsk.tsk_title}}</p>
+    <p>Wykonawca: {{tsk.tsk_usrId}}</p>
+    <p>Min: {{tsk.tsk_minCompletationDate}}</p>
+    <p>Max: {{tsk.tsk_maxCompletationDate}}</p>
+    <p>Desc: {{tsk.tsk_description}}</p>
+    <p>Koment: {{tsk.tsk_commentary}}</p>
+    <p>Status: {{tsk.tsk_status}}</p>
+    <p>Kategoria: {{tsk.tsk_category}}</p>
+    <p>DataUtwrozneia: {{tsk.tsk_createdAt}}</p>
+
+  </ion-item>
+</ion-list>

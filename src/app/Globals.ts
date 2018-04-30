@@ -9,9 +9,11 @@ export class Globals {
     usr_name : string = "";
     flat : Flat;
     loading : Loading;
+    errors = [];
+    manageTasksMode: boolean = false;
 
     constructor(public toastCtrl: ToastController, public loadingCtrl : LoadingController){
-      
+      this.errors.push({required_tsk_title : "Tytuł jest wymagany"})
     }
 
     makeToast(message) {
@@ -36,5 +38,11 @@ export class Globals {
         this.loading.dismiss();
         this.loading = null;
       }
+    }
+
+    clearGlobals(){
+      this.user = new User;
+      this.flat = new Flat;
+      this.manageTasksMode = false;
     }
 }

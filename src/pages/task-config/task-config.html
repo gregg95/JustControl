@@ -13,31 +13,42 @@
 </ion-header>
 <ion-content padding>
 
-  <form [formGroup]="taskForm">
+  <form [formGroup]="taskForm" (ngSubmit)="addTask()">
     <ion-item>
-      <ion-label floating>Wybierz kategorie</ion-label>
-      <ion-input [formControl]="taskForm.controls['tsk_category']" type="text"></ion-input>
+      <ion-label>Wybierz kategorie</ion-label>
+      <ion-select [formControl]="taskForm.controls['tsk_category']">
+        <ion-option *ngFor="let category of categories" [value]="category.cat_name">{{category.cat_name}}</ion-option>
+      </ion-select>
     </ion-item>
+
+    <div>
     <ion-item>
       <ion-label floating>Tytuł</ion-label>
-      <ion-input [formControl]="taskForm.controls['tsk_title']" type="text"></ion-input>
+      <ion-input [formControl]="taskForm.controls['tsk_title']" name="tsk_title" type="text"></ion-input>
     </ion-item>
+      <p *ngIf="taskForm.controls['tsk_title'].hasError('required') && taskForm.controls['tsk_title'].touched">{{ globals.errors[0].required_tsk_title }}</p>
+  </div>
     <ion-item>
       <ion-label floating>Opis</ion-label>
       <ion-input [formControl]="taskForm.controls['tsk_description']" type="text"></ion-input>
     </ion-item>
+
     <ion-item>
-      <ion-label floating>Wykonawca</ion-label>
-      <ion-input [formControl]="taskForm.controls['tsk_usrId']" type="text"></ion-input>
+      <ion-label>Wykonawca</ion-label>
+      <ion-select [formControl]="taskForm.controls['tsk_usrId']">
+        <ion-option *ngFor="let user of users" [value]="user.usr_id">{{ user.usr_name }}</ion-option>
+      </ion-select>
     </ion-item>
+
+
     <ion-item>
-      <ion-label floating>Min. data wykonania</ion-label>
+      <ion-label floating>Min. data i godzina wykonania</ion-label>
       <ion-datetime
         displayFormat="DD.MM.YYYY HH:mm"
         [formControl]="taskForm.controls['tsk_minCompletationDate']"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label floating>Max. data wykonania</ion-label>
+      <ion-label floating>Max. data i godzina wykonania</ion-label>
       <ion-datetime
         displayFormat="DD.MM.YYYY HH:mm"
         [formControl]="taskForm.controls['tsk_maxCompletationDate']"></ion-datetime>
@@ -47,14 +58,15 @@
       <ion-input [formControl]="taskForm.controls['tsk_commentary']" type="text"></ion-input>
     </ion-item>
 
+    <ion-row>
+      <ion-col text-center>
+        <button type="submit" ion-button block>
+          Dodaj zadanie
+        </button>
+      </ion-col>
+    </ion-row>
   </form>
 
-  <ion-row>
-    <ion-col text-center>
-      <button ion-button block (click)="addTask()">
-        Dodaj zadanie
-      </button>
-    </ion-col>
-  </ion-row>
+  
 
 </ion-content>

@@ -69,6 +69,7 @@ export class MyApp {
       this.gplus.logout();      
     }
 
+    
   }
 
   makeToast(message) {

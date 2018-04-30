@@ -23,6 +23,9 @@ import { TasksHistoryPage } from '../pages/tasks-history/tasks-history';
 import { FlatConfigPage } from '../pages/flat-config/flat-config';
 import { Globals } from './Globals';
 import { TaskConfigPage } from '../pages/task-config/task-config';
+import { TasksListComponent } from '../components/tasks-list/tasks-list';
+import { RankingListComponent } from '../components/ranking-list/ranking-list';
+import { HistoryListComponent } from '../components/history-list/history-list';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpJ_KAdkIpjqwcE6SNcea4jCfiZ1juzWM",
@@ -47,7 +50,10 @@ const firebaseConfig = {
     RankingPage,
     TasksHistoryPage,
     FlatConfigPage,
-    TaskConfigPage
+    TaskConfigPage,
+    TasksListComponent,
+    RankingListComponent,
+    HistoryListComponent
   ],
   imports: [
     BrowserModule,

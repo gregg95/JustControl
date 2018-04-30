@@ -33,6 +33,7 @@ export class UserConfigPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserConfigPage');
+    this.globals.dismissLoading();
   }
 
   async joinFlat() {
