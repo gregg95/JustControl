@@ -4,4 +4,5 @@ export class User {
     usr_name : string;
     usr_rights : number;
     usr_fltId : string;
+    usr_points : number;
 }
