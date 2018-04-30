@@ -34,7 +34,7 @@ export class LoginPage {
       this.afAuth.authState.subscribe(res => {
         
         if(res && res.uid ) {
-          this.globals.loading.present();
+          this.globals.showLoading();
           this.checkUser(res);          
         } else {
           navCtrl.popToRoot();

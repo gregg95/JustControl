@@ -43,7 +43,7 @@ export class MainPage {
   }
 
   ionViewDidLoad() {
-    this.globals.loading.dismiss();
+    this.globals.dismissLoading();
     
   }
 

@@ -11,9 +11,7 @@ export class Globals {
     loading : Loading;
 
     constructor(public toastCtrl: ToastController, public loadingCtrl : LoadingController){
-      this.loading = this.loadingCtrl.create({
-        content: 'Proszę czekać...'
-      });
+      
     }
 
     makeToast(message) {
@@ -23,4 +21,20 @@ export class Globals {
           position: 'top'
         }).present();    
       }
+
+    showLoading(){
+      if (!this.loading) {
+        this.loading = this.loadingCtrl.create({
+          content: 'Proszę czekać...'
+        });
+        this.loading.present();
+      }
+    }
+
+    dismissLoading(){
+      if (this.loading) {
+        this.loading.dismiss();
+        this.loading = null;
+      }
+    }
 }
