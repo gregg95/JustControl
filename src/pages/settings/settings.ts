@@ -5,12 +5,6 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Globals } from '../../app/Globals';
 import { UserConfigPage } from '../user-config/user-config';
 
-/**
- * Generated class for the SettingsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

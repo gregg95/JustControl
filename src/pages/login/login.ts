@@ -47,10 +47,9 @@ export class LoginPage {
       menuCtrl.enable(true, 'myMenu');
       switch (e.instance.constructor.name){
         case 'LoginPage':
-        menuCtrl.enable(false, 'myMenu');
-          break; 
         case 'RegisterPage':
-        menuCtrl.enable(false, 'myMenu');
+        case 'TaskConfigPage':
+          menuCtrl.enable(false, 'myMenu');
           break; 
       }
     });
@@ -110,8 +109,9 @@ export class LoginPage {
   async getFlat(){
     await new Promise(resolve => { 
 
-      this.db.object('flats/' + this.globals.user.usr_fltId).valueChanges().subscribe(f => {
-        this.globals.flat = f as Flat;
+      this.db.object('flats/' + this.globals.user.usr_fltId).snapshotChanges().subscribe(f => {
+        this.globals.flat = f.payload.val() as Flat;
+        this.globals.flat.$key = f.key;
         resolve();
       });
     });

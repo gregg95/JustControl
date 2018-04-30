@@ -22,6 +22,7 @@ import { RankingPage } from '../pages/ranking/ranking';
 import { TasksHistoryPage } from '../pages/tasks-history/tasks-history';
 import { FlatConfigPage } from '../pages/flat-config/flat-config';
 import { Globals } from './Globals';
+import { TaskConfigPage } from '../pages/task-config/task-config';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpJ_KAdkIpjqwcE6SNcea4jCfiZ1juzWM",
@@ -45,7 +46,8 @@ const firebaseConfig = {
     SettingsPage,
     RankingPage,
     TasksHistoryPage,
-    FlatConfigPage
+    FlatConfigPage,
+    TaskConfigPage
   ],
   imports: [
     BrowserModule,
@@ -68,7 +70,8 @@ const firebaseConfig = {
     SettingsPage,
     RankingPage,  
     TasksHistoryPage,
-    FlatConfigPage
+    FlatConfigPage,
+    TaskConfigPage
   ],
   providers: [
     GooglePlus,

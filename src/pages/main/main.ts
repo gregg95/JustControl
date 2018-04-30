@@ -4,6 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Globals } from '../../app/Globals';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Flat } from '../../app/models/flat.model';
+import { TaskConfigPage } from '../task-config/task-config';
 
 /**
  * Generated class for the MainPage page.
@@ -19,12 +20,25 @@ import { Flat } from '../../app/models/flat.model';
 })
 export class MainPage {
 
+  manageTasksMode : boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public globals: Globals, public db : AngularFireDatabase) {
 
       
       
+
+  }
+
+  toggleManageTasks() {
+    this.manageTasksMode = !this.manageTasksMode;
+  }
+
+  addTask(){
+    this.navCtrl.push(TaskConfigPage);
+  }
+
+  suggestTast() {
 
   }
 
