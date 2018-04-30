@@ -9,9 +9,10 @@ export class Globals {
     usr_name : string = "";
     flat : Flat;
     loading : Loading;
+    errors = [];
 
     constructor(public toastCtrl: ToastController, public loadingCtrl : LoadingController){
-      
+      this.errors.push({required_tsk_title : "Tytuł jest wymagany"})
     }
 
     makeToast(message) {
