@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Globals } from '../../app/Globals';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Flat } from '../../app/models/flat.model';
+import { TaskConfigPage } from '../task-config/task-config';
+import { Task } from '../../app/models/task.model';
 
 /**
  * Generated class for the MainPage page.
@@ -16,18 +21,30 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class MainPage {
 
-  username: string;
-
+  tasks = [];
+  task : any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private afAuth: AngularFireAuth, private menuCtrl: MenuController) {
-    this.username = afAuth.auth.currentUser.displayName;
-    
+    public globals: Globals, public db : AngularFireDatabase) {
+
+  }
+
+  toggleManageTasks() {
+    this.globals.manageTasksMode = !this.globals.manageTasksMode;
+  }
+
+  addTask(){
+    this.navCtrl.push(TaskConfigPage);
+  }
+
+  suggestTast() {
+    this.navCtrl.push(TaskConfigPage);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MainPage');
-    this.menuCtrl.enable(true, 'myMenu');
+    this.globals.dismissLoading();
+    
   }
 
+  
 
 }

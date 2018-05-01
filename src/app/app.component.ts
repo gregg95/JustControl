@@ -65,10 +65,11 @@ export class MyApp {
   logout(){
 
     this.afAuth.auth.signOut();
-
     if (this.platform.is('cordova')) {
       this.gplus.logout();      
     }
+
+    
   }
 
   makeToast(message) {

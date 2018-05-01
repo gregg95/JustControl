@@ -20,6 +20,12 @@ import { CommonExpensesPage } from '../pages/common-expenses/common-expenses';
 import { SettingsPage } from '../pages/settings/settings';
 import { RankingPage } from '../pages/ranking/ranking';
 import { TasksHistoryPage } from '../pages/tasks-history/tasks-history';
+import { FlatConfigPage } from '../pages/flat-config/flat-config';
+import { Globals } from './Globals';
+import { TaskConfigPage } from '../pages/task-config/task-config';
+import { TasksListComponent } from '../components/tasks-list/tasks-list';
+import { RankingListComponent } from '../components/ranking-list/ranking-list';
+import { HistoryListComponent } from '../components/history-list/history-list';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpJ_KAdkIpjqwcE6SNcea4jCfiZ1juzWM",
@@ -42,7 +48,12 @@ const firebaseConfig = {
     CommonExpensesPage,
     SettingsPage,
     RankingPage,
-    TasksHistoryPage
+    TasksHistoryPage,
+    FlatConfigPage,
+    TaskConfigPage,
+    TasksListComponent,
+    RankingListComponent,
+    HistoryListComponent
   ],
   imports: [
     BrowserModule,
@@ -63,13 +74,16 @@ const firebaseConfig = {
     AboutPage,
     CommonExpensesPage,
     SettingsPage,
-    RankingPage,
-    TasksHistoryPage
+    RankingPage,  
+    TasksHistoryPage,
+    FlatConfigPage,
+    TaskConfigPage
   ],
   providers: [
     GooglePlus,
     StatusBar,
     SplashScreen,
+    Globals,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

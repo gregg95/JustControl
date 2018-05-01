@@ -1,0 +1,41 @@
+<!--
+  Generated template for the FlatConfigPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar hideBackButton>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Tworzenie nowego mieszkania</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <p>Podstawowe informacje:</p>
+  <ion-item>
+    <ion-label color="primary" stacked>Miasto</ion-label>
+    <ion-input type="text" placeholder="Miasto" [(ngModel)]="flt_city"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color="primary" stacked>Miasto</ion-label>
+    <ion-input type="text" placeholder="Adres" [(ngModel)]="flt_address"></ion-input>
+  </ion-item>
+
+  <p>Kod mieszkania*</p>
+  <p>Kodmieszkania jest....</p>
+
+
+  <ion-item>
+    <ion-label color="primary" stacked>Kod</ion-label>
+    <ion-input type="text" placeholder="Kod" [(ngModel)]="flt_code"></ion-input>
+  </ion-item>
+
+  <button ion-button block (click)="commitFlat()">Zatwierdź mieszkanie</button>
+</ion-content>

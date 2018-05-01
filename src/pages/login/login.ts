@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
 import { ToastController } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Platform } from 'ionic-angular';
@@ -10,6 +9,9 @@ import { RegisterPage } from '../register/register';
 import { MainPage } from '../main/main';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { User } from '../../app/models/user.model';
+import { UserConfigPage } from '../user-config/user-config';
+import { Globals } from '../../app/Globals';
+import { Flat } from '../../app/models/flat.model';
 
 @IonicPage()
 @Component({
@@ -18,7 +20,7 @@ import { User } from '../../app/models/user.model';
 })
 export class LoginPage {
 
-  user: User;
+  public user: User;
   email: string;
   password: string;
  // afDb: AngularFireDatabase;
@@ -26,17 +28,18 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
     private gplus: GooglePlus, private toastCtrl: ToastController,
-    private platform: Platform, private menuCtrl: MenuController,
-    public db : AngularFireDatabase ) {
+    private platform: Platform, public menuCtrl: MenuController,
+    public db : AngularFireDatabase, public globals: Globals ) {
      // this.afDb = db;
       this.afAuth.authState.subscribe(res => {
+        
         if(res && res.uid ) {
-          this.checkIfUserExists(res);
-          this.makeToast("user logged ");
-          navCtrl.push(MainPage);
-          
+          this.globals.showLoading();
+          this.checkUser(res);          
         } else {
           navCtrl.popToRoot();
+          this.user = null;
+          this.globals.clearGlobals();
         }
       });
 
@@ -45,10 +48,9 @@ export class LoginPage {
       menuCtrl.enable(true, 'myMenu');
       switch (e.instance.constructor.name){
         case 'LoginPage':
-        menuCtrl.enable(false, 'myMenu');
-          break; 
         case 'RegisterPage':
-        menuCtrl.enable(false, 'myMenu');
+        case 'TaskConfigPage':
+          menuCtrl.enable(false, 'myMenu');
           break; 
       }
     });
@@ -61,29 +63,63 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  async checkIfUserExists(res) {
+  async checkUser(res) {
 
+    //sprawdzam czy istnieje user jezeli nie to oznacza nowe logowanie
     var query = await this.db.list('users', ref => ref.orderByChild('usr_id').equalTo(res.uid));
-
-    var result = 0;
+    
     await new Promise(resolve => {
-      query.valueChanges().subscribe(u => {                                       
-        result = u.length;
+      query.snapshotChanges().subscribe(u => {  
+        
+        if(u.length > 0) {
+          this.user = u[0].payload.val() as User;            
+          this.user.$key = u[0].key;       
+        }
         resolve();
       });
     });
 
-    if (Number(await result) == 0) {
-      this.userList.push({
-        usr_id: res.uid,
-        usr_name: res.displayName,
-        usr_rights: 1
-      });
+    query = null;
+
+    //dodaje uzytkownika do bazy
+    if (!this.user) {
+      this.user = new User;
+      this.user.usr_id = res.uid;
+      this.user.usr_name = ((res.displayName) ? res.displayName : this.globals.usr_name);
+      this.user.usr_rights = 0;
+      this.user.usr_fltId = "null";
+
+      this.user.$key = this.userList.push(this.user).key; 
     }
+    
+    console.log(this.user);
+    this.globals.user = this.user;
+
+    //sprawdzenie czy uzytkonik jest poprawnie skonfigurowany
+    if (this.user.usr_rights == 0) {
+      this.navCtrl.push(UserConfigPage);
+    } else {
+      await this.getFlat();
+      this.navCtrl.push(MainPage);
+    }   
+
+    
   }
 
 
+  async getFlat(){
+    await new Promise(resolve => { 
+
+      this.db.object('flats/' + this.globals.user.usr_fltId).snapshotChanges().subscribe(f => {
+        this.globals.flat = f.payload.val() as Flat;
+        this.globals.flat.$key = f.key;
+        resolve();
+      });
+    });
+  }
+
   googleLogin() {
+    this.globals.showLoading();
     if (this.platform.is('cordova')){
       this.nativeGoogleLogin();
     } else {
@@ -112,7 +148,7 @@ export class LoginPage {
   async webGoogleLogin(): Promise<void> {
     try {
       const provider = new firebase.auth.GoogleAuthProvider();
-      const credential = await this.afAuth.auth.signInWithPopup(provider).then(r => {
+      await this.afAuth.auth.signInWithPopup(provider).then(r => {
         this.makeToast("zalogowano " + JSON.stringify(r));
       });
       
@@ -134,6 +170,7 @@ export class LoginPage {
   }
 
   loginWithEmailAndPassword() {
+    this.globals.showLoading();
     try {
       this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password);
     }
