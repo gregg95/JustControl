@@ -26,6 +26,8 @@ import { TaskConfigPage } from '../pages/task-config/task-config';
 import { TasksListComponent } from '../components/tasks-list/tasks-list';
 import { RankingListComponent } from '../components/ranking-list/ranking-list';
 import { HistoryListComponent } from '../components/history-list/history-list';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { TasksFilterPipe } from '../pipes/tasks-filter/tasks-filter';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpJ_KAdkIpjqwcE6SNcea4jCfiZ1juzWM",
@@ -53,7 +55,8 @@ const firebaseConfig = {
     TaskConfigPage,
     TasksListComponent,
     RankingListComponent,
-    HistoryListComponent
+    HistoryListComponent,
+    TasksFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ const firebaseConfig = {
     StatusBar,
     SplashScreen,
     Globals,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    LocalNotifications
   ]
 })
 export class AppModule {}

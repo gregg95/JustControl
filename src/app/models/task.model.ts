@@ -12,4 +12,5 @@ export class Task {
     tsk_commentary : string;
     tsk_status : number;
     tsk_category : string;
+    tsk_notifyId : number;
 }

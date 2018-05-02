@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { ToastController } from 'ionic-angular';
+import { ToastController, AlertController} from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Platform } from 'ionic-angular';
 import firebase from 'firebase';
@@ -12,6 +12,8 @@ import { User } from '../../app/models/user.model';
 import { UserConfigPage } from '../user-config/user-config';
 import { Globals } from '../../app/Globals';
 import { Flat } from '../../app/models/flat.model';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import {} from 'cordova-plugin-local-notification/src/android/build/'
 
 @IonicPage()
 @Component({
@@ -29,8 +31,10 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
     private gplus: GooglePlus, private toastCtrl: ToastController,
     private platform: Platform, public menuCtrl: MenuController,
-    public db : AngularFireDatabase, public globals: Globals ) {
+    public db : AngularFireDatabase, public globals: Globals) {
      // this.afDb = db;
+
+     
       this.afAuth.authState.subscribe(res => {
         
         if(res && res.uid ) {
@@ -58,6 +62,9 @@ export class LoginPage {
     this.userList = db.list('users');
     
   }
+
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -178,4 +185,5 @@ export class LoginPage {
       this.makeToast(e);
     }
   }
+
 }

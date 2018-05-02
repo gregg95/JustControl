@@ -56,6 +56,7 @@ export class UserConfigPage {
       this.globals.makeToast("Mieszkanie o podanum numerze nie istnieje !!");
     } else {
       //przypisz mieszkanie do globalnej i idz do glownego okna
+      console.log("??1");
       this.db.list('users')
       .update(this.globals.user.$key, 
         { 
@@ -63,8 +64,10 @@ export class UserConfigPage {
           usr_fltId : this.globals.flat.$key 
         });
 
+        this.globals.user.usr_rights = 2;
+      console.log("??2");
       var pageId = this.navCtrl.getActive().index;
-
+      console.log("??3");
       
       this.navCtrl.push(MainPage).then(() => {
         this.navCtrl.remove(pageId);
