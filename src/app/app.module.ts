@@ -28,6 +28,7 @@ import { RankingListComponent } from '../components/ranking-list/ranking-list';
 import { HistoryListComponent } from '../components/history-list/history-list';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { TasksFilterPipe } from '../pipes/tasks-filter/tasks-filter';
+import { Facebook } from '@ionic-native/facebook';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpJ_KAdkIpjqwcE6SNcea4jCfiZ1juzWM",
@@ -88,7 +89,8 @@ const firebaseConfig = {
     SplashScreen,
     Globals,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    LocalNotifications
+    LocalNotifications,
+    Facebook
   ]
 })
 export class AppModule {}

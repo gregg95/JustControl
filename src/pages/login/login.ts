@@ -13,7 +13,7 @@ import { UserConfigPage } from '../user-config/user-config';
 import { Globals } from '../../app/Globals';
 import { Flat } from '../../app/models/flat.model';
 import { LocalNotifications } from '@ionic-native/local-notifications';
-import {} from 'cordova-plugin-local-notification/src/android/build/'
+import { Facebook } from '@ionic-native/facebook';
 
 @IonicPage()
 @Component({
@@ -31,8 +31,8 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
     private gplus: GooglePlus, private toastCtrl: ToastController,
     private platform: Platform, public menuCtrl: MenuController,
-    public db : AngularFireDatabase, public globals: Globals) {
-     // this.afDb = db;
+    public db : AngularFireDatabase, public globals: Globals, public fb: Facebook) {
+     
 
      
       this.afAuth.authState.subscribe(res => {
@@ -145,10 +145,12 @@ export class LoginPage {
       return await this.afAuth.auth.signInWithCredential(
         firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)
       ).then(r => {
-        this.makeToast("zalogowano " + JSON.stringify(r));
+        this.globals.makeToast("zalogowano " + JSON.stringify(r));
       })
     } catch(err) {
       console.log(err);
+      this.globals.dismissLoading();
+      this.globals.makeToast(err);
     }
   }
 
@@ -156,22 +158,16 @@ export class LoginPage {
     try {
       const provider = new firebase.auth.GoogleAuthProvider();
       await this.afAuth.auth.signInWithPopup(provider).then(r => {
-        this.makeToast("zalogowano " + JSON.stringify(r));
+        this.globals.makeToast("zalogowano " + JSON.stringify(r));
       });
       
     } catch(err) {
       console.log(err);
+      this.globals.dismissLoading();
     }
   }
 
-  makeToast(message) {
-    this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      position: 'top'
-    }).present();    
-  }
-
+  
   goToRegisterPage(){
     this.navCtrl.push(RegisterPage);
   }
@@ -182,8 +178,55 @@ export class LoginPage {
       this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password);
     }
     catch (e) {
-      this.makeToast(e);
+      this.globals.makeToast(e);
+      this.globals.dismissLoading();
     }
   }
 
+  facebookLogin(){
+    this.globals.showLoading();
+    if (this.platform.is('cordova')){
+      this.nativeFblogin();
+    } else {
+      this.webFbLogin();
+    }
+  }
+
+  nativeFblogin(){
+    try {
+
+      this.fb.login(["email", "public_profile"]).then(res => {
+        const fbCredential = firebase.auth.FacebookAuthProvider.credential(
+          res.authResponse.accessToken
+        );
+
+        firebase.auth().signInWithCredential(fbCredential).then(resp => {
+   
+        }, error => {
+          this.globals.makeToast(error);
+          this.globals.dismissLoading();
+        })
+      });
+      
+    } catch (error) {
+      console.log(error);
+      this.globals.dismissLoading();
+    }    
+  }
+
+  webFbLogin(){
+    try {
+      this.afAuth.auth
+        .signInWithPopup(new firebase.auth.FacebookAuthProvider())
+        .then(res => {
+
+        }, error => {
+          console.log(error);
+          this.globals.dismissLoading();
+        });
+    } catch (error) {
+      console.log(error);
+      this.globals.dismissLoading();
+    }
+  }
 }
