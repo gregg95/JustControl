@@ -7,6 +7,7 @@ import { TaskConfigPage } from '../../pages/task-config/task-config';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { TasksFilterPipe } from '../../pipes/tasks-filter/tasks-filter';
 import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
+import { User } from '../../app/models/user.model';
 /**
  * Generated class for the TaskComponent component.
  *
@@ -40,6 +41,12 @@ lol : string = "";
           this.checkNotification(task);
                      
         }
+
+        this.db.object('users/' + task.tsk_usrId).snapshotChanges().subscribe(u => {
+          
+          var usr = u.payload.val() as User;
+          task.tsk_usrName = usr.usr_name;
+        });
       });
     });
   }

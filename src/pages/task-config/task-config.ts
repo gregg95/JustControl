@@ -61,8 +61,11 @@ export class TaskConfigPage {
     this.users = new Array<User>();
 
     this.db.list('users/', ref => ref.orderByChild('usr_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(u => {
+      this.users = [];
       u.forEach(usr => {
-        this.users.push(usr.payload.val() as User);
+        var us = usr.payload.val() as User;
+        us.$key = usr.key;
+        this.users.push(us);
       })
     });
     
@@ -78,7 +81,7 @@ export class TaskConfigPage {
       if (this.taskForm.valid) {
         var task = new Task;
         task.tsk_modifiedBy = this.globals.user.$key;
-        task.tsk_usrId = this.taskForm.controls.tsk_usrId.value; //?
+        task.tsk_usrId = this.taskForm.controls.tsk_usrId.value; 
         task.tsk_fltId = this.globals.flat.$key;
         task.tsk_createdAt = new Date().toLocaleTimeString();
         task.tsk_minCompletationDate = moment((this.taskForm.controls.tsk_minCompletationDate.value)).add(-2, 'hour').toLocaleString();
@@ -89,6 +92,7 @@ export class TaskConfigPage {
         task.tsk_status = (this.globals.user.usr_rights == 1) ? 1 : 0;
         task.tsk_category = this.taskForm.controls.tsk_category.value;
         task.tsk_notifyId = 0;
+        task.tsk_createdBy = this.globals.user.usr_name;
   
         console.log((this.taskForm.controls.tsk_minCompletationDate.value));
     
@@ -113,6 +117,7 @@ export class TaskConfigPage {
         task.tsk_status = (this.globals.user.usr_rights == 1) ? 1 : 0;
         task.tsk_category = this.taskForm.controls.tsk_category.value;
         task.tsk_notifyId = 0;
+        task.tsk_createdBy = this.globals.user.usr_name;
   
         console.log("teraz");
         console.log(moment((this.taskForm.controls.tsk_minCompletationDate.value)).toLocaleString());

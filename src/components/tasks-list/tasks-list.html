@@ -12,20 +12,36 @@
 </ion-item>
   
 <ion-list *ngFor="let tsk of tasks | tasksFilter: {tsk_title: tsk_title, tsk_onlyMy: tsk_onlyMy}">
-  <ion-item style="background: lightgreen;">
-    <p>Tytuł: {{tsk.tsk_title}}</p>
-    <p>Wykonawca: {{tsk.tsk_usrId}}</p>
-    <p>Min: {{tsk.tsk_minCompletationDate}}</p>
-    <p>Max: {{tsk.tsk_maxCompletationDate}}</p>
-    <p>Desc: {{tsk.tsk_description}}</p>
-    <p>Koment: {{tsk.tsk_commentary}}</p>
-    <p>Status: {{tsk.tsk_status}}</p>
-    <p>Kategoria: {{tsk.tsk_category}}</p>
-    <p>DataUtwrozneia: {{tsk.tsk_createdAt}}</p>
-    <p>NotifyId: {{tsk.tsk_notifyId}}</p>
-
-    <button *ngIf="globals.manageTasksMode" ion-button (click)="editTask(tsk)">Edytuj</button>
-    <button *ngIf="globals.manageTasksMode" ion-button (click)="deleteTask(tsk)">Usuń</button>
+  <ion-item style="background: rgb(159, 247, 159);">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-9>
+          <h2>{{tsk.tsk_title}}</h2>
+          <p>Wykonawca: {{tsk.tsk_usrName}}</p>
+          <p>Rozpoczęcie: {{tsk.tsk_minCompletationDate}}</p>
+          <p>Zakończenie: {{tsk.tsk_maxCompletationDate}}</p>
+          <p>Opis: {{tsk.tsk_description}}</p>
+          <p>Komentarz: {{tsk.tsk_commentary}}</p>
+          <p>Status: {{tsk.tsk_status}}</p>
+          <p>Kategoria: {{tsk.tsk_category}}</p>
+          <p>DataUtwrozneia: {{tsk.tsk_createdAt}}</p>
+          <p>NotifyId: {{tsk.tsk_notifyId}}</p>      
+          <p>Utworzono przez: {{tsk.tsk_createdBy}}</p>      
+        </ion-col>
+        <ion-col col-3> 
+          <ion-row style="height: 50%;"> 
+            <ion-col>
+                <button class="btn-options" *ngIf="globals.manageTasksMode" ion-button (click)="editTask(tsk)">Edytuj</button>
+            </ion-col>
+          </ion-row>
+          <ion-row style="height: 50%;">
+            <ion-col>
+                <button class="btn-options" *ngIf="globals.manageTasksMode" ion-button (click)="deleteTask(tsk)">Usuń</button>
+            </ion-col>
+          </ion-row>
+        </ion-col>          
+      </ion-row>
+    </ion-grid>
   </ion-item>
 </ion-list>
 
