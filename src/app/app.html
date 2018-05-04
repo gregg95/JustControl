@@ -4,36 +4,47 @@
 
 
 
-<ion-content padding>
+<ion-content>
 
-    <h4>This is menu</h4>
+    <ion-grid>
+        <ion-row style="height: 10vh; background: rgb(255, 163, 25);">
+            <ion-col>
+                <h4>{{ globals.user.usr_name }}</h4>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-list>
 
-    <ion-list>
+                    <button ion-button block menuClose (click)="goToMain()">
+                        Główna
+                    </button>
+                    <button ion-button block menuClose (click)="goToTasksHistory()">
+                        Historia zadań
+                    </button>
+                    <button ion-button block menuClose (click)="goToCommonExpanses()">
+                        Wspólne wydatki
+                    </button>
+                    <button ion-button block menuClose (click)="goToRanking()">
+                        Ranking
+                    </button>
+                    <button ion-button block menuClose (click)="goToSettings()">
+                        Ustawienia
+                    </button>
+                    <button ion-button block menuClose (click)="goToAbout()">
+                        O programie
+                    </button>
+            
+                    <button ion-button block menuClose (click)="logout()">
+                        Logout
+                    </button>
+            
+                    </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
-        <button ion-button block menuClose (click)="goToMain()">
-            Główna
-        </button>
-        <button ion-button block menuClose (click)="goToTasksHistory()">
-            Historia zadań
-        </button>
-        <button ion-button block menuClose (click)="goToCommonExpanses()">
-            Wspólne wydatki
-        </button>
-        <button ion-button block menuClose (click)="goToRanking()">
-            Ranking
-        </button>
-        <button ion-button block menuClose (click)="goToSettings()">
-            Ustawienia
-        </button>
-        <button ion-button block menuClose (click)="goToAbout()">
-            O programie
-        </button>
-
-        <button ion-button block menuClose (click)="logout()">
-            Logout
-        </button>
-
-        </ion-list>
+    
 </ion-content>
 
 

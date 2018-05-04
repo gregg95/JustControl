@@ -14,6 +14,7 @@ export class Globals {
 
     constructor(public toastCtrl: ToastController, public loadingCtrl : LoadingController){
       this.errors.push({required_tsk_title : "Tytuł jest wymagany"})
+      this.user = new User;
     }
 
     makeToast(message) {

@@ -12,6 +12,7 @@ import { CommonExpensesPage } from '../pages/common-expenses/common-expenses';
 import { RankingPage } from '../pages/ranking/ranking';
 import { SettingsPage } from '../pages/settings/settings';
 import { AboutPage } from '../pages/about/about';
+import { Globals } from './Globals';
 
 @Component({
   templateUrl: 'app.html'
@@ -22,6 +23,7 @@ export class MyApp {
   
   constructor(private platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private afAuth: AngularFireAuth, private gplus: GooglePlus, private toastCtrl: ToastController,
+    public globals : Globals
     ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
