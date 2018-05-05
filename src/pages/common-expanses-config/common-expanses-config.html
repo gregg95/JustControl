@@ -1,0 +1,49 @@
+<!--
+  Generated template for the CommonExpansesConfigPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Nowy formularz</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="expanseForm" (ngSubmit)="addCommonExpanse()">
+    <ion-item>
+      <ion-label floating>Tytuł</ion-label>
+      <ion-input [formControl]="expanseForm.controls['exp_title']" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Opis (opcjonalnie)</ion-label>
+      <ion-input [formControl]="expanseForm.controls['exp_description']" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Kwota [zł]</ion-label>
+      <ion-input [formControl]="expanseForm.controls['exp_amount']" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Załączniki</ion-label>
+      <ion-input [formControl]="expanseForm.controls['exp_attachment']" disabled="true" type="text"></ion-input>
+    </ion-item>
+  <ion-row>
+    <ion-col text-center>
+      <button type="submit" ion-button block>
+        Dodaj zadanie
+      </button>
+    </ion-col>
+  </ion-row>
+</form>
+
+
+<button block ion-button (click)="takePhoto()">Zrób zdjęcie</button>
+<ion-item>
+  <img [src]="imgSrc"  alt="Weather forecast" />
+</ion-item>
+
+</ion-content>

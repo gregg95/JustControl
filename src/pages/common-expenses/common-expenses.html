@@ -6,13 +6,18 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>common-expenses</ion-title>
+  <ion-navbar hideBackButton>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Wspólne wydatki</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-
+  <expenses-list></expenses-list>
+  <button ion-button block (click)="newExpanseForm()">
+    Nowy formularz
+  </button>
 </ion-content>

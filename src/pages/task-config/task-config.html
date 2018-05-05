@@ -36,7 +36,7 @@
     <ion-item>
       <ion-label>Wykonawca</ion-label>
       <ion-select [formControl]="taskForm.controls['tsk_usrId']">
-        <ion-option *ngFor="let user of users" [value]="user.usr_id">{{ user.usr_name }}</ion-option>
+        <ion-option *ngFor="let user of users" [value]="user.$key">{{ user.usr_name }}</ion-option>
       </ion-select>
     </ion-item>
 
