@@ -4,6 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Globals } from '../../app/Globals';
 import { UserConfigPage } from '../user-config/user-config';
+import { TasksHistoryPageModule } from '../tasks-history/tasks-history.module';
 
 
 @IonicPage()
@@ -17,6 +18,7 @@ export class SettingsPage {
   rePassword : string = "";
   newUsername : string = "";
   passwordChangeEnabled : boolean =  true;
+  flt_code : string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public afAuth : AngularFireAuth, public db : AngularFireDatabase,
@@ -52,6 +54,25 @@ export class SettingsPage {
       this.globals.makeToast("Hasło zostało zmienione");
     });
   }
+
+
+  changeFlatCode() {
+    console.log(this.flt_code);
+    if(this.flt_code != ""){
+      this.db.list('flats')
+      .update(this.globals.flat.$key, 
+        { 
+          flt_code: this.flt_code
+        }).then(() => {
+          this.globals.makeToast("Zmieniono kod !");
+          this.flt_code = "";
+        });
+
+    } else {
+      this.globals.makeToast("Wprowadź kod mieszkania !");
+    }
+  }
+
 
   changeUsername() {
     

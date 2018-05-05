@@ -36,6 +36,13 @@
       <button ion-button block
               (click)="changeUsername()">Zmień nazwę użytkownika</button>
               
+
+      <ion-item *ngIf="globals.user.usr_rights == 1">
+        <ion-label color="primary" floating>Kod mieszkania</ion-label>
+        <ion-input type="text" placeholder="Type here... " [(ngModel)]="flt_code"></ion-input>
+      </ion-item>
+      <button ion-button block *ngIf="globals.user.usr_rights == 1" (click)="changeFlatCode()">Zmień kod</button>
+
       <button ion-button block
         (click)="leaveFlat()">Opuść mieszkanie</button>
 
