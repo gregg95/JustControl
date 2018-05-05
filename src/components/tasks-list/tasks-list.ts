@@ -42,8 +42,7 @@ lol : string = "";
                      
         }
 
-        this.db.object('users/' + task.tsk_usrId).snapshotChanges().subscribe(u => {
-          
+        this.db.object('users/' + task.tsk_usrId).snapshotChanges().subscribe(u => {          
           var usr = u.payload.val() as User;
           task.tsk_usrName = usr.usr_name;
         });
@@ -82,8 +81,15 @@ lol : string = "";
     this.navCtrl.push(TaskConfigPage, task)
   }
 
-  async deleteTask(){
+  async deleteTask(task){
+    var tsk = task as Task;
+
     
+    this.db.object('tasks/' + task.$key).remove().then(() => {
+      this.globals.makeToast("Item removed");
+    }, err => {
+      this.globals.makeToast(err);
+    });
   }
 
   async showNotifs(){
