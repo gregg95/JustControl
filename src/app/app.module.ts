@@ -29,6 +29,11 @@ import { HistoryListComponent } from '../components/history-list/history-list';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { TasksFilterPipe } from '../pipes/tasks-filter/tasks-filter';
 import { Facebook } from '@ionic-native/facebook';
+import { CommonExpansesConfigPage } from '../pages/common-expanses-config/common-expanses-config';
+import { Camera } from '@ionic-native/camera';
+import { ExpensesListComponent } from '../components/expenses-list/expenses-list';
+import { ExpenseDetailsPage } from '../pages/expense-details/expense-details';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpJ_KAdkIpjqwcE6SNcea4jCfiZ1juzWM",
@@ -57,7 +62,10 @@ const firebaseConfig = {
     TasksListComponent,
     RankingListComponent,
     HistoryListComponent,
-    TasksFilterPipe
+    TasksFilterPipe,
+    CommonExpansesConfigPage,
+    ExpensesListComponent,
+    ExpenseDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -81,7 +89,9 @@ const firebaseConfig = {
     RankingPage,  
     TasksHistoryPage,
     FlatConfigPage,
-    TaskConfigPage
+    TaskConfigPage,    
+    CommonExpansesConfigPage,
+    ExpenseDetailsPage
   ],
   providers: [
     GooglePlus,
@@ -90,7 +100,8 @@ const firebaseConfig = {
     Globals,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LocalNotifications,
-    Facebook
+    Facebook,
+    Camera
   ]
 })
 export class AppModule {}

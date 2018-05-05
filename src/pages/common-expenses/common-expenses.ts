@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonExpansesConfigPage } from '../common-expanses-config/common-expanses-config';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Globals } from '../../app/Globals';
 
 /**
  * Generated class for the CommonExpensesPage page.
@@ -15,11 +18,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CommonExpensesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, public globals: Globals) {
+
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommonExpensesPage');
   }
 
+  newExpanseForm(){
+    this.navCtrl.push(CommonExpansesConfigPage);
+  }
 }
