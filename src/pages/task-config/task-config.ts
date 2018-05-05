@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, DateTime } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AngularFireDatabase, DATABASE_PROVIDERS } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Task } from '../../app/models/task.model';
 import { Globals } from '../../app/Globals';
 import { User } from '../../app/models/user.model';
