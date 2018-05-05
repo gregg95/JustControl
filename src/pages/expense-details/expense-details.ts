@@ -23,7 +23,7 @@ export class ExpenseDetailsPage {
 
       if (this.expense.exp_attachment != ""){
         const ref = storage().ref().child(this.expense.exp_attachment);
-        ref.getDownloadURL().then(url => this.imgSrc = url );
+        ref.getDownloadURL().then(url => this.imgSrc = url);
       }
     }
 
