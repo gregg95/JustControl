@@ -25,7 +25,28 @@ export class TasksListComponent {
 lol : string = "";
   constructor(public db : AngularFireDatabase,
     public globals: Globals, public navCtrl : NavController, public localNotifications : LocalNotifications, public platform: Platform) {
-    console.log('Hello TaskComponent Component');
+      
+
+      if(this.platform.is('cordova')){this.platform
+        .ready()
+        .then(() =>
+        {
+
+            // Register click event listener for each local notification
+            this.localNotifications.on('click').subscribe(notification =>
+            {
+              var title 	 	=	notification.title,
+                  message  		= 	JSON.stringify(notification.data);
+
+              // Display the supplied message to the user
+              this.globals.makeLongToast(title + message + notification.id);
+
+
+            });
+
+        });
+      }
+      
 
     this.db.list('tasks/', ref => ref.orderByChild('tsk_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(t => {
       this.tasks = [];
@@ -33,19 +54,22 @@ lol : string = "";
         var task = new Task;
         task = tsk.payload.val() as Task;
         task.$key = tsk.key;
-        this.tasks.push(task);
+        
+        
 
-        if (task.tsk_usrId == this.globals.user.usr_id 
-            && task.tsk_notifyId == 0 && this.platform.is('cordova') && new Date(Date.parse(task.tsk_minCompletationDate)) > (new Date())) {
-                 
-          this.checkNotification(task);
-                     
+        if (!(((this.globals.user.usr_rights == 2 && task.tsk_status == 0 ) || (this.globals.user.usr_rights == 2 && task.tsk_status == 0 && task.tsk_createdBy != this.globals.user.usr_name)))){
+          this.tasks.push(task);     
+
+          if (task.tsk_usrId == this.globals.user.$key 
+              && task.tsk_notifyId == 0 && this.platform.is('cordova') && new Date(Date.parse(task.tsk_minCompletationDate)) > (new Date())) {
+              this.checkNotification(task);                      
+          }
+
+          this.db.object('users/' + task.tsk_usrId).snapshotChanges().subscribe(u => {          
+            var usr = u.payload.val() as User;
+            task.tsk_usrName = usr.usr_name;
+          });
         }
-
-        this.db.object('users/' + task.tsk_usrId).snapshotChanges().subscribe(u => {          
-          var usr = u.payload.val() as User;
-          task.tsk_usrName = usr.usr_name;
-        });
       });
     });
   }
@@ -54,16 +78,23 @@ lol : string = "";
     
   }
 
+  checkDate(task){    
+    return (new Date(Date.parse(task.tsk_minCompletationDate)) < (new Date())) && (new Date(Date.parse(task.tsk_maxCompletationDate)) > (new Date()));
+  }
+
   async checkNotification(task : Task){
 
     this.localNotifications.getIds().then(i => {
 
       var ids = i as Array<number>;
-
       var max = Math.max(...i);
-
+      if (ids.length == 0){
+        max = 1;
+      }
+      
       this.globals.makeToast(max);
 
+      
       this.localNotifications.schedule({
         id: max + 1,
         title: "Nowe zadanie",
@@ -72,9 +103,26 @@ lol : string = "";
         data: {mydata: "mu hidden message"}
       });
 
+      this.db.object('tasks/' + task.$key)
+        .update({ tsk_notifyId: max+1 });
+
     });
     
 
+  }
+
+  setCompletedStatus(task) {
+    this.db.object('users/' + this.globals.user.$key).update(
+      {
+        usr_points: this.globals.user.usr_points + 1
+      }
+    );
+
+    this.db.object('tasks/' + task.$key).update(
+      {
+        tsk_status: 2
+      }
+    );
   }
 
   editTask(task : Task){
@@ -104,4 +152,26 @@ lol : string = "";
       });
     });
   }
+
+  takeATask(task){
+    this.db.object('tasks/' + task.$key).update(
+      {
+        tsk_usrId: this.globals.user.$key,
+        tsk_usrName: this.globals.user.usr_name
+      }
+    );
+  }
+
+  acceptTask(task){
+    console.log(task);
+    this.db.object('tasks/' + task.$key)
+      .update({ tsk_status: 1 });
+
+  }
+
+  refuseTask(task){
+    this.db.object('tasks/' + task.$key).remove();
+
+  }
+
 }

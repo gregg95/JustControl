@@ -95,6 +95,7 @@ export class LoginPage {
       this.user.usr_name = ((res.displayName) ? res.displayName : this.globals.usr_name);
       this.user.usr_rights = 0;
       this.user.usr_fltId = "null";
+      this.user.usr_points = 0;
 
       this.user.$key = this.userList.push(this.user).key; 
     }

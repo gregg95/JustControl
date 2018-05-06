@@ -12,12 +12,13 @@
 </ion-item>
   
 <ion-list *ngFor="let tsk of tasks | tasksFilter: {tsk_title: tsk_title, tsk_onlyMy: tsk_onlyMy}">
-  <ion-item style="background: rgb(159, 247, 159);">
+  <ion-item [ngStyle]="{'background-color': tsk.tsk_status == 0 ? 'blue' : (tsk.tsk_status == 1 ? 'yellow' : (tsk.tsk_status == 2 ? 'green' : 'red')) }">
     <ion-grid>
       <ion-row>
         <ion-col col-9>
           <h2>{{tsk.tsk_title}}</h2>
           <p>Wykonawca: {{tsk.tsk_usrName}}</p>
+          <p>Wykonawca: {{tsk.tsk_usrId}}</p>
           <p>Rozpoczęcie: {{tsk.tsk_minCompletationDate}}</p>
           <p>Zakończenie: {{tsk.tsk_maxCompletationDate}}</p>
           <p>Opis: {{tsk.tsk_description}}</p>
@@ -38,8 +39,16 @@
             <ion-col>
                 <button class="btn-options" *ngIf="globals.manageTasksMode" ion-button (click)="deleteTask(tsk)">Usuń</button>
             </ion-col>
-          </ion-row>
+          </ion-row>          
         </ion-col>          
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button *ngIf="!tsk.tsk_usrName" ion-button block (click)="takeATask(tsk)">Przyjmij zadanie</button>
+          <button *ngIf="tsk.tsk_usrId == globals.user.$key && checkDate(tsk) && tsk.tsk_status == 1" ion-button block (click)="setCompletedStatus(tsk)">Wykonano zadanie</button>
+          <button *ngIf="globals.user.usr_rights == 1 && tsk.tsk_status == 0" ion-button block (click)="acceptTask(tsk)">Akceptuj zadanie</button>
+          <button *ngIf="globals.user.usr_rights == 1 && tsk.tsk_status == 0" ion-button block (click)="refuseTask(tsk)">Odrzuć zadanie</button>
+        </ion-col>
       </ion-row>
     </ion-grid>
   </ion-item>

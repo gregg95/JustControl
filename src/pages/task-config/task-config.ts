@@ -31,12 +31,12 @@ export class TaskConfigPage {
   public globals : Globals) {
 
     this.taskForm = this.formBuilder.group({
-      tsk_usrId: ['', Validators.required],
+      tsk_usrId: [''],
       tsk_minCompletationDate: ['', Validators.required],
       tsk_maxCompletationDate: ['', Validators.required],
       tsk_title: ['', Validators.required],
       tsk_description: ['', Validators.required],
-      tsk_commentary: ['', Validators.required],
+      tsk_commentary: [''],
       tsk_category : ['', Validators.required]
     });
 
@@ -135,4 +135,5 @@ export class TaskConfigPage {
   }
 
  
+
 }

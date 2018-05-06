@@ -25,6 +25,14 @@ export class Globals {
         }).present();    
       }
 
+      makeLongToast(message) {
+        this.toastCtrl.create({
+          message: message,
+          duration: 10000,
+          position: 'top'
+        }).present();    
+      }
+
     showLoading(){
       if (!this.loading) {
         this.loading = this.loadingCtrl.create({

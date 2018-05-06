@@ -40,6 +40,7 @@ export class UserConfigPage {
     //sprawdzam czy jest takie mieszkanie i do niego dolaczam
     var query = await this.db.list('flats', ref => ref.orderByChild('flt_code').equalTo(this.flt_code));
     
+    this.globals.flat = new Flat();
     await new Promise(resolve => {
       query.snapshotChanges().subscribe(f => {  
         if(f.length > 0) {
@@ -52,7 +53,8 @@ export class UserConfigPage {
 
     query = null;
 
-    if(!this.globals.flat){
+
+    if(Object.keys(this.globals.flat).length == 0){
       this.globals.makeToast("Mieszkanie o podanum numerze nie istnieje !!");
     } else {
       //przypisz mieszkanie do globalnej i idz do glownego okna
