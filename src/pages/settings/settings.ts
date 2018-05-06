@@ -76,9 +76,7 @@ export class SettingsPage {
   }
 
 
-  changeUsername() {
-    
-  }
+
 
   leaveFlat() {
 

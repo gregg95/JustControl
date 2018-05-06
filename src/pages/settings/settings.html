@@ -26,13 +26,7 @@
       <button ion-button block
               (click)="changePassword()" [disabled]="!passwordChangeEnabled">Zmień hasło</button>
 
-      <ion-item>
-        <ion-label color="primary" stacked>Nazwa użytkownika</ion-label>
-        <ion-input type="text" placeholder="Type here... " [(ngModel)]="newUsername"></ion-input>
-      </ion-item>
       
-      <button ion-button block
-              (click)="changeUsername()">Zmień nazwę użytkownika</button>
               
 
       <button ion-item block (click)="goToUsersManagement()">Zarządzaj użytkownikami</button>
