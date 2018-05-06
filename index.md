@@ -22,5 +22,5 @@ Poza tym aplikacja umożliwia podział wydatków (na wspólne zakupy) oraz przec
 
 #### Linki do:
 * [Trello](https://trello.com/b/7wCLSnpg/justcontrol)
-* [Raport prac](https://docs.google.com/spreadsheets/d/1GLoucDLA88DkmoRvS3D3msqA2uxcDS0e_84XYn0vaMc/edit?usp=sharing)
+* [Raport prac](https://docs.google.com/spreadsheets/d/1u13zokWz8lspap2DozoLAnrlmcp3M_KtgDRAEg8EdH8/edit?usp=sharing)
 * [Prototyp]()
