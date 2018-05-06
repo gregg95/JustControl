@@ -111,6 +111,11 @@ export class SettingsPage {
           .update({ usr_fltId: "null", usr_rights: 0 });
       });
 
+
+      this.db.object("flats/" + this.globals.flat.$key)
+      .remove();
+
+      
       this.navCtrl.push(UserConfigPage).then(() => {
         this.navCtrl.getViews().forEach(v => {
           if (v.index != 0 && v.name != this.navCtrl.getActive().name) {
@@ -118,6 +123,7 @@ export class SettingsPage {
           }
         });
       });
+
     });
   }
 }
