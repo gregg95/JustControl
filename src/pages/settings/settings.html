@@ -45,9 +45,9 @@
       <button ion-button block
         (click)="leaveFlat()">Opuść mieszkanie</button>
 
-
-      <button ion-button block
-          (click)="deleteAccount()">Usuń konto</button>
+      <button *ngIf="globals.user.usr_rights == 1" ion-button block (click)="deleteFlat()">
+        Usuń mieszkanie
+      </button>
     </ion-list>
 
 

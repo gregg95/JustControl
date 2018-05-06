@@ -6,6 +6,7 @@ import { Globals } from '../../app/Globals';
 import { UserConfigPage } from '../user-config/user-config';
 import { TasksHistoryPageModule } from '../tasks-history/tasks-history.module';
 import { UsersManagementPage } from '../users-management/users-management';
+import { User } from '../../app/models/user.model';
 
 
 @IonicPage()
@@ -101,7 +102,24 @@ export class SettingsPage {
     this.navCtrl.push(UsersManagementPage);
   }
 
-  deleteAccount() {
+  deleteFlat() {
+    this.db.list('users/', ref => ref.orderByChild('usr_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(u => {
+      u.forEach(usr => {
+        
+        var user = usr.payload.val() as User;
+        user.$key = usr.key;
 
+        this.db.object("users/" + user.$key)
+          .update({ usr_fltId: "null", usr_rights: 0 });
+      });
+
+      this.navCtrl.push(UserConfigPage).then(() => {
+        this.navCtrl.getViews().forEach(v => {
+          if (v.index != 0 && v.name != this.navCtrl.getActive().name) {
+            this.navCtrl.removeView(v);
+          }
+        });
+      });
+    });
   }
 }
