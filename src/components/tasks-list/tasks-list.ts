@@ -57,7 +57,7 @@ lol : string = "";
         
         
 
-        if (!(((this.globals.user.usr_rights == 2 && task.tsk_status == 0 ) || (this.globals.user.usr_rights == 2 && task.tsk_status == 0 && task.tsk_createdBy != this.globals.user.usr_name)))){
+        if (!(((this.globals.user.usr_rights == 2 && task.tsk_status == 0) ))){
           this.tasks.push(task);     
 
           if (task.tsk_usrId == this.globals.user.$key 
