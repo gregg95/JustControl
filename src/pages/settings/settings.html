@@ -35,6 +35,7 @@
               (click)="changeUsername()">Zmień nazwę użytkownika</button>
               
 
+      <button ion-item block (click)="goToUsersManagement()">Zarządzaj użytkownikami</button>
       <ion-item *ngIf="globals.user.usr_rights == 1">
         <ion-label color="primary" floating>Kod mieszkania</ion-label>
         <ion-input type="text" placeholder="Type here... " [(ngModel)]="flt_code"></ion-input>

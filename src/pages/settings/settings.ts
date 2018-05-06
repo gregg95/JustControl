@@ -5,6 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Globals } from '../../app/Globals';
 import { UserConfigPage } from '../user-config/user-config';
 import { TasksHistoryPageModule } from '../tasks-history/tasks-history.module';
+import { UsersManagementPage } from '../users-management/users-management';
 
 
 @IonicPage()
@@ -94,10 +95,10 @@ export class SettingsPage {
         }
       });
     });
+  }
 
-    
-
-    
+  goToUsersManagement() {
+    this.navCtrl.push(UsersManagementPage);
   }
 
   deleteAccount() {

@@ -33,6 +33,7 @@ import { CommonExpansesConfigPage } from '../pages/common-expanses-config/common
 import { Camera } from '@ionic-native/camera';
 import { ExpensesListComponent } from '../components/expenses-list/expenses-list';
 import { ExpenseDetailsPage } from '../pages/expense-details/expense-details';
+import { UsersManagementPage } from '../pages/users-management/users-management';
 
 
 const firebaseConfig = {
@@ -65,7 +66,8 @@ const firebaseConfig = {
     TasksFilterPipe,
     CommonExpansesConfigPage,
     ExpensesListComponent,
-    ExpenseDetailsPage
+    ExpenseDetailsPage,
+    UsersManagementPage
   ],
   imports: [
     BrowserModule,
@@ -91,7 +93,8 @@ const firebaseConfig = {
     FlatConfigPage,
     TaskConfigPage,    
     CommonExpansesConfigPage,
-    ExpenseDetailsPage
+    ExpenseDetailsPage,
+    UsersManagementPage
   ],
   providers: [
     GooglePlus,
