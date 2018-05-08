@@ -20,14 +20,7 @@
         <ion-option *ngFor="let category of categories" [value]="category.cat_name">{{category.cat_name}}</ion-option>
       </ion-select>
     </ion-item>
-
-    <div>
-    <ion-item>
-      <ion-label floating>Tytuł</ion-label>
-      <ion-input [formControl]="taskForm.controls['tsk_title']" name="tsk_title" type="text"></ion-input>
-    </ion-item>
-      <p *ngIf="taskForm.controls['tsk_title'].hasError('required') && taskForm.controls['tsk_title'].touched">{{ globals.errors[0].required_tsk_title }}</p>
-  </div>
+    
     <ion-item>
       <ion-label floating>Opis</ion-label>
       <ion-input [formControl]="taskForm.controls['tsk_description']" type="text"></ion-input>

@@ -45,7 +45,7 @@ export class HistoryListComponent {
 
     this.tasks.sort((a: Task, b: Task) => {
       var aDate = new Date(Date.parse(a.tsk_createdAt));
-      var bDate = new Date(Date.parse(bDate.tsk_createdAt));
+      var bDate = new Date(Date.parse(b.tsk_createdAt));
 
       return (aDate > bDate) ? 1 : 0;
     });

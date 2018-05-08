@@ -3,13 +3,23 @@
 
   <ion-list *ngFor="let exp of expenses">
     <button ion-item style="background: rgb(255, 60, 60);" (click)="showExpenseDetails(exp)">
-        {{ exp.exp_title }} <br>
-        {{ exp.exp_fltId }} <br>
-        {{ exp.exp_description }} <br>
-        {{ exp.exp_amount }} <br>
-        {{ exp.exp_attachment }} <br>
-        {{ exp.exp_createdBy }} <br>
-        {{ exp.exp_createdAt }}
+
+      <ion-grid>
+        <ion-row>
+          <ion-col> 
+            <h1>{{ exp.exp_title }}</h1>        
+          </ion-col>
+          <ion-col style="text-align: right;">
+            <h1>{{ exp.exp_amount }}zł</h1>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Opis: {{ exp.exp_description }} <br>
+            Utworzono: {{ exp.exp_createdAt }}, przez {{ exp.exp_createdBy }} 
+          </ion-col>
+        </ion-row>
+      </ion-grid>     
     </button>
   </ion-list>
 </div>

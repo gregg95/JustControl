@@ -23,3 +23,19 @@ ion-grid {
 ion-col {
     padding: 0px !important;
 }
+
+.menu-header {
+    text-align: center;
+    background-color: rgb(115, 0, 182);
+    height: 20vh;
+    color: white;
+}
+
+button {
+    text-transform: none !important;
+}
+
+.menu-body {
+    color: rgb(239, 246, 255);
+    background-color: rgb(55, 140, 238);
+}

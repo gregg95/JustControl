@@ -37,7 +37,10 @@ export class MyApp {
   }
 
   goToMain(){
-    this.navCtrl.popTo(MainPage);
+    
+    if(!(this.navCtrl.getActive().name == "MainPage")){
+      this.navCtrl.popTo(MainPage);
+    }
   }
   
   goToTasksHistory(){

@@ -34,7 +34,6 @@ export class TaskConfigPage {
       tsk_usrId: [''],
       tsk_minCompletationDate: ['', Validators.required],
       tsk_maxCompletationDate: ['', Validators.required],
-      tsk_title: ['', Validators.required],
       tsk_description: ['', Validators.required],
       tsk_commentary: [''],
       tsk_category : ['', Validators.required]
@@ -53,7 +52,6 @@ export class TaskConfigPage {
       this.taskForm.controls['tsk_usrId'].setValue(this.editedTask.tsk_usrId);
       this.taskForm.controls['tsk_minCompletationDate'].setValue(moment(new Date(Date.parse(this.editedTask.tsk_minCompletationDate))).add(2, 'hour').toISOString());
       this.taskForm.controls['tsk_maxCompletationDate'].setValue(moment(new Date(Date.parse(this.editedTask.tsk_maxCompletationDate))).add(2, 'hour').toISOString());
-      this.taskForm.controls['tsk_title'].setValue(this.editedTask.tsk_title);
       this.taskForm.controls['tsk_description'].setValue(this.editedTask.tsk_description);
       this.taskForm.controls['tsk_commentary'].setValue(this.editedTask.tsk_commentary);
     }
@@ -93,10 +91,9 @@ export class TaskConfigPage {
     task.tsk_modifiedBy = this.globals.user.$key;
     task.tsk_usrId = (this.taskForm.controls.tsk_usrId.value == "Brak") ? "" : this.taskForm.controls.tsk_usrId.value; 
     task.tsk_fltId = this.globals.flat.$key;
-    task.tsk_createdAt = new Date().toLocaleTimeString();
+    task.tsk_createdAt = new Date().toLocaleString();
     task.tsk_minCompletationDate = moment((this.taskForm.controls.tsk_minCompletationDate.value)).add(-2, 'hour').toLocaleString();
     task.tsk_maxCompletationDate = moment((this.taskForm.controls.tsk_maxCompletationDate.value)).add(-2, 'hour').toLocaleString();
-    task.tsk_title = this.taskForm.controls.tsk_title.value;
     task.tsk_description = this.taskForm.controls.tsk_description.value;
     task.tsk_commentary = this.taskForm.controls.tsk_commentary.value;
     task.tsk_status = (this.globals.user.usr_rights == 1) ? 1 : 0;

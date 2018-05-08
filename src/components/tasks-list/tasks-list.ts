@@ -177,7 +177,7 @@ lol : string = "";
       this.localNotifications.schedule({
         id: max + 1,
         title: "Nowe zadanie",
-        text: task.tsk_title,
+        text: task.tsk_category,
         trigger: {at: new Date(Date.parse(task.tsk_minCompletationDate)) },
         data: {mydata: "mu hidden message"}
       });

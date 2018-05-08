@@ -4,42 +4,44 @@
 
 
 
-<ion-content>
+<ion-content class="menu-body" >
 
     <ion-grid>
-        <ion-row style="height: 10vh; background: rgb(255, 163, 25);">
-            <ion-col>
-                <h4>{{ globals.user.usr_name }}</h4>
+        <ion-row>
+            <ion-col class="menu-header">
+                <h1>{{ globals.user.usr_name }}</h1>
+                <p *ngIf="globals.user.usr_rights == 1">Admin</p>
+                <p *ngIf="globals.user.usr_rights == 2">Użytkownik</p>
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col>
                 <ion-list>
 
-                    <button ion-button block menuClose (click)="goToMain()">
+                    <button  class="menu-body" ion-item menuClose (click)="goToMain()">
                         Główna
                     </button>
-                    <button ion-button block menuClose (click)="goToTasksHistory()">
+                    <button  class="menu-body" ion-item menuClose (click)="goToTasksHistory()">
                         Wszystkie zadania
                     </button>
-                    <button ion-button block menuClose (click)="goToCommonExpanses()">
+                    <button  class="menu-body" ion-item menuClose (click)="goToCommonExpanses()">
                         Wspólne wydatki
                     </button>
-                    <button ion-button block menuClose (click)="goToRanking()">
+                    <button  class="menu-body" ion-item menuClose (click)="goToRanking()">
                         Ranking
                     </button>
-                    <button ion-button block menuClose (click)="goToSettings()">
+                    <button  class="menu-body" ion-item menuClose (click)="goToSettings()">
                         Ustawienia
                     </button>
-                    <button ion-button block menuClose (click)="goToAbout()">
+                    <button  class="menu-body" ion-item menuClose (click)="goToAbout()">
                         O programie
                     </button>
             
-                    <button ion-button block menuClose (click)="logout()">
+                    <button  class="menu-body" ion-item menuClose (click)="logout()">
                         Logout
                     </button>
             
-                    </ion-list>
+                </ion-list>
             </ion-col>
         </ion-row>
     </ion-grid>

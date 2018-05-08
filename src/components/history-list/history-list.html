@@ -26,16 +26,34 @@
 
 
 <ion-list *ngFor="let tsk of filteredTasks">
-  <ion-item style="background: lightgreen;">
-    <p>Tytuł: {{tsk.tsk_title}}</p>
-    <p>Wykonawca: {{tsk.tsk_usrId}}</p>
-    <p>Min: {{tsk.tsk_minCompletationDate}}</p>
-    <p>Max: {{tsk.tsk_maxCompletationDate}}</p>
-    <p>Desc: {{tsk.tsk_description}}</p>
-    <p>Koment: {{tsk.tsk_commentary}}</p>
-    <p>Status: {{tsk.tsk_status}}</p>
-    <p>Kategoria: {{tsk.tsk_category}}</p>
-    <p>DataUtwrozneia: {{tsk.tsk_createdAt}}</p>
+  <ion-item [ngStyle]="{'background-color': tsk.tsk_status == 0 ? '#93bcff' : (tsk.tsk_status == 1 ? '#ffe493' : (tsk.tsk_status == 2 ? '#8effb4' : '#ff8e8e')) }">
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-row>
+            <ion-col>
+              <h2 style="text-align: center;">{{tsk.tsk_category}}</h2>
+            </ion-col>
+            <ion-col>
+              <p *ngIf="tsk.tsk_usrId.length > 0">Wykonawca: {{tsk.tsk_usrName}}</p>
+              <p *ngIf="tsk.tsk_usrId.length == 0">BRAK WYKONAWCY</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>Rozpoczęcie: {{tsk.tsk_minCompletationDate}}</p>
+              <p>Zakończenie: {{tsk.tsk_maxCompletationDate}}</p>
+              <p>Opis: {{tsk.tsk_description}}</p>
+              <p *ngIf="globals.user.usr_rights == 1 && tsk.tsk_commentary.length > 0">Komentarz: {{tsk.tsk_commentary}}</p>
+              <p>Utworzono: {{tsk.tsk_createdAt}}, przez: {{tsk.tsk_createdBy}}</p>  
+            </ion-col>
+          </ion-row>                                   
+        </ion-col>          
+      </ion-row>
+    </ion-grid>
+      
+
 
   </ion-item>
 </ion-list>
