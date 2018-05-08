@@ -40,13 +40,19 @@ export class TaskConfigPage {
       tsk_category : ['', Validators.required]
     });
 
+
+    
+    this.taskForm.controls['tsk_minCompletationDate'].setValue(moment(new Date()).add(2, 'hour').toISOString());
+    this.taskForm.controls['tsk_maxCompletationDate'].setValue(moment(new Date()).add(3, 'hour').toISOString());
+
+
     if (Object.keys(navParams.data).length > 0) {
       this.taskEdition = true;
       this.editedTask =  navParams.data as Task;
       this.taskForm.controls['tsk_category'].setValue(this.editedTask.tsk_category);
       this.taskForm.controls['tsk_usrId'].setValue(this.editedTask.tsk_usrId);
-      this.taskForm.controls['tsk_minCompletationDate'].setValue(this.editedTask.tsk_minCompletationDate);
-      this.taskForm.controls['tsk_maxCompletationDate'].setValue(this.editedTask.tsk_maxCompletationDate);
+      this.taskForm.controls['tsk_minCompletationDate'].setValue(moment(new Date(Date.parse(this.editedTask.tsk_minCompletationDate))).add(2, 'hour').toISOString());
+      this.taskForm.controls['tsk_maxCompletationDate'].setValue(moment(new Date(Date.parse(this.editedTask.tsk_maxCompletationDate))).add(2, 'hour').toISOString());
       this.taskForm.controls['tsk_title'].setValue(this.editedTask.tsk_title);
       this.taskForm.controls['tsk_description'].setValue(this.editedTask.tsk_description);
       this.taskForm.controls['tsk_commentary'].setValue(this.editedTask.tsk_commentary);
@@ -77,63 +83,48 @@ export class TaskConfigPage {
 
   addTask(){
 
-    if(!this.taskEdition){
-      if (this.taskForm.valid) {
-        var task = new Task;
-        task.tsk_modifiedBy = this.globals.user.$key;
-        task.tsk_usrId = this.taskForm.controls.tsk_usrId.value; 
-        task.tsk_fltId = this.globals.flat.$key;
-        task.tsk_createdAt = new Date().toLocaleTimeString();
-        task.tsk_minCompletationDate = moment((this.taskForm.controls.tsk_minCompletationDate.value)).add(-2, 'hour').toLocaleString();
-        task.tsk_maxCompletationDate = moment((this.taskForm.controls.tsk_maxCompletationDate.value)).toLocaleString();
-        task.tsk_title = this.taskForm.controls.tsk_title.value;
-        task.tsk_description = this.taskForm.controls.tsk_description.value;
-        task.tsk_commentary = this.taskForm.controls.tsk_commentary.value;
-        task.tsk_status = (this.globals.user.usr_rights == 1) ? 1 : 0;
-        task.tsk_category = this.taskForm.controls.tsk_category.value;
-        task.tsk_notifyId = 0;
-        task.tsk_createdBy = this.globals.user.usr_name;
-  
-        console.log((this.taskForm.controls.tsk_minCompletationDate.value));
-    
-        this.db.list('tasks').push(task);
-  
-        this.globals.makeToast("Dodano zadanie!");
-  
-        this.navCtrl.removeView(this.navCtrl.getActive());
-      } 
-    } else {
-      if (this.taskForm.valid) {
-        var task = new Task;
-        task.tsk_modifiedBy = this.globals.user.$key;
-        task.tsk_usrId = this.taskForm.controls.tsk_usrId.value; //?
-        task.tsk_fltId = this.globals.flat.$key;
-        task.tsk_createdAt = new Date().toLocaleTimeString();
-        task.tsk_minCompletationDate = moment((this.taskForm.controls.tsk_minCompletationDate.value)).add(-2, 'hour').toLocaleString();
-        task.tsk_maxCompletationDate = moment((this.taskForm.controls.tsk_maxCompletationDate.value)).toLocaleString();
-        task.tsk_title = this.taskForm.controls.tsk_title.value;
-        task.tsk_description = this.taskForm.controls.tsk_description.value;
-        task.tsk_commentary = this.taskForm.controls.tsk_commentary.value;
-        task.tsk_status = (this.globals.user.usr_rights == 1) ? 1 : 0;
-        task.tsk_category = this.taskForm.controls.tsk_category.value;
-        task.tsk_notifyId = 0;
-        task.tsk_createdBy = this.globals.user.usr_name;
-  
-        console.log("teraz");
-        console.log(moment((this.taskForm.controls.tsk_minCompletationDate.value)).toLocaleString());
-        
-        this.db.list('tasks').update(this.editedTask.$key, task)
-  
-        this.globals.makeToast("Edytowano zadanie!");
-  
-        this.navCtrl.removeView(this.navCtrl.getActive());
-      } 
+    if (!this.taskForm.valid) {
+      this.globals.makeToast("Formularz nie jest wypełniony poprawnie.");
+      return;
     }
     
     
-    
-  }
+    var task = new Task;
+    task.tsk_modifiedBy = this.globals.user.$key;
+    task.tsk_usrId = (this.taskForm.controls.tsk_usrId.value == "Brak") ? "" : this.taskForm.controls.tsk_usrId.value; 
+    task.tsk_fltId = this.globals.flat.$key;
+    task.tsk_createdAt = new Date().toLocaleTimeString();
+    task.tsk_minCompletationDate = moment((this.taskForm.controls.tsk_minCompletationDate.value)).add(-2, 'hour').toLocaleString();
+    task.tsk_maxCompletationDate = moment((this.taskForm.controls.tsk_maxCompletationDate.value)).add(-2, 'hour').toLocaleString();
+    task.tsk_title = this.taskForm.controls.tsk_title.value;
+    task.tsk_description = this.taskForm.controls.tsk_description.value;
+    task.tsk_commentary = this.taskForm.controls.tsk_commentary.value;
+    task.tsk_status = (this.globals.user.usr_rights == 1) ? 1 : 0;
+    task.tsk_category = this.taskForm.controls.tsk_category.value;
+    task.tsk_notifyId = 0;
+    task.tsk_createdBy = this.globals.user.usr_name;
 
+
+    if(!this.taskEdition){
+      console.log((this.taskForm.controls.tsk_minCompletationDate.value));
+
+      this.db.list('tasks').push(task);
+
+      this.globals.makeToast("Dodano zadanie!");
+
+      this.navCtrl.removeView(this.navCtrl.getActive());
+      
+    } else {
+      console.log("teraz");
+      console.log(moment((this.taskForm.controls.tsk_minCompletationDate.value)).toLocaleString());
+      
+      this.db.list('tasks').update(this.editedTask.$key, task)
+
+      this.globals.makeToast("Edytowano zadanie!");
+
+      this.navCtrl.removeView(this.navCtrl.getActive());
+    } 
+  }
  
 
 }

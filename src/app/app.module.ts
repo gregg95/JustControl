@@ -34,6 +34,7 @@ import { Camera } from '@ionic-native/camera';
 import { ExpensesListComponent } from '../components/expenses-list/expenses-list';
 import { ExpenseDetailsPage } from '../pages/expense-details/expense-details';
 import { UsersManagementPage } from '../pages/users-management/users-management';
+import { OrderTaskPipe } from '../pipes/order-task/order-task';
 
 
 const firebaseConfig = {
@@ -64,6 +65,7 @@ const firebaseConfig = {
     RankingListComponent,
     HistoryListComponent,
     TasksFilterPipe,
+    OrderTaskPipe,
     CommonExpansesConfigPage,
     ExpensesListComponent,
     ExpenseDetailsPage,

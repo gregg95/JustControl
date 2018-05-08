@@ -3,54 +3,54 @@
 <p>{{lol}}</p>
 <button (click)="showNotifs()">Notifs</button>
 
-<ion-item>
-  <ion-label color="primary" stacked>Title</ion-label>
-  <ion-input type="text" placeholder="Type here... " [(ngModel)]="tsk_title"></ion-input>
-</ion-item>
-<ion-item>
-  <ion-checkbox  [(ngModel)]="tsk_onlyMy" checked="false"></ion-checkbox>
-</ion-item>
-  
-<ion-list *ngFor="let tsk of tasks | tasksFilter: {tsk_title: tsk_title, tsk_onlyMy: tsk_onlyMy}">
-  <ion-item [ngStyle]="{'background-color': tsk.tsk_status == 0 ? 'blue' : (tsk.tsk_status == 1 ? 'yellow' : (tsk.tsk_status == 2 ? 'green' : 'red')) }">
-    <ion-grid>
-      <ion-row>
-        <ion-col col-9>
-          <h2>{{tsk.tsk_title}}</h2>
-          <p>Wykonawca: {{tsk.tsk_usrName}}</p>
-          <p>Wykonawca: {{tsk.tsk_usrId}}</p>
-          <p>Rozpoczęcie: {{tsk.tsk_minCompletationDate}}</p>
-          <p>Zakończenie: {{tsk.tsk_maxCompletationDate}}</p>
-          <p>Opis: {{tsk.tsk_description}}</p>
-          <p>Komentarz: {{tsk.tsk_commentary}}</p>
-          <p>Status: {{tsk.tsk_status}}</p>
-          <p>Kategoria: {{tsk.tsk_category}}</p>
-          <p>DataUtwrozneia: {{tsk.tsk_createdAt}}</p>
-          <p>NotifyId: {{tsk.tsk_notifyId}}</p>      
-          <p>Utworzono przez: {{tsk.tsk_createdBy}}</p>      
-        </ion-col>
-        <ion-col col-3> 
-          <ion-row style="height: 50%;"> 
-            <ion-col>
-                <button class="btn-options" *ngIf="globals.manageTasksMode" ion-button (click)="editTask(tsk)">Edytuj</button>
-            </ion-col>
-          </ion-row>
-          <ion-row style="height: 50%;">
-            <ion-col>
-                <button class="btn-options" *ngIf="globals.manageTasksMode" ion-button (click)="deleteTask(tsk)">Usuń</button>
-            </ion-col>
-          </ion-row>          
-        </ion-col>          
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <button *ngIf="!tsk.tsk_usrName" ion-button block (click)="takeATask(tsk)">Przyjmij zadanie</button>
-          <button *ngIf="tsk.tsk_usrId == globals.user.$key && checkDate(tsk) && tsk.tsk_status == 1" ion-button block (click)="setCompletedStatus(tsk)">Wykonano zadanie</button>
-          <button *ngIf="globals.user.usr_rights == 1 && tsk.tsk_status == 0" ion-button block (click)="acceptTask(tsk)">Akceptuj zadanie</button>
-          <button *ngIf="globals.user.usr_rights == 1 && tsk.tsk_status == 0" ion-button block (click)="refuseTask(tsk)">Odrzuć zadanie</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-item>
-</ion-list>
+  <div *ngIf="tasks.length > 0">
+      <ion-list  *ngFor="let tsk of tasks">
+          <ion-item [ngStyle]="{'background-color': tsk.tsk_status == 0 ? '#93bcff' : (tsk.tsk_status == 1 ? '#ffe493' : (tsk.tsk_status == 2 ? '#8effb4' : '#ff8e8e')) }">
+            <ion-grid>
+              <ion-row>
+                <ion-col col-9>
+                  <h2>{{tsk.tsk_title}}</h2>
+                  <p>Wykonawca: {{tsk.tsk_usrName}}</p>
+                  <p>Wykonawca: {{tsk.tsk_usrId}}</p>
+                  <p>Rozpoczęcie: {{tsk.tsk_minCompletationDate}}</p>
+                  <p>Zakończenie: {{tsk.tsk_maxCompletationDate}}</p>
+                  <p>Opis: {{tsk.tsk_description}}</p>
+                  <p *ngIf="globals.user.usr_rights == 1">Komentarz: {{tsk.tsk_commentary}}</p>
+                  <p>Status: {{tsk.tsk_status}}</p>
+                  <p>Kategoria: {{tsk.tsk_category}}</p>
+                  <p>DataUtwrozneia: {{tsk.tsk_createdAt}}</p>
+                  <p>NotifyId: {{tsk.tsk_notifyId}}</p>      
+                  <p>Utworzono przez: {{tsk.tsk_createdBy}}</p>      
+                </ion-col>
+                <ion-col col-3> 
+                  <ion-row style="height: 48%;"> 
+                    <ion-col>
+                        <button class="btn-options" *ngIf="globals.manageTasksMode" ion-button (click)="editTask(tsk)">Edytuj</button>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row style="height: 48%;">
+                    <ion-col>
+                        <button class="btn-options" *ngIf="globals.manageTasksMode" ion-button (click)="deleteTask(tsk)">Usuń</button>
+                    </ion-col>
+                  </ion-row>          
+                </ion-col>          
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <button *ngIf="tsk.tsk_usrId == globals.user.$key && !tsk.tsk_status == 2" ion-button block (click)="commentTask(tsk)">Skomentuj</button>
+                  <button *ngIf="!tsk.tsk_usrName && tsk.tsk_status != 0" ion-button block (click)="takeATask(tsk)">Przyjmij zadanie</button>
+                  <button *ngIf="tsk.tsk_usrId == globals.user.$key && checkDate(tsk) && tsk.tsk_status == 1" ion-button block (click)="setCompletedStatus(tsk)">Wykonano zadanie</button>
+                  <button *ngIf="globals.user.usr_rights == 1 && tsk.tsk_status == 0" ion-button block (click)="acceptTask(tsk)">Akceptuj zadanie</button>
+                  <button *ngIf="globals.user.usr_rights == 1 && tsk.tsk_status == 0" ion-button block (click)="refuseTask(tsk)">Odrzuć zadanie</button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
 
+        
+  </div>
+
+  <div *ngIf="tasks.length == 0 ">
+    Brak nadchdozących zadań, zobacz historie sobie jak chcesz
+  </div>

@@ -8,12 +8,9 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { TasksFilterPipe } from '../../pipes/tasks-filter/tasks-filter';
 import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
 import { User } from '../../app/models/user.model';
-/**
- * Generated class for the TaskComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+import { AlertController } from 'ionic-angular';
+
+
 @Component({
   selector: 'tasks-list',
   templateUrl: 'tasks-list.html'
@@ -24,7 +21,8 @@ export class TasksListComponent {
   tasks = [];
 lol : string = "";
   constructor(public db : AngularFireDatabase,
-    public globals: Globals, public navCtrl : NavController, public localNotifications : LocalNotifications, public platform: Platform) {
+    public globals: Globals, public navCtrl : NavController, public localNotifications : LocalNotifications, public platform: Platform,
+          public alertCtrl: AlertController) {
       
 
       if(this.platform.is('cordova')){this.platform
@@ -55,22 +53,65 @@ lol : string = "";
         task = tsk.payload.val() as Task;
         task.$key = tsk.key;
         
-        
-
-        if (!(((this.globals.user.usr_rights == 2 && task.tsk_status == 0) ))){
-          this.tasks.push(task);     
-
-          if (task.tsk_usrId == this.globals.user.$key 
-              && task.tsk_notifyId == 0 && this.platform.is('cordova') && new Date(Date.parse(task.tsk_minCompletationDate)) > (new Date())) {
-              this.checkNotification(task);                      
-          }
-
-          this.db.object('users/' + task.tsk_usrId).snapshotChanges().subscribe(u => {          
-            var usr = u.payload.val() as User;
-            task.tsk_usrName = usr.usr_name;
-          });
+        if (new Date(Date.parse(task.tsk_maxCompletationDate)) < (new Date()) && task.tsk_status != 2){
+          this.db.object('tasks/' + task.$key).update(
+            {
+              tsk_status: 3 
+            }
+          );
         }
+
+        if (this.globals.user.usr_rights == 1){ if (new Date(Date.parse(task.tsk_maxCompletationDate)) > (new Date()) &&
+                 (task.tsk_status == 1 || task.tsk_status == 0) ){ 
+  
+              this.tasks.push(task);     
+  
+              if (task.tsk_usrId == this.globals.user.$key 
+                  && task.tsk_notifyId == 0 && this.platform.is('cordova') && new Date(Date.parse(task.tsk_minCompletationDate)) > (new Date())) {
+                  this.checkNotification(task);                      
+              }
+    
+              this.db.object('users/' + task.tsk_usrId).snapshotChanges().subscribe(u => {          
+                var usr = u.payload.val() as User;
+                task.tsk_usrName = usr.usr_name;
+              });
+            }          
+        } else {
+          if (  !(this.globals.user.usr_rights == 2 && task.tsk_status == 0) || task.tsk_modifiedBy == this.globals.user.$key  ){
+
+            if (new Date(Date.parse(task.tsk_maxCompletationDate)) > (new Date()) &&
+                 (task.tsk_status == 1 || task.tsk_status == 0) && 
+                 (task.tsk_usrId == this.globals.user.$key || task.tsk_usrId == "")){ 
+  
+              this.tasks.push(task);     
+  
+              if (task.tsk_usrId == this.globals.user.$key 
+                  && task.tsk_notifyId == 0 && this.platform.is('cordova') && new Date(Date.parse(task.tsk_minCompletationDate)) > (new Date())) {
+                  this.checkNotification(task);                      
+              }
+    
+              this.db.object('users/' + task.tsk_usrId).snapshotChanges().subscribe(u => {          
+                var usr = u.payload.val() as User;
+                task.tsk_usrName = usr.usr_name;
+              });
+            }          
+          }
+        }
+       
+        this.sortTaskList();
+
       });
+
+    });
+  }
+
+
+  sortTaskList(){
+    this.tasks.sort((a: Task, b: Task) => {
+      var aMin = new Date(Date.parse(a.tsk_minCompletationDate));
+      var bMin = new Date(Date.parse(b.tsk_minCompletationDate));
+
+      return (aMin > bMin) ? 1 : 0;
     });
   }
 
@@ -80,6 +121,44 @@ lol : string = "";
 
   checkDate(task){    
     return (new Date(Date.parse(task.tsk_minCompletationDate)) < (new Date())) && (new Date(Date.parse(task.tsk_maxCompletationDate)) > (new Date()));
+  }
+
+  async commentTask(task: Task){
+
+    let alert = this.alertCtrl.create({
+      title: 'Komentarz',
+      inputs: [
+        {
+          name: 'comment',
+          placeholder: 'komentarz ...'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Anuluj',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Skomentuj',
+          handler: data => {            
+            
+              this.db.object('tasks/' + task.$key).update(
+                {
+                  tsk_commentary: data.comment
+                }
+              );
+
+          }
+        }
+      ]
+    });
+
+    alert.present();
+
+
   }
 
   async checkNotification(task : Task){

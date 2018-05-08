@@ -1,7 +1,31 @@
 <!-- Generated template for the HistoryListComponent component -->
 
-<ion-checkbox [(ngModel)]="onlyMyTasks" (click)="filterList()">Tylko moje</ion-checkbox>
-<ion-list *ngFor="let tsk of tasks">
+<ion-item>
+  <ion-label>Wykonawca</ion-label>
+  <ion-select  interface="popover" [(ngModel)]="tsk_usrId" (ngModelChange)="filterExact('tsk_usrId', tsk_usrId)">
+      <ion-option *ngFor="let user of users" [value]="user.$key">{{ user.usr_name }}</ion-option>
+  </ion-select>
+</ion-item>
+<ion-item *ngIf="tsk_usrId">
+  <button ion-button block (click)="removeFilter('tsk_usrId')">Usuń filtr</button>
+</ion-item>
+
+<ion-item>
+  <ion-label>Status</ion-label>
+  <ion-select  interface="popover" [(ngModel)]="tsk_status" (ngModelChange)="filterExact('tsk_status', tsk_status)">
+    <ion-option [value]="0">Oczekujące na akceptacje</ion-option>
+    <ion-option [value]="1">Zatwierdzone</ion-option>
+    <ion-option [value]="2">Wykonane</ion-option>
+    <ion-option [value]="3">Nie wykonane</ion-option>
+  </ion-select>
+</ion-item>
+
+<ion-item *ngIf="tsk_status">
+  <button ion-button block (click)="removeFilter('tsk_status')">Usuń filtr</button>
+</ion-item>
+
+
+<ion-list *ngFor="let tsk of filteredTasks">
   <ion-item style="background: lightgreen;">
     <p>Tytuł: {{tsk.tsk_title}}</p>
     <p>Wykonawca: {{tsk.tsk_usrId}}</p>

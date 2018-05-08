@@ -28,7 +28,7 @@ export class CommonExpansesConfigPage {
     public db : AngularFireDatabase, private camera : Camera) {
       this.expanseForm = this.formBuilder.group({
         exp_title: ['', Validators.required],
-        exp_description: ['', Validators.required],
+        exp_description: [''],
         exp_amount: ['', Validators.required],
         exp_attachment: ['']
       });
@@ -42,8 +42,14 @@ export class CommonExpansesConfigPage {
     var expense = new Expense;
 
     if (!this.expanseForm.valid){
+      this.globals.makeToast("Formularz jest niepoprawnie wypełniony");
       return;
     }
+
+    console.log(
+
+      this.expanseForm.controls.exp_title.value+ this.expanseForm.controls.exp_description.value+this.expanseForm.controls.exp_amount.value+this.expanseForm.controls.exp_attachment.value+new Date().toString()+this.globals.user.usr_name+this.globals.flat.$key
+    );
 
     expense.exp_title = this.expanseForm.controls.exp_title.value;
     expense.exp_description = this.expanseForm.controls.exp_description.value;

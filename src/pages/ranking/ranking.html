@@ -18,6 +18,12 @@
 
 <ion-content padding>
 
-  
+  <div *ngFor="let user of users">
+    <ion-item>
+      <div>
+        {{ user.usr_name }} {{ user.usr_points }}
+      </div>
+    </ion-item>
+  </div>
 
 </ion-content>

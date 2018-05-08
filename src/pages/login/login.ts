@@ -146,7 +146,7 @@ export class LoginPage {
       return await this.afAuth.auth.signInWithCredential(
         firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)
       ).then(r => {
-        this.globals.makeToast("zalogowano " + JSON.stringify(r));
+        
       })
     } catch(err) {
       console.log(err);
@@ -159,7 +159,7 @@ export class LoginPage {
     try {
       const provider = new firebase.auth.GoogleAuthProvider();
       await this.afAuth.auth.signInWithPopup(provider).then(r => {
-        this.globals.makeToast("zalogowano " + JSON.stringify(r));
+        
       });
       
     } catch(err) {

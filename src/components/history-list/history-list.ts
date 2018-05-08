@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Globals } from '../../app/Globals';
 import { Task } from '../../app/models/task.model';
+import { User } from '../../app/models/user.model';
+import * as _ from 'lodash';
 
 /**
  * Generated class for the HistoryListComponent component.
@@ -17,7 +19,11 @@ export class HistoryListComponent {
 
 
   tasks = [];
-  onlyMyTasks : boolean = false;
+  filteredTasks = [];
+  users = [];
+
+  filters = {};
+
 
   constructor(public db : AngularFireDatabase,
     public globals: Globals) {
@@ -32,8 +38,45 @@ export class HistoryListComponent {
         task.$key = tsk.key;
         this.tasks.push(task);
       });
+
+      this.applyFilters();
     });
 
+
+    this.tasks.sort((a: Task, b: Task) => {
+      var aDate = new Date(Date.parse(a.tsk_createdAt));
+      var bDate = new Date(Date.parse(bDate.tsk_createdAt));
+
+      return (aDate > bDate) ? 1 : 0;
+    });
+
+    
+    this.db.list('users/', ref => ref.orderByChild('usr_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(u => {
+      this.users = [];
+      u.forEach(usr => {
+        var us = usr.payload.val() as User;
+        us.$key = usr.key;
+        this.users.push(us);
+      })
+    });
+  }
+
+
+  applyFilters() {
+    this.filteredTasks = _.filter(this.tasks, _.conforms(this.filters))
+  }
+
+
+  filterExact(property: string, rule: any){
+    console.log(property + " " + rule);
+    this.filters[property] = val => val == rule; 
+    this.applyFilters();
+  }
+
+  removeFilter(property: string) {
+    delete this.filters[property];
+    this[property] = null;
+    this.applyFilters();
   }
 
   filterList(){
