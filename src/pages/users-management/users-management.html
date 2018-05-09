@@ -15,33 +15,56 @@
 
 <ion-content padding>
 
-  <ion-list *ngFor="let user of users">
-    <div style="background: rgb(0, 225, 255);">
-        {{ user.usr_id }} <br>
-        {{ user.usr_name }} <br>
-        {{ user.usr_rights }} <br>
-        {{ user.usr_fltId }} <br>
-        {{ user.usr_points }} <br>     
+  <div *ngFor="let user of users">
+
+             
+          <ion-grid>
+            <ion-row>
+              <ion-col style="text-align: center">
+                  <h2>{{ user.usr_name }}</h2>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                    <ion-label>Zmień uprawnienia</ion-label>
+                    <ion-select interface="popover" [(ngModel)]="user.usr_rights" (ngModelChange)="setRights(user)">
+                        <ion-option [value]="2" >Zwykły użtykownik</ion-option>
+                        <ion-option [value]="1" >Admin mieszkania</ion-option>
+                    </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                  <button color="danger" ion-button block (click)="removeUserFromFlat(user)">
+                      Usuń z mieszkania
+                    </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
         
-        <ion-item>
-          <ion-label>Zmień uprawnienia</ion-label>
-          <ion-select interface="popover" [(ngModel)]="user.usr_rights" (ngModelChange)="setRights(user)">
-              <ion-option [value]="2" >Zwykły użtykownik</ion-option>
-              <ion-option [value]="1" >Admin mieszkania</ion-option>
-          </ion-select>
-        </ion-item>
+  </div>
+ 
 
-        <button ion-button block (click)="removeUserFromFlat(user)">
-          Usuń z mieszkania
-        </button>
-      </div>
-  </ion-list>
-
-  <ion-list *ngFor="let usr of waitingUsers">
-    <div>
-        {{ usr.usr_name }} 
-        <button ion-button block (click)="acceptUser(usr)">Dodaj</button>
-        <button ion-button block (click)="refuseUser(usr)">Odrzuć</button>
+  <div *ngFor="let usr of waitingUsers">        
+    <ion-item color="item">
+        <ion-grid >
+          <ion-row>
+            <ion-col>
+                <h2>{{ usr.usr_name }} </h2>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button color="secondary" ion-button block (click)="acceptUser(usr)">Dodaj</button>
+            </ion-col>
+            <ion-col>
+              <button color="danger" ion-button block (click)="refuseUser(usr)">Odrzuć</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
     </div>
-  </ion-list>
 </ion-content>

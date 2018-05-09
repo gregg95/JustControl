@@ -18,11 +18,21 @@
 
 <ion-content padding>
 
-  <div *ngFor="let user of users">
+  <div *ngFor="let user of users;">
     <ion-item>
-      <div>
-        {{ user.usr_name }} {{ user.usr_points }}
-      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col style="text-align: left; font-weight: bold;">
+              {{ user.usr_lp }}
+          </ion-col>
+          <ion-col style="text-align: center; font-weight: bold;">
+              {{ user.usr_name }}
+          </ion-col>
+          <ion-col style="text-align: right;  font-weight: bold; color: rgb(0, 241, 0);">
+              {{ user.usr_points }} pkt
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-item>
   </div>
 

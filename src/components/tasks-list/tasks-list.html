@@ -15,13 +15,13 @@
                         <ion-col>
                           <h2 style="text-align: center;">{{tsk.tsk_category}}</h2>
                         </ion-col>
-                        <ion-col>
+                        <ion-col  style="text-align: center;">
                           <p *ngIf="tsk.tsk_usrId.length > 0">Wykonawca: {{tsk.tsk_usrName}}</p>
                           <p *ngIf="tsk.tsk_usrId.length == 0">BRAK WYKONAWCY</p>
                         </ion-col>
                       </ion-row>
                       <ion-row>
-                        <ion-col>
+                        <ion-col text-wrap>
                           <p>Rozpoczęcie: {{tsk.tsk_minCompletationDate}}</p>
                           <p>Zakończenie: {{tsk.tsk_maxCompletationDate}}</p>
                           <p>Opis: {{tsk.tsk_description}}</p>
@@ -35,12 +35,13 @@
                 <ion-col col-3> 
                   <ion-row style="height: 48%;"> 
                     <ion-col>
-                        <button class="btn-options" *ngIf="globals.manageTasksMode" ion-button (click)="editTask(tsk)">Edytuj</button>
+                        <button class="btn-options" *ngIf="globals.manageTasksMode" ion-button (click)="editTask(tsk)" icon-end>Edytuj
+                            <ion-icon name="md-color-wand"></ion-icon></button>
                     </ion-col>
                   </ion-row>
                   <ion-row style="height: 48%;">
                     <ion-col>
-                        <button class="btn-options" *ngIf="globals.manageTasksMode" ion-button (click)="deleteTask(tsk)">Usuń</button>
+                        <button class="btn-options" *ngIf="globals.manageTasksMode" color="danger" ion-button (click)="deleteTask(tsk)">Usuń</button>
                     </ion-col>
                   </ion-row>          
                 </ion-col>          
@@ -51,13 +52,13 @@
                     <ion-col>
                       <h2 style="text-align: center;">{{tsk.tsk_category}}</h2>
                     </ion-col>
-                    <ion-col>
+                    <ion-col  style="text-align: center; ">
                       <p *ngIf="tsk.tsk_usrId.length > 0">Wykonawca: {{tsk.tsk_usrName}}</p>
                       <p *ngIf="tsk.tsk_usrId.length == 0">BRAK WYKONAWCY</p>
                     </ion-col>
                   </ion-row>
                   <ion-row>
-                    <ion-col>
+                    <ion-col text-wrap>
                       <p>Rozpoczęcie: {{tsk.tsk_minCompletationDate}}</p>
                       <p>Zakończenie: {{tsk.tsk_maxCompletationDate}}</p>
                       <p>Opis: {{tsk.tsk_description}}</p>
@@ -69,11 +70,16 @@
               </ion-row>
               <ion-row>
                 <ion-col>
-                  <button *ngIf="tsk.tsk_usrId == globals.user.$key && !tsk.tsk_status == 2" ion-button block (click)="commentTask(tsk)">Skomentuj</button>
-                  <button *ngIf="!tsk.tsk_usrName && tsk.tsk_status != 0" ion-button block (click)="takeATask(tsk)">Przyjmij zadanie</button>
-                  <button *ngIf="tsk.tsk_usrId == globals.user.$key && checkDate(tsk) && tsk.tsk_status == 1" ion-button block (click)="setCompletedStatus(tsk)">Wykonano zadanie</button>
-                  <button *ngIf="globals.user.usr_rights == 1 && tsk.tsk_status == 0" ion-button block (click)="acceptTask(tsk)">Akceptuj zadanie</button>
-                  <button *ngIf="globals.user.usr_rights == 1 && tsk.tsk_status == 0" ion-button block (click)="refuseTask(tsk)">Odrzuć zadanie</button>
+                  <button *ngIf="tsk.tsk_usrId == globals.user.$key && !tsk.tsk_status == 2" ion-button block (click)="commentTask(tsk)" icon-start>
+                      <ion-icon name="md-chatbubbles"></ion-icon>Skomentuj</button>
+                  <button *ngIf="!tsk.tsk_usrName && tsk.tsk_status != 0" ion-button block (click)="takeATask(tsk)" icon-start>
+                      <ion-icon name="ios-filing"></ion-icon>Przyjmij zadanie</button>
+                  <button *ngIf="tsk.tsk_usrId == globals.user.$key && checkDate(tsk) && tsk.tsk_status == 1" ion-button block (click)="setCompletedStatus(tsk)" icon-start>
+                      <ion-icon name="md-flag"></ion-icon>Wykonano zadanie</button>
+                  <button *ngIf="globals.user.usr_rights == 1 && tsk.tsk_status == 0" ion-button block (click)="acceptTask(tsk)"icon-start>
+                      <ion-icon name="md-checkbox-outline"></ion-icon>Akceptuj zadanie</button>
+                  <button *ngIf="globals.user.usr_rights == 1 && tsk.tsk_status == 0" ion-button block (click)="refuseTask(tsk)" icon-start>
+                      <ion-icon name="md-close"></ion-icon>Odrzuć zadanie</button>
                 </ion-col>
               </ion-row>
             </ion-grid>

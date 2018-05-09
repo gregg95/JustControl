@@ -22,11 +22,11 @@
 
   <ion-fab bottom left>
       <button ion-fab style="display: none;"></button>
-      <button ion-button block *ngIf="globals.manageTasksMode"  (click)="addTask()">Dodaj zadanie</button>
-      <button ion-button block *ngIf="globals.manageTasksMode" (click)="toggleManageTasks()">Zakończ</button>
+      <button ion-button block *ngIf="globals.manageTasksMode"  (click)="addTask()" icon-start><ion-icon name="md-add-circle"></ion-icon>Dodaj zadanie</button>
+      <button ion-button block *ngIf="globals.manageTasksMode" (click)="toggleManageTasks()" icon-start><ion-icon name="md-close-circle"></ion-icon>Zakończ</button>
     
-      <button ion-button block *ngIf="globals.user.usr_rights == 1 && !globals.manageTasksMode" (click)="toggleManageTasks()">Zarządzaj zadaniami</button>
-      <button ion-button block *ngIf="globals.user.usr_rights == 2"  (click)="suggestTast()">Zaproponuj zadanie</button>
+      <button ion-button block *ngIf="globals.user.usr_rights == 1 && !globals.manageTasksMode" (click)="toggleManageTasks()" icon-start><ion-icon name="md-clipboard"></ion-icon>Zarządzaj zadaniami</button>
+      <button ion-button block *ngIf="globals.user.usr_rights == 2"  (click)="suggestTast()" icon-start><ion-icon name="md-bulb"></ion-icon>Zaproponuj zadanie</button>
   </ion-fab>      
       
 </ion-content>

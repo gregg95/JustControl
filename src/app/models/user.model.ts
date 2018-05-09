@@ -5,4 +5,5 @@ export class User {
     usr_rights : number;
     usr_fltId : string;
     usr_points : number;
+    usr_lp : number;
 }

@@ -27,11 +27,13 @@ export class RankingPage {
 
     this.db.list('users/', ref => ref.orderByChild('usr_points')).snapshotChanges().subscribe(u => {      
       this.users = [];
-
+     
       u.forEach(user => {
         var us = user.payload.val() as User;
         us.$key = user.key;
+        
         this.users.push(us);
+        
       });
 
       this.users.sort((userA: User, userB: User)  => {
@@ -39,7 +41,11 @@ export class RankingPage {
         if (userA.usr_points > userB.usr_points) return 0;
         return 0;
       });
-
+      var i = 1;
+      this.users.forEach(u => {
+        u.usr_lp = i;
+        i++;
+      });
       this.globals.dismissLoading();
     });
 

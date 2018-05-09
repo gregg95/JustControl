@@ -15,7 +15,9 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-
+.menu-body ion-icon {
+    padding-top: 2px;
+}
 ion-grid {
     padding: 0px !important;
 }
