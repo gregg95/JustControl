@@ -14,6 +14,7 @@ import { Globals } from '../../app/Globals';
 import { Flat } from '../../app/models/flat.model';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Facebook } from '@ionic-native/facebook';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -104,8 +105,12 @@ export class LoginPage {
     this.globals.user = this.user;
 
     //sprawdzenie czy uzytkonik jest poprawnie skonfigurowany
+    console.log(this.user.usr_rights);
     if (this.user.usr_rights == 0) {
       this.navCtrl.push(UserConfigPage);
+    } else if (this.user.usr_rights == 3){
+      await this.getFlat();
+      this.navCtrl.push(HomePage);
     } else {
       await this.getFlat();
       this.navCtrl.push(MainPage);
@@ -117,7 +122,6 @@ export class LoginPage {
 
   async getFlat(){
     await new Promise(resolve => { 
-
       this.db.object('flats/' + this.globals.user.usr_fltId).snapshotChanges().subscribe(f => {
         this.globals.flat = f.payload.val() as Flat;
         this.globals.flat.$key = f.key;

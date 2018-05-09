@@ -98,10 +98,9 @@ lol : string = "";
           }
         }
        
-        this.sortTaskList();
-
       });
 
+      this.sortTaskList();
     });
   }
 

@@ -16,10 +16,26 @@
 <ion-content padding>
   <p style="text-align: center;">Wpisz kod, aby dołączyć do mieszkania</p> 
 
-  <ion-item>
+  <!--<ion-item>
     <ion-label color="primary" stacked>Kod</ion-label>
     <ion-input type="text" placeholder="Kod" [(ngModel)]="flt_code"></ion-input>
   </ion-item>
+-->
+<ion-item>
+  <select-searchable
+                [(ngModel)]="flt"
+                title="Mieszkanie"
+                itemValueField="flt_code"
+                itemTextField="flt_code"
+                [items]="flats"
+                [canSearch]="true"
+                searchPlaceholder="Podaj kod mieszkania"
+                (onSearch)="searchFlats($event)"
+                (onChange)="flatChange($event)">
+            </select-searchable>
+
+</ion-item>
+
 
   <button ion-button block (click)="joinFlat()">Dołącz do mieszkania</button>
 

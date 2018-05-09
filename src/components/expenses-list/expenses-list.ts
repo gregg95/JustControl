@@ -6,6 +6,7 @@ import { Expense } from '../../app/models/expanse.model';
 import { storage } from 'firebase';
 import { NavController } from 'ionic-angular';
 import { ExpenseDetailsPage } from '../../pages/expense-details/expense-details';
+import { ExpansionCase } from '@angular/compiler';
 /**
  * Generated class for the ExpensesListComponent component.
  *
@@ -28,11 +29,22 @@ export class ExpensesListComponent {
         var expense = new Expense;
         expense = exp.payload.val() as Expense;
         expense.$key = exp.key;
-        this.expenses.push(expense);
+        this.expenses.push(expense);        
       });
+
+      this.sortExpanses();
     });
   }
   
+  sortExpanses() {
+    this.expenses.sort((a: Expense, b: Expense) => {
+      var aMin = new Date(Date.parse(a.exp_createdAt));
+      var bMin = new Date(Date.parse(b.exp_createdAt));
+
+      return (aMin < bMin) ? 1 : 0;
+    });
+  }
+
   showExpenseDetails(exp){
     this.navCtrl.push(ExpenseDetailsPage, exp)
   }

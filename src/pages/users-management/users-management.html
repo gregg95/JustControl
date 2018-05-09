@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>users-management</ion-title>
+    <ion-title>Zarządzanie użytkownikami</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -35,5 +35,13 @@
           Usuń z mieszkania
         </button>
       </div>
+  </ion-list>
+
+  <ion-list *ngFor="let usr of waitingUsers">
+    <div>
+        {{ usr.usr_name }} 
+        <button ion-button block (click)="acceptUser(usr)">Dodaj</button>
+        <button ion-button block (click)="refuseUser(usr)">Odrzuć</button>
+    </div>
   </ion-list>
 </ion-content>

@@ -27,8 +27,7 @@ export class CommonExpansesConfigPage {
     public formBuilder : FormBuilder, public globals: Globals,
     public db : AngularFireDatabase, private camera : Camera) {
       this.expanseForm = this.formBuilder.group({
-        exp_title: ['', Validators.required],
-        exp_description: [''],
+        exp_description: ['', Validators.required],
         exp_amount: ['', Validators.required],
         exp_attachment: ['']
       });
@@ -46,12 +45,6 @@ export class CommonExpansesConfigPage {
       return;
     }
 
-    console.log(
-
-      this.expanseForm.controls.exp_title.value+ this.expanseForm.controls.exp_description.value+this.expanseForm.controls.exp_amount.value+this.expanseForm.controls.exp_attachment.value+new Date().toString()+this.globals.user.usr_name+this.globals.flat.$key
-    );
-
-    expense.exp_title = this.expanseForm.controls.exp_title.value;
     expense.exp_description = this.expanseForm.controls.exp_description.value;
     expense.exp_amount = this.expanseForm.controls.exp_amount.value;
     expense.exp_attachment = this.expanseForm.controls.exp_attachment.value;
@@ -59,15 +52,20 @@ export class CommonExpansesConfigPage {
     expense.exp_createdBy = this.globals.user.usr_name;
     expense.exp_fltId = this.globals.flat.$key;
 
-
+console.log("am i here?");
     this.db.list('expenses').push(expense).then(res => {
+      console.log(res);
       this.globals.makeToast("Dodano wydatek");
-      const image = this.imgSrc;
 
-      const pictures = storage().ref(this.expanseForm.controls.exp_attachment.value);
+      if (this.imgSrc.length > 0){ 
+        const image = this.imgSrc;
 
-      pictures.putString(image, 'data_url');
-      this.navCtrl.removeView(this.navCtrl.getActive());
+        const pictures = storage().ref(this.expanseForm.controls.exp_attachment.value);
+  
+        pictures.putString(image, 'data_url');
+        this.navCtrl.removeView(this.navCtrl.getActive());
+      }
+     
     }, err => {
       this.globals.makeToast(err);
     });

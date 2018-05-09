@@ -16,11 +16,7 @@
 <ion-content padding>
   <form [formGroup]="expanseForm" (ngSubmit)="addCommonExpanse()">
     <ion-item>
-      <ion-label floating>Tytuł</ion-label>
-      <ion-input [formControl]="expanseForm.controls['exp_title']" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Opis (opcjonalnie)</ion-label>
+      <ion-label floating>Opis</ion-label>
       <ion-input [formControl]="expanseForm.controls['exp_description']" type="text"></ion-input>
     </ion-item>
     <ion-item>

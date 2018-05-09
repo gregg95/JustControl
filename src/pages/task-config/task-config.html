@@ -16,8 +16,9 @@
   <form [formGroup]="taskForm" (ngSubmit)="addTask()">
     <ion-item>
       <ion-label>Wybierz kategorie</ion-label>
-      <ion-select [formControl]="taskForm.controls['tsk_category']">
+      <ion-select interface="popover" [formControl]="taskForm.controls['tsk_category']">
         <ion-option *ngFor="let category of categories" [value]="category.cat_name">{{category.cat_name}}</ion-option>
+        <ion-option (ionSelect)="addNewCategory()">Dodaj nową...</ion-option>
       </ion-select>
     </ion-item>
     

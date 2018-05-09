@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, DateTime } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, DateTime, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Task } from '../../app/models/task.model';
@@ -28,7 +28,7 @@ export class TaskConfigPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public formBuilder : FormBuilder, public db : AngularFireDatabase,
-  public globals : Globals) {
+  public globals : Globals, private alertCtrl: AlertController) {
 
     this.taskForm = this.formBuilder.group({
       tsk_usrId: [''],
@@ -57,6 +57,7 @@ export class TaskConfigPage {
     }
 
     this.db.list('flats/' + this.globals.flat.$key + "/flt_categories").snapshotChanges().subscribe(c => {
+      this.categories = [];
       c.forEach(cat => {
         this.categories.push({ cat_name: cat.payload.child('cat_name').val() });
       });
@@ -69,7 +70,9 @@ export class TaskConfigPage {
       u.forEach(usr => {
         var us = usr.payload.val() as User;
         us.$key = usr.key;
-        this.users.push(us);
+        if (us.usr_rights == 2 || us.usr_rights == 1){
+          this.users.push(us);
+        }
       })
     });
     
@@ -77,6 +80,38 @@ export class TaskConfigPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TaskConfigPage');
+  }
+
+  addNewCategory(){
+    console.log("??");
+    let alert = this.alertCtrl.create({
+      title: 'Dodaj kategorie',
+      inputs: [
+        {
+          name: 'cat_name',
+          placeholder: 'Podaj nazwę'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            this.taskForm.controls['tsk_category'].setValue(null);
+          }
+        },
+        {
+          text: 'Dodaj',
+          handler: data => {
+            this.db.list('flats/' + this.globals.flat.$key + '/flt_categories')
+              .push({ cat_name: data.cat_name }).then(() => {
+                this.taskForm.controls['tsk_category'].setValue(data.cat_name);
+              });
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   addTask(){

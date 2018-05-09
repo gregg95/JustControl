@@ -35,6 +35,25 @@ export class FlatConfigPage {
 
   async commitFlat(){
 
+    console.log(this.flt_code);
+    var il = 0;
+    
+
+    await new Promise(resolve => { 
+      let check = this.db.list('flats/', ref => ref.orderByChild('flt_code').equalTo(this.flt_code))
+      .snapshotChanges().subscribe(f => {
+        il = f.length;
+        check.unsubscribe();
+        resolve();
+      });
+
+    });
+    
+    if (il > 0 ) {
+      this.globals.makeToast("Kod mieszkanie nie jest unikatowy.\nProszę podać inny...");
+      return;
+    }
+
     this.globals.flat = new Flat;
     this.globals.flat.flt_address = this.flt_address;
     this.globals.flat.flt_city = this.flt_city;
