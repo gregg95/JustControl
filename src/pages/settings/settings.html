@@ -13,33 +13,31 @@
     <ion-list>
       
     
-      <ion-item>
-        <ion-label color="primary" stacked>Nowe hasło</ion-label>
-        <ion-input type="password" placeholder="Type here... " [(ngModel)]="newPassword" [disabled]="!passwordChangeEnabled"></ion-input>
+      <ion-item *ngIf="passwordChangeEnabled">
+        <ion-label color="primary" floating>Nowe hasło</ion-label>
+        <ion-input type="password" [(ngModel)]="newPassword" ></ion-input>
       </ion-item>
     
-      <ion-item>
-        <ion-label color="primary" stacked>Powtórz hasło</ion-label>
-        <ion-input type="password" placeholder="Type here... " [(ngModel)]="rePassword" [disabled]="!passwordChangeEnabled"></ion-input>
+      <ion-item *ngIf="passwordChangeEnabled">
+        <ion-label color="primary" floating>Powtórz hasło</ion-label>
+        <ion-input type="password" [(ngModel)]="rePassword" ></ion-input>
       </ion-item>
       
-      <button ion-button block
-              (click)="changePassword()" [disabled]="!passwordChangeEnabled">Zmień hasło</button>
+      <button ion-button block *ngIf="passwordChangeEnabled"
+              (click)="changePassword()" >Zmień hasło</button>
 
       
-              
-
-      <button ion-item block (click)="goToUsersManagement()">Zarządzaj użytkownikami</button>
-      <ion-item *ngIf="globals.user.usr_rights == 1">
+      <button ion-button block (click)="goToUsersManagement()">Zarządzaj użytkownikami</button>
+      <ion-item>
         <ion-label color="primary" floating>Kod mieszkania</ion-label>
-        <ion-input type="text" placeholder="Type here... " [(ngModel)]="flt_code"></ion-input>
+        <ion-input type="text" [(ngModel)]="flt_code"></ion-input>
       </ion-item>
       <button ion-button block *ngIf="globals.user.usr_rights == 1" (click)="changeFlatCode()">Zmień kod</button>
 
-      <button ion-button block
+      <button ion-button block color="danger"
         (click)="leaveFlat()">Opuść mieszkanie</button>
 
-      <button *ngIf="globals.user.usr_rights == 1" ion-button block (click)="deleteFlat()">
+      <button color="danger" *ngIf="globals.user.usr_rights == 1" ion-button block (click)="deleteFlat()">
         Usuń mieszkanie
       </button>
     </ion-list>

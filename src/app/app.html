@@ -18,26 +18,34 @@
             <ion-col>
                 <ion-list>
 
-                    <button  class="menu-body" ion-item menuClose (click)="goToMain()">
+                    <button  class="menu-body" ion-item menuClose (click)="goToMain()"
+                    icon-start>
+                    <ion-icon name="md-home"></ion-icon>
                         Główna
                     </button>
-                    <button  class="menu-body" ion-item menuClose (click)="goToTasksHistory()">
+                    <button  class="menu-body" ion-item menuClose (click)="goToTasksHistory()" icon-start>
+                        <ion-icon name="md-list"></ion-icon>
                         Wszystkie zadania
                     </button>
-                    <button  class="menu-body" ion-item menuClose (click)="goToCommonExpanses()">
+                    <button  class="menu-body" ion-item menuClose (click)="goToCommonExpanses()" icon-start>
+                        <ion-icon name="ios-basket-outline"></ion-icon>
                         Wspólne wydatki
                     </button>
-                    <button  class="menu-body" ion-item menuClose (click)="goToRanking()">
+                    <button  class="menu-body" ion-item menuClose (click)="goToRanking()" icon-start>
+                        <ion-icon name="md-trophy"></ion-icon>
                         Ranking
                     </button>
-                    <button  class="menu-body" ion-item menuClose (click)="goToSettings()">
+                    <button  class="menu-body" ion-item menuClose (click)="goToSettings()" icon-start>
+                        <ion-icon name="md-settings"></ion-icon>
                         Ustawienia
                     </button>
-                    <button  class="menu-body" ion-item menuClose (click)="goToAbout()">
+                    <button  class="menu-body" ion-item menuClose (click)="goToAbout()" icon-start>
+                        <ion-icon name="ios-people"></ion-icon>
                         O programie
                     </button>
             
-                    <button  class="menu-body" ion-item menuClose (click)="logout()">
+                    <button  class="menu-body" ion-item menuClose (click)="logout()" icon-start>
+                        <ion-icon name="md-log-out"></ion-icon>
                         Logout
                     </button>
             

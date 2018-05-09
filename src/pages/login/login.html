@@ -13,35 +13,40 @@
 
   <ion-list>
     <ion-item>
-      <ion-label color="primary" stacked>Email</ion-label>
-      <ion-input type="email" placeholder="Type here... " [(ngModel)]="email"></ion-input>
+      <ion-label color="primary" floating>E-mail</ion-label>
+      <ion-input type="email"  [(ngModel)]="email"></ion-input>
     </ion-item>
   
     <ion-item>
-      <ion-label color="primary" stacked>Password</ion-label>
-      <ion-input type="password" placeholder="Type here... " [(ngModel)]="password"></ion-input>
+      <ion-label color="primary" floating>Hasło</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
     
     <button ion-button block class="btn-signIn"
-            (click)="loginWithEmailAndPassword()">Sign in</button>
+            (click)="loginWithEmailAndPassword()"  icon-start>
+            <ion-icon name="md-at"></ion-icon>
+            Zaloguj</button>
   </ion-list>
 
   <p class="p-welcome">lub</p>
 
   <button ion-button block
-          (click)="googleLogin()">
-    Login with Google+    
+          (click)="googleLogin()" icon-start>
+          <ion-icon name="logo-googleplus"></ion-icon>
+     Zaloguj z Google+    
   </button>
 
   <button ion-button block
-          (click)="facebookLogin()">
-    Login with Facebook      
+          (click)="facebookLogin()" icon-start>
+          <ion-icon name="logo-facebook"></ion-icon>
+          Zaloguj z Facebook 
   </button>
 
-  <p class="p-welcome">Rejestacja nowego konta</p>
+  <p class="p-welcome">Rejestacja nowego konta e-mail</p>
 
   <button ion-button block
-    (click)="goToRegisterPage()">
-    Register new account
+    (click)="goToRegisterPage()" icon-start>
+    <ion-icon name="md-at"></ion-icon>
+    Rejestracja
   </button>
 </ion-content>
