@@ -3,10 +3,9 @@ import { Globals } from '../../app/Globals';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Expense } from '../../app/models/expanse.model';
 
-import { storage } from 'firebase';
 import { NavController } from 'ionic-angular';
 import { ExpenseDetailsPage } from '../../pages/expense-details/expense-details';
-import { ExpansionCase } from '@angular/compiler';
+
 /**
  * Generated class for the ExpensesListComponent component.
  *

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CommonExpansesConfigPage } from '../common-expanses-config/common-expanses-config';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 import { Globals } from '../../app/Globals';
 
 /**

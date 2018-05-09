@@ -4,7 +4,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Globals } from '../../app/Globals';
 import { UserConfigPage } from '../user-config/user-config';
-import { TasksHistoryPageModule } from '../tasks-history/tasks-history.module';
 import { UsersManagementPage } from '../users-management/users-management';
 import { User } from '../../app/models/user.model';
 

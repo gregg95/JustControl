@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, Platform, InfiniteScroll } from 'ionic-angular';
 import { Globals } from '../../app/Globals';
-import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Flat } from '../../app/models/flat.model';
 import { FlatConfigPage } from '../flat-config/flat-config';
-import { MainPage } from '../main/main';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { SelectSearchable } from 'ionic-select-searchable';

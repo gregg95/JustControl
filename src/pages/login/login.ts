@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { ToastController, AlertController} from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Platform } from 'ionic-angular';
 import firebase from 'firebase';
@@ -12,7 +12,6 @@ import { User } from '../../app/models/user.model';
 import { UserConfigPage } from '../user-config/user-config';
 import { Globals } from '../../app/Globals';
 import { Flat } from '../../app/models/flat.model';
-import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Facebook } from '@ionic-native/facebook';
 import { HomePage } from '../home/home';
 
@@ -30,7 +29,7 @@ export class LoginPage {
   userList : AngularFireList<any>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
-    private gplus: GooglePlus, private toastCtrl: ToastController,
+    private gplus: GooglePlus, 
     private platform: Platform, public menuCtrl: MenuController,
     public db : AngularFireDatabase, public globals: Globals, public fb: Facebook) {
      

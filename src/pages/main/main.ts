@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Globals } from '../../app/Globals';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Flat } from '../../app/models/flat.model';
 import { TaskConfigPage } from '../task-config/task-config';
-import { Task } from '../../app/models/task.model';
 
 /**
  * Generated class for the MainPage page.

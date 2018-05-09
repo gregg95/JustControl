@@ -1,12 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Task } from '../../app/models/task.model';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Globals } from '../../app/Globals';
 import { NavController, Platform } from 'ionic-angular';
 import { TaskConfigPage } from '../../pages/task-config/task-config';
 import { LocalNotifications } from '@ionic-native/local-notifications';
-import { TasksFilterPipe } from '../../pipes/tasks-filter/tasks-filter';
-import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
 import { User } from '../../app/models/user.model';
 import { AlertController } from 'ionic-angular';
 
@@ -208,8 +206,6 @@ lol : string = "";
   }
 
   async deleteTask(task){
-    var tsk = task as Task;
-
     
     this.db.object('tasks/' + task.$key).remove().then(() => {
       this.globals.makeToast("Item removed");
@@ -219,12 +215,10 @@ lol : string = "";
   }
 
   async showNotifs(){
-    var notifs : Array<number> = [];
 
     await new Promise(resolve => { 
 
       this.localNotifications.getIds().then(i => {
-        //notifs = i as Array<number>;
         this.globals.makeToast(i);
         resolve();
       });
