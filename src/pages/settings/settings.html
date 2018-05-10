@@ -27,8 +27,8 @@
               (click)="changePassword()" >Zmień hasło</button>
 
       
-      <button ion-button block (click)="goToUsersManagement()">Zarządzaj użytkownikami</button>
-      <ion-item>
+      <button *ngIf="globals.user.usr_rights == 1" ion-button block (click)="goToUsersManagement()">Zarządzaj użytkownikami</button>
+      <ion-item *ngIf="globals.user.usr_rights == 1">
         <ion-label color="primary" floating>Kod mieszkania</ion-label>
         <ion-input type="text" [(ngModel)]="flt_code"></ion-input>
       </ion-item>

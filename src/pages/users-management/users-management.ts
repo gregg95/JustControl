@@ -36,7 +36,7 @@ export class UsersManagementPage {
         us.$key = usr.key;
 
         console.log(us + " " + (us.$key != this.globals.user.$key && us.usr_rights == 2) + " " + (us.$key != this.globals.user.$key && us.usr_rights == 3));
-        if (us.$key != this.globals.user.$key){
+        if (us.$key != this.globals.user.$key && us.usr_rights != 3){
           this.users.push(us);
         } else if (us.$key != this.globals.user.$key && us.usr_rights == 3){
           this.waitingUsers.push(us);
