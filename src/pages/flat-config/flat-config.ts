@@ -19,9 +19,9 @@ import { MainPage } from '../main/main';
 })
 export class FlatConfigPage {
 
-  flt_city : string;
-  flt_address : string;
-  flt_code : string;
+  flt_city : string = "";
+  flt_address : string = "";
+  flt_code : string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public globals: Globals, public db: AngularFireDatabase) {
@@ -35,7 +35,23 @@ export class FlatConfigPage {
 
   async commitFlat(){
 
-    console.log(this.flt_code);
+    if (this.flt_city.length == 0){
+      this.globals.makeToast("Miasto powinno być uzupełnione.");
+      return;
+    }
+
+    if (this.flt_address.length == 0){
+      this.globals.makeToast("Adres powinien być uzzupełniony.");
+      return;
+    }
+   
+    if (this.flt_code.length == 0) {
+      this.globals.makeToast("Nie podano kodu mieszkania.");
+      return;
+    };
+
+    
+    
     var il = 0;
     
 
