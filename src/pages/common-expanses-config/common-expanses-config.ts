@@ -37,11 +37,36 @@ export class CommonExpansesConfigPage {
     console.log('ionViewDidLoad CommonExpansesConfigPage');
   }
 
+   isAmountInteger(){
+    if (this.expanseForm){
+      var amount = this.expanseForm.controls.exp_amount.value;
+
+      try {
+        console.log(amount);
+        console.log(parseFloat(amount));
+        console.log(parseFloat(amount) === NaN);
+
+        if(isNaN(parseFloat(amount))) return false;
+      } catch (e)  {
+        console.log(e);
+        return false;
+      }
+ 
+    }
+    
+    return true;
+  }
+
   addCommonExpanse(){
     var expense = new Expense;
 
     if (!this.expanseForm.valid){
       this.globals.makeToast("Formularz jest niepoprawnie wypełniony");
+      return;
+    }
+
+    if (!this.isAmountInteger()){
+      this.globals.makeToast("Kwota przyjmuje tylko wartości numeryczne.");
       return;
     }
 

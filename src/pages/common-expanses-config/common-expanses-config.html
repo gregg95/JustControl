@@ -21,7 +21,7 @@
     </ion-item>
     <ion-item>
       <ion-label floating>Kwota [zł]</ion-label>
-      <ion-input [formControl]="expanseForm.controls['exp_amount']" type="text"></ion-input>
+      <ion-input  [formControl]="expanseForm.controls['exp_amount']" type="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Załączniki</ion-label>
@@ -38,8 +38,8 @@
 
 
 <button block ion-button (click)="takePhoto()">Zrób zdjęcie</button>
-<ion-item>
-  <img [src]="imgSrc"  alt="Weather forecast" />
+<ion-item *ngIf="imgSrc.length > 0">
+  <img [src]="imgSrc" />
 </ion-item>
 
 </ion-content>
