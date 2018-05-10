@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <p style="text-align: center;">Wpisz kod, aby dołączyć do mieszkania</p> 
+  <p style="text-align: center;">Znajdź kod mieszkania do którego chcesz dołączyć</p> 
 
   <!--<ion-item>
     <ion-label color="primary" stacked>Kod</ion-label>
@@ -24,7 +24,7 @@
 <ion-item>
   <select-searchable
                 [(ngModel)]="flt"
-                title="Mieszkanie"
+                title="Kod mieszkania"
                 itemValueField="flt_code"
                 itemTextField="flt_code"
                 [items]="flats"
@@ -37,13 +37,12 @@
 </ion-item>
 
 
-  <button ion-button block (click)="joinFlat()">Dołącz do mieszkania</button>
+  <button ion-button block (click)="joinFlat()" icon-start><ion-icon name="md-log-in"></ion-icon>Dołącz do mieszkania</button>
 
-  <p>lub</p>
-
-
-  <button ion-button block (click)="createNewFlat()">Utwórz mieszkanie</button>
+  <p style="text-align: center;">lub</p>
 
 
-  <button ion-button block (click)="cancel()">Anuluj</button>
+  <button ion-button block (click)="createNewFlat()" icon-start><ion-icon name="md-home"></ion-icon>Utwórz mieszkanie</button>
+
+  <button ion-button block (click)="cancel()" color="cancel">Anuluj</button>
 </ion-content>

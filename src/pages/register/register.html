@@ -15,25 +15,25 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label color="primary" stacked>Nazwa uzytkownika</ion-label>
-      <ion-input type="text" placeholder="Type here... " [(ngModel)]="usr_name"></ion-input>
+      <ion-label color="primary" floating>Nazwa uzytkownika</ion-label>
+      <ion-input type="text"  [(ngModel)]="usr_name"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label color="primary" stacked>Email</ion-label>
-      <ion-input type="email" placeholder="Type here... " [(ngModel)]="email"></ion-input>
+      <ion-label color="primary" floating>Email</ion-label>
+      <ion-input type="email" [(ngModel)]="email"></ion-input>
     </ion-item>
   
     <ion-item>
-      <ion-label color="primary" stacked>Password</ion-label>
-      <ion-input type="password" placeholder="Type here... " [(ngModel)]="password"></ion-input>
+      <ion-label color="primary" floating>Hasło</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
     </ion-item>  
   
     <ion-item>
-      <ion-label color="primary" stacked>Repeat password</ion-label>
-      <ion-input type="password" placeholder="Type here... " [(ngModel)]="repassword"></ion-input>
+      <ion-label color="primary" floating>Powtórz hasło</ion-label>
+      <ion-input type="password" [(ngModel)]="repassword"></ion-input>
     </ion-item>
   
     <button ion-button block
-            (click)="registerWithEmailAndPassword()">Sign in</button>
+            (click)="registerWithEmailAndPassword()" icon-start><ion-icon name="md-at"></ion-icon>Zarejestruj</button>
   </ion-list>
 </ion-content>
