@@ -29,7 +29,7 @@ ion-col {
 .menu-header {
     text-align: center;
     background-color: rgb(115, 0, 182);
-    height: 20vh;
+    height: 25vh;
     color: white;
 }
 
@@ -40,4 +40,9 @@ button {
 .menu-body {
     color: rgb(239, 246, 255);
     background-color: rgb(55, 140, 238);
+}
+
+.task-item {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }

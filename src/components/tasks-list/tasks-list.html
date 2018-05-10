@@ -4,33 +4,33 @@
 <button (click)="showNotifs()">Notifs</button>
 
   <div *ngIf="tasks.length > 0">
-      <ion-list  *ngFor="let tsk of tasks">
-          <ion-item [ngStyle]="{'background-color': tsk.tsk_status == 0 ? '#93bcff' : (tsk.tsk_status == 1 ? '#ffe493' : (tsk.tsk_status == 2 ? '#8effb4' : '#ff8e8e')) }">
+      <ion-list *ngFor="let tsk of tasks">
+          <ion-item  [ngStyle]="{'background-color': tsk.tsk_status == 0 ? '#93bcff' : (tsk.tsk_status == 1 ? '#ffe493' : (tsk.tsk_status == 2 ? '#8effb4' : '#ff8e8e')) }">
             <ion-grid>
               <ion-row *ngIf="globals.manageTasksMode">
                 <ion-col col-9>
                   <ion-row>
                     <ion-col>
                       <ion-row>
-                        <ion-col>
-                          <h2 style="text-align: center;">{{tsk.tsk_category}}</h2>
+                        <ion-col style="text-align: center; font-weight: bold; size: 20vh;">
+                          <p >{{tsk.tsk_category}}</p>
                         </ion-col>
-                        <ion-col  style="text-align: center;">
-                          <p *ngIf="tsk.tsk_usrId.length > 0">Wykonawca: {{tsk.tsk_usrName}}</p>
+                        <ion-col style="text-align: center; font-weight: bold; size: 22vh;">
+                          <p *ngIf="tsk.tsk_usrId.length > 0">Wyk: {{tsk.tsk_usrName}}</p>
                           <p *ngIf="tsk.tsk_usrId.length == 0">BRAK WYKONAWCY</p>
                         </ion-col>
                       </ion-row>
                       <ion-row>
                         <ion-col text-wrap>
-                          <p>Rozpoczęcie: {{tsk.tsk_minCompletationDate}}</p>
-                          <p>Zakończenie: {{tsk.tsk_maxCompletationDate}}</p>
+                          <p style="font-weight: bold; color: #00e759">S: {{tsk.tsk_minCompletationDate}}</p>
+                          <p style="font-weight: bold; color: #ff0000">K: {{tsk.tsk_maxCompletationDate}}</p>
                           <p>Opis: {{tsk.tsk_description}}</p>
                           <p *ngIf="globals.user.usr_rights == 1 && tsk.tsk_commentary.length > 0">Komentarz: {{tsk.tsk_commentary}}</p>
                           <p>Utworzono: {{tsk.tsk_createdAt}}, przez: {{tsk.tsk_createdBy}}</p>  
                         </ion-col>
                       </ion-row>                                   
                     </ion-col>     
-                  </ion-row>
+                  </ion-row>           
                 </ion-col>
                 <ion-col col-3> 
                   <ion-row style="height: 48%;"> 
@@ -50,22 +50,26 @@
                 <ion-col>
                   <ion-row>
                     <ion-col>
-                      <h2 style="text-align: center;">{{tsk.tsk_category}}</h2>
-                    </ion-col>
-                    <ion-col  style="text-align: center; ">
-                      <p *ngIf="tsk.tsk_usrId.length > 0">Wykonawca: {{tsk.tsk_usrName}}</p>
-                      <p *ngIf="tsk.tsk_usrId.length == 0">BRAK WYKONAWCY</p>
-                    </ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col text-wrap>
-                      <p>Rozpoczęcie: {{tsk.tsk_minCompletationDate}}</p>
-                      <p>Zakończenie: {{tsk.tsk_maxCompletationDate}}</p>
-                      <p>Opis: {{tsk.tsk_description}}</p>
-                      <p *ngIf="globals.user.usr_rights == 1 && tsk.tsk_commentary.length > 0">Komentarz: {{tsk.tsk_commentary}}</p>
-                      <p>Utworzono: {{tsk.tsk_createdAt}}, przez: {{tsk.tsk_createdBy}}</p>  
-                    </ion-col>
-                  </ion-row>                                   
+                      <ion-row>
+                        <ion-col style="text-align: center; font-weight: bold; size: 20vh;">
+                          <p >{{tsk.tsk_category}}</p>
+                        </ion-col>
+                        <ion-col style="text-align: center; font-weight: bold; size: 22vh;">
+                          <p *ngIf="tsk.tsk_usrId.length > 0">Wyk: {{tsk.tsk_usrName}}</p>
+                          <p *ngIf="tsk.tsk_usrId.length == 0">BRAK WYKONAWCY</p>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col text-wrap>
+                          <p style="font-weight: bold; color: #00e759">S: {{tsk.tsk_minCompletationDate}}</p>
+                          <p style="font-weight: bold; color: #ff0000">K: {{tsk.tsk_maxCompletationDate}}</p>
+                          <p>Opis: {{tsk.tsk_description}}</p>
+                          <p *ngIf="globals.user.usr_rights == 1 && tsk.tsk_commentary.length > 0">Komentarz: {{tsk.tsk_commentary}}</p>
+                          <p>Utworzono: {{tsk.tsk_createdAt}}, przez: {{tsk.tsk_createdBy}}</p>  
+                        </ion-col>
+                      </ion-row>                                   
+                    </ion-col>     
+                  </ion-row>           
                 </ion-col>          
               </ion-row>
               <ion-row>
@@ -74,7 +78,7 @@
                       <ion-icon name="md-chatbubbles"></ion-icon>Skomentuj</button>
                   <button *ngIf="!tsk.tsk_usrName && tsk.tsk_status != 0" ion-button block (click)="takeATask(tsk)" icon-start>
                       <ion-icon name="ios-filing"></ion-icon>Przyjmij zadanie</button>
-                  <button *ngIf="tsk.tsk_usrId == globals.user.$key && checkDate(tsk) && tsk.tsk_status == 1" ion-button block (click)="setCompletedStatus(tsk)" icon-start>
+                  <button color="secondary" *ngIf="tsk.tsk_usrId == globals.user.$key && checkDate(tsk) && tsk.tsk_status == 1" ion-button block (click)="setCompletedStatus(tsk)" icon-start>
                       <ion-icon name="md-flag"></ion-icon>Wykonano zadanie</button>
                   <button *ngIf="globals.user.usr_rights == 1 && tsk.tsk_status == 0" ion-button block (click)="acceptTask(tsk)"icon-start>
                       <ion-icon name="md-checkbox-outline"></ion-icon>Akceptuj zadanie</button>

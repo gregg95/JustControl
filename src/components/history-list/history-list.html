@@ -32,25 +32,25 @@
       <ion-row>
         <ion-col>
           <ion-row>
-            <ion-col>
-              <h2 style="text-align: center;">{{tsk.tsk_category}}</h2>
+            <ion-col style="text-align: center; font-weight: bold; size: 20vh;">
+              <p >{{tsk.tsk_category}}</p>
             </ion-col>
-            <ion-col>
-              <p *ngIf="tsk.tsk_usrId.length > 0">Wykonawca: {{tsk.tsk_usrName}}</p>
+            <ion-col style="text-align: center; font-weight: bold; size: 22vh;">
+              <p *ngIf="tsk.tsk_usrId.length > 0">Wyk: {{tsk.tsk_usrName}}</p>
               <p *ngIf="tsk.tsk_usrId.length == 0">BRAK WYKONAWCY</p>
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col>
-              <p>Rozpoczęcie: {{tsk.tsk_minCompletationDate}}</p>
-              <p>Zakończenie: {{tsk.tsk_maxCompletationDate}}</p>
+            <ion-col text-wrap>
+              <p style="font-weight: bold;">S: {{tsk.tsk_minCompletationDate}}</p>
+              <p style="font-weight: bold;">K: {{tsk.tsk_maxCompletationDate}}</p>
               <p>Opis: {{tsk.tsk_description}}</p>
               <p *ngIf="globals.user.usr_rights == 1 && tsk.tsk_commentary.length > 0">Komentarz: {{tsk.tsk_commentary}}</p>
               <p>Utworzono: {{tsk.tsk_createdAt}}, przez: {{tsk.tsk_createdBy}}</p>  
             </ion-col>
           </ion-row>                                   
-        </ion-col>          
-      </ion-row>
+        </ion-col>     
+      </ion-row>           
     </ion-grid>
       
 

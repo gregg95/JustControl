@@ -12,6 +12,8 @@
                 <h1>{{ globals.user.usr_name }}</h1>
                 <p *ngIf="globals.user.usr_rights == 1">Admin</p>
                 <p *ngIf="globals.user.usr_rights == 2">Użytkownik</p>
+                <p style="font-weight: bold;" *ngIf="globals.flat">Miasto: {{ globals.flat.flt_city }}</p>
+                <p style="font-weight: bold;" *ngIf="globals.flat">Adres: {{ globals.flat.flt_address }}</p>
             </ion-col>
         </ion-row>
         <ion-row>
