@@ -178,10 +178,16 @@ export class LoginPage {
   loginWithEmailAndPassword() {
     this.globals.showLoading();
     try {
-      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password);
+      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(() => {}, err => {
+       
+        this.globals.makeToast("Nie poprawne dane logowania.");
+        this.globals.dismissLoading();
+      });
     }
     catch (e) {
-      this.globals.makeToast(e);
+      if(e.code == "auth/argument-error" ){
+        this.globals.makeToast("Podane dane nie są poprawnie sformatowane.");
+      }
       this.globals.dismissLoading();
     }
   }
