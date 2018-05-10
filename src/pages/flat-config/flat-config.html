@@ -18,24 +18,24 @@
 
 <ion-content padding>
 
-  <p>Podstawowe informacje:</p>
+  <p style="text-align: center;">Podstawowe informacje:</p>
   <ion-item>
-    <ion-label color="primary" stacked>Miasto</ion-label>
-    <ion-input type="text" placeholder="Miasto" [(ngModel)]="flt_city"></ion-input>
+    <ion-label color="primary" floating>Miasto</ion-label>
+    <ion-input type="text" [(ngModel)]="flt_city"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label color="primary" stacked>Miasto</ion-label>
-    <ion-input type="text" placeholder="Adres" [(ngModel)]="flt_address"></ion-input>
+    <ion-label color="primary" floating>Adres</ion-label>
+    <ion-input type="text" [(ngModel)]="flt_address"></ion-input>
   </ion-item>
 
-  <p>Kod mieszkania*</p>
-  <p>Kodmieszkania jest....</p>
+  <p style="text-align: center; font-weight: bold;">Kod mieszkania</p>
+  <p style="text-align: center;">Unikalny kod, dzięki któremu użytkownicy będą mogli z łatwością odnaleść Twoje mieszkanie.</p>
 
 
   <ion-item>
-    <ion-label color="primary" stacked>Kod</ion-label>
-    <ion-input type="text" placeholder="Kod" [(ngModel)]="flt_code"></ion-input>
+    <ion-label color="primary" floating>Kod</ion-label>
+    <ion-input type="text" [(ngModel)]="flt_code"></ion-input>
   </ion-item>
 
-  <button ion-button block (click)="commitFlat()">Zatwierdź mieszkanie</button>
+  <button ion-button block (click)="commitFlat()" icon-start><ion-icon name="md-done-all"></ion-icon>Zatwierdź mieszkanie</button>
 </ion-content>
