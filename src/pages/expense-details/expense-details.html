@@ -15,16 +15,13 @@
 
 <ion-content padding>
 
-        {{ expense.exp_title }} <br>
-        {{ expense.exp_fltId }} <br>
-        {{ expense.exp_description }} <br>
-        {{ expense.exp_amount }} <br>
-        {{ expense.exp_attachment }} <br>
-        {{ expense.exp_createdBy }} <br>
-        {{ expense.exp_createdAt }}
+  <p>Opis: {{ expense.exp_description }}</p>
+  <p style="font-weight: bold;">Kwota: {{ expense.exp_amount }}zł</p>
+  <p style="font-weight: bold;">Utworzył: {{ expense.exp_createdBy }}</p> 
+  <p>Data: {{ expense.exp_createdAt }}</p>
 
-        <ion-item>
-          <img [src]="imgSrc" *ngIf="expense.exp_attachment != ''" alt="Weather forecast" />
+        <ion-item *ngIf="imgSrc.length > 0">
+          <img [src]="imgSrc" *ngIf="expense.exp_attachment != ''" alt="Paragon" />
         </ion-item>
 
 </ion-content>

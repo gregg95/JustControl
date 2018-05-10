@@ -29,7 +29,7 @@
     </ion-item>
   <ion-row>
     <ion-col text-center>
-      <button type="submit" ion-button block>
+      <button type="submit" ion-button block  icon-start><ion-icon name="md-done-all"></ion-icon>
         Dodaj zadanie
       </button>
     </ion-col>
@@ -37,7 +37,7 @@
 </form>
 
 
-<button block ion-button (click)="takePhoto()">Zrób zdjęcie</button>
+<button *ngIf="platform.is('cordova')" block ion-button (click)="takePhoto()">Zrób zdjęcie</button>
 <ion-item *ngIf="imgSrc.length > 0">
   <img [src]="imgSrc" />
 </ion-item>

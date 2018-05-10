@@ -103,10 +103,16 @@ export class TaskConfigPage {
         {
           text: 'Dodaj',
           handler: data => {
-            this.db.list('flats/' + this.globals.flat.$key + '/flt_categories')
+            if(data.cat_name.length > 0){
+              this.db.list('flats/' + this.globals.flat.$key + '/flt_categories')
               .push({ cat_name: data.cat_name }).then(() => {
                 this.taskForm.controls['tsk_category'].setValue(data.cat_name);
               });
+            } else {
+              this.globals.makeToast("Nazwa kategorii nie może być pusta.")
+              this.taskForm.controls['tsk_category'].setValue(null);
+            }
+            
           }
         }
       ]

@@ -14,7 +14,7 @@ import { storage } from 'firebase';
 export class ExpenseDetailsPage {
 
   expense: Expense;
-  imgSrc: string;
+  imgSrc: string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Globals } from '../../app/Globals';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -24,7 +24,7 @@ export class CommonExpansesConfigPage {
   imgSrc : string =  "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public formBuilder : FormBuilder, public globals: Globals,
+    public formBuilder : FormBuilder, public globals: Globals,public platform: Platform,
     public db : AngularFireDatabase, private camera : Camera) {
       this.expanseForm = this.formBuilder.group({
         exp_description: ['', Validators.required],

@@ -29,7 +29,7 @@
 
     <ion-item>
       <ion-label>Wykonawca</ion-label>
-      <ion-select [formControl]="taskForm.controls['tsk_usrId']">
+      <ion-select interface="popover" [formControl]="taskForm.controls['tsk_usrId']">
         <ion-option [value]="">Brak</ion-option>
         <ion-option *ngFor="let user of users" [value]="user.$key">{{ user.usr_name }}</ion-option>
       </ion-select>
@@ -57,7 +57,7 @@
 -->
     <ion-row>
       <ion-col text-center>
-        <button type="submit" ion-button block>
+        <button type="submit" ion-button block  icon-start><ion-icon name="md-done-all"></ion-icon>
           Dodaj zadanie
         </button>
       </ion-col>
