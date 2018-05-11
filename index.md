@@ -15,6 +15,14 @@ Poza tym aplikacja umożliwia podział wydatków (na wspólne zakupy) oraz przec
 * Kontrola nad wspólnymi wydatkami współlokatorów.
 * Ogólnodostępny ranking
 
+## Użyte technologie
+Aplikacja została napisana w technologii Ionic. 
+Dokładniej Ionic to front-end’owy zestaw narzędzi, służący do budowania hybrydowych aplikacji mobilnych. Udostępnia on całą gamę gotowych komponentów i skryptów dzięki którym, opierając się na JavaScript (AngularJS), możemy zbudować aplikację bez znajomości natywnych języków.
+Ionic oparty jest na Angularze oraz na Cordovie, która jest platformą mobilną.
+
+<img src="https://hackster.imgix.net/uploads/attachments/183867/ionic.png?auto=compress%2Cformat&w=900&h=675&fit=min" />
+<img src="https://wp2mobile.com/img/cordova.png" />
+
 ## Członkowie zespołu
 1. Grzegorz Giera, 186390 - _kierownik_
 2. Grzegorz Tłustowski, 188500
