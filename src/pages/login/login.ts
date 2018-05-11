@@ -222,7 +222,6 @@ export class LoginPage {
         firebase.auth().signInWithCredential(fbCredential).then(resp => {
    
         }, error => {
-          this.globals.makeToast(error);
           if (error.code == "auth/account-exists-with-different-credential"){
             this.globals.makeToast("Istnieje konto już z adresem email podanym na FaceBook")
           }
