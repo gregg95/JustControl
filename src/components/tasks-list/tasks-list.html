@@ -72,7 +72,7 @@
               </ion-row>
               <ion-row>
                 <ion-col>
-                  <button color="#c10070" *ngIf="tsk.tsk_usrId == globals.user.$key && tsk.tsk_status != 2" ion-button block (click)="commentTask(tsk)" icon-start>
+                  <button color="comment" *ngIf="tsk.tsk_usrId == globals.user.$key && tsk.tsk_status != 2" ion-button block (click)="commentTask(tsk)" icon-start>
                       <ion-icon name="md-chatbubbles"></ion-icon>Skomentuj</button>
                   <button *ngIf="!tsk.tsk_usrName && tsk.tsk_status != 0" ion-button block (click)="takeATask(tsk)" icon-start>
                       <ion-icon name="ios-filing"></ion-icon>Przyjmij zadanie</button>
