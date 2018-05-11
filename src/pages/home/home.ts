@@ -12,6 +12,7 @@ import { UserConfigPage } from '../user-config/user-config';
 })
 export class HomePage {
 
+  flag = false;
   constructor(public navCtrl: NavController, public globals: Globals, public db: AngularFireDatabase) {
 
     this.globals.dismissLoading();
@@ -21,12 +22,14 @@ export class HomePage {
       user.$key = u.key;
 
       if(user.usr_rights == 2) {
+        this.globals.user = user;
         sub.unsubscribe();
         this.navCtrl.push(MainPage).then(() => {
           this.navCtrl.removeView(this.navCtrl.getPrevious());
         });
       }else if (user.usr_rights == 0) {
-        this.globals.makeToast("Zostałeś odrzucony");
+        if (!this.flag) this.globals.makeToast("Prośba o dołączenie została odrzucona.");
+        if (this.flag) this.globals.makeToast("Prośba o dołączenie została anulowana.");
         sub.unsubscribe();
         this.navCtrl.push(UserConfigPage).then(() => {
           this.navCtrl.remove(this.navCtrl.getPrevious().index);
@@ -37,12 +40,10 @@ export class HomePage {
 
   ionViewDidLoad(){
     this.globals.dismissLoading();
-
-
   }
 
-
   cancelRequest(){
+    this.flag = true;
     this.db.object("users/" + this.globals.user.$key)
       .update({ usr_rights: 0, usr_fltId: "null" });
   }

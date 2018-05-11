@@ -127,9 +127,10 @@ export class LoginPage {
 
   async getFlat(){
     await new Promise(resolve => { 
-      this.db.object('flats/' + this.globals.user.usr_fltId).snapshotChanges().subscribe(f => {
+      let c = this.db.object('flats/' + this.globals.user.usr_fltId).snapshotChanges().subscribe(f => {
         this.globals.flat = f.payload.val() as Flat;
         this.globals.flat.$key = f.key;
+        c.unsubscribe();
         resolve();
       });
     });
@@ -222,12 +223,18 @@ export class LoginPage {
    
         }, error => {
           this.globals.makeToast(error);
+          if (error.code == "auth/account-exists-with-different-credential"){
+            this.globals.makeToast("Istnieje konto już z adresem email podanym na FaceBook")
+          }
           this.globals.dismissLoading();
         })
       });
       
     } catch (error) {
       console.log(error);
+      if (error.code == "auth/account-exists-with-different-credential"){
+        this.globals.makeToast("Istnieje konto już z adresem email podanym na FaceBook")
+      }
       this.globals.dismissLoading();
     }    
   }
@@ -240,10 +247,16 @@ export class LoginPage {
 
         }, error => {
           console.log(error);
+          if (error.code == "auth/account-exists-with-different-credential"){
+            this.globals.makeToast("Istnieje konto już z adresem email podanym na FaceBook")
+          }
           this.globals.dismissLoading();
         });
     } catch (error) {
       console.log(error);
+      if (error.code == "auth/account-exists-with-different-credential"){
+        this.globals.makeToast("Istnieje konto już z adresem email podanym na FaceBook")
+      }
       this.globals.dismissLoading();
     }
   }

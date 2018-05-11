@@ -46,7 +46,7 @@ export class RegisterPage {
     }
 
     try {
-      const result = await this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password);
+      await this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password);
       this.globals.usr_name = this.usr_name;
     } 
     catch (e) {

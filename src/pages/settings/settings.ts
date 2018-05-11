@@ -89,7 +89,7 @@ export class SettingsPage {
     if(this.globals.user.usr_rights == 1){
       var b = false;
       await new Promise(resolve => {
-        this.db.list('users', ref => ref.orderByChild('usr_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(u => {
+        let c = this.db.list('users', ref => ref.orderByChild('usr_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(u => {
           
           if(u.length > 1){
             u.forEach(usr => {
@@ -101,7 +101,7 @@ export class SettingsPage {
             b = true;
           }
 
-          
+          c.unsubscribe();
           resolve();
         });
       });
@@ -119,11 +119,12 @@ export class SettingsPage {
         usr_fltId : "null"
       });
       
-      this.db.list('users', ref => ref.orderByChild('usr_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(u => {
+      let c = this.db.list('users', ref => ref.orderByChild('usr_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(u => {
         if (u.length == 0){
           this.globals.makeToast("Usuwanie mieszkania.")
           this.db.object('flats/' + this.globals.flat.$key).remove();
         }
+        c.unsubscribe();
       });
 
     this.navCtrl.push(UserConfigPage).then(() => {
@@ -140,7 +141,7 @@ export class SettingsPage {
   }
 
   deleteFlat() {
-    this.db.list('users/', ref => ref.orderByChild('usr_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(u => {
+    let c = this.db.list('users/', ref => ref.orderByChild('usr_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(u => {
       u.forEach(usr => {
         
         var user = usr.payload.val() as User;
@@ -162,7 +163,7 @@ export class SettingsPage {
           }
         });
       });
-
+      c.unsubscribe();
     });
   }
 }

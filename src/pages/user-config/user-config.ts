@@ -65,6 +65,17 @@ export class UserConfigPage {
     });
 }
 
+
+
+ionViewDidLeave(){
+  this.afAuth.auth.signOut();
+    if (this.platform.is('cordova')) {
+      this.gplus.logout();      
+    }
+}
+
+
+
 filterPorts(flats: Flat[], text: string) {
   return flats.filter(flat => {
       return flat.flt_code.toLowerCase().indexOf(text) !== -1;
@@ -95,9 +106,10 @@ flatChange(event: { component: SelectSearchable, value: any }) {
 
   });
     await new Promise(resolve => { 
-      this.db.object('flats/' + this.globals.user.usr_fltId).snapshotChanges().subscribe(f => {
+      let c = this.db.object('flats/' + this.globals.user.usr_fltId).snapshotChanges().subscribe(f => {
         this.globals.flat = f.payload.val() as Flat;
         this.globals.flat.$key = f.key;
+        c.unsubscribe();
         resolve();
       });
     });
