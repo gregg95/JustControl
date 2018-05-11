@@ -31,6 +31,7 @@ export class HistoryListComponent {
     
 
     this.db.list('tasks/', ref => ref.orderByChild('tsk_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(t => {
+      this.tasks = [];
       t.forEach(tsk => {
         var task = new Task;
         task = tsk.payload.val() as Task;

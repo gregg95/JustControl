@@ -126,6 +126,20 @@ export class TaskConfigPage {
       this.globals.makeToast("Formularz nie jest wypełniony poprawnie.");
       return;
     }
+
+    if (new Date(Date.parse(moment((this.taskForm.controls.tsk_minCompletationDate.value)).add(-2, 'hour').set('second', 0).toLocaleString())).getTime()
+     >= new Date(Date.parse(moment((this.taskForm.controls.tsk_maxCompletationDate.value)).add(-2, 'hour').set('second', 0).toLocaleString())).getTime()){
+       
+      this.globals.makeToast("Data i godzina ZAKONCZENIA musi być większa niż data i godzina ROZPOCZĘCIA zadania.");
+      return;
+     }
+
+     if (new Date(Date.parse(moment((this.taskForm.controls.tsk_minCompletationDate.value)).add(-2, 'hour').set('second', 0).toLocaleString())).getTime()
+     <= new Date().getTime()){
+       
+      this.globals.makeToast("Data i godzina ROZPOCZĘCIA zadania musi być większa od obecnej");
+      return;
+     }
     
     
     var task = new Task;
@@ -141,7 +155,14 @@ export class TaskConfigPage {
     task.tsk_category = this.taskForm.controls.tsk_category.value;
     task.tsk_notifyId = 0;
     task.tsk_createdBy = this.globals.user.usr_name;
-
+    
+    if(this.taskForm.controls.tsk_usrId.value != "Brak") {
+      try {
+        task.tsk_usrName = this.users.find(user => user.$key == this.taskForm.controls.tsk_usrId.value).usr_name;
+      } catch (error) {
+        this.globals.makeToast(error);
+      }
+    }
 
     if(!this.taskEdition){
       console.log((this.taskForm.controls.tsk_minCompletationDate.value));

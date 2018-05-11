@@ -173,8 +173,6 @@ lol : string = "";
         max = 1;
       }
       
-      this.globals.makeToast(max);
-
       
       this.localNotifications.schedule({
         id: max + 1,
@@ -212,7 +210,7 @@ lol : string = "";
   async deleteTask(task){
     
     this.db.object('tasks/' + task.$key).remove().then(() => {
-      this.globals.makeToast("Item removed");
+      this.globals.makeToast("Usunięto zadanie.");
     }, err => {
       this.globals.makeToast(err);
     });
