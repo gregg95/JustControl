@@ -18,7 +18,10 @@
 <ion-content>
   <expenses-list></expenses-list>
 
-  <button  ion-button block (click)="newExpanseForm()"  icon-start><ion-icon name="md-add"></ion-icon>
-    Nowy formularz
-  </button>
+
+  <ion-fab bottom left>
+    <button ion-fab style="display: none;"></button>
+    <button  ion-button block (click)="newExpanseForm()"  icon-start><ion-icon name="md-add"></ion-icon>
+      Nowy formularz
+    </button></ion-fab>      
 </ion-content>

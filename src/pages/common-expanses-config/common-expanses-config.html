@@ -37,7 +37,7 @@
 </form>
 
 
-<button *ngIf="platform.is('cordova')" block ion-button (click)="takePhoto()">Zrób zdjęcie</button>
+<button *ngIf="platform.is('cordova')" block ion-button (click)="takePhoto()"  icon-start><ion-icon name="md-camera"></ion-icon>Zrób zdjęcie</button>
 <ion-item *ngIf="imgSrc.length > 0">
   <img [src]="imgSrc" />
 </ion-item>

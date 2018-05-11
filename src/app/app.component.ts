@@ -44,23 +44,33 @@ export class MyApp {
   }
   
   goToTasksHistory(){
-    this.navCtrl.push(TasksHistoryPage);
+    this.navCtrl.push(TasksHistoryPage).then(() => {
+      this.globals.deletePreviousView();
+    });
   }
   
   goToCommonExpanses(){
-    this.navCtrl.push(CommonExpensesPage);
+    this.navCtrl.push(CommonExpensesPage).then(() => {
+      this.globals.deletePreviousView();
+    });
   }
   
   goToRanking(){
-    this.navCtrl.push(RankingPage);
+    this.navCtrl.push(RankingPage).then(() => {
+      this.globals.deletePreviousView();
+    });
   }
   
   goToSettings(){
-    this.navCtrl.push(SettingsPage);
+    this.navCtrl.push(SettingsPage).then(() => {
+      this.globals.deletePreviousView();
+    });
   }
   
   goToAbout(){
-    this.navCtrl.push(AboutPage);
+    this.navCtrl.push(AboutPage).then(() => {
+      this.globals.deletePreviousView();
+    });
   }
 
 

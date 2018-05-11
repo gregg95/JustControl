@@ -41,4 +41,9 @@ export class HomePage {
 
   }
 
+
+  cancelRequest(){
+    this.db.object("users/" + this.globals.user.$key)
+      .update({ usr_rights: 0, usr_fltId: "null" });
+  }
 }

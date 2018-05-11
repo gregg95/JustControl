@@ -21,7 +21,6 @@ export class HistoryListComponent {
   tasks = [];
   filteredTasks = [];
   users = [];
-
   filters = {};
 
 
@@ -67,8 +66,10 @@ export class HistoryListComponent {
   }
 
 
-  filterExact(property: string, rule: any){
-    console.log(property + " " + rule);
+  filterExact(property: string, rule: any){ 
+    if (rule == "Oczekujące na akceptacje"){
+      rule = 0;
+    }
     this.filters[property] = val => val == rule; 
     this.applyFilters();
   }

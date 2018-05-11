@@ -42,9 +42,6 @@ export class CommonExpansesConfigPage {
       var amount = this.expanseForm.controls.exp_amount.value;
 
       try {
-        console.log(amount);
-        console.log(parseFloat(amount));
-        console.log(parseFloat(amount) === NaN);
 
         if(isNaN(parseFloat(amount))) return false;
       } catch (e)  {
@@ -80,7 +77,6 @@ export class CommonExpansesConfigPage {
 console.log("am i here?");
     this.db.list('expenses').push(expense).then(res => {
       console.log(res);
-      this.globals.makeToast("Dodano wydatek");
 
       if (this.imgSrc.length > 0){ 
         const image = this.imgSrc;
@@ -88,9 +84,8 @@ console.log("am i here?");
         const pictures = storage().ref(this.expanseForm.controls.exp_attachment.value);
   
         pictures.putString(image, 'data_url');
-        this.navCtrl.removeView(this.navCtrl.getActive());
       }
-     
+      this.navCtrl.removeView(this.navCtrl.getActive());
     }, err => {
       this.globals.makeToast(err);
     });

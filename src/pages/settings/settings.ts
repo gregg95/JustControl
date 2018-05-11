@@ -27,6 +27,8 @@ export class SettingsPage {
     if(this.afAuth.auth.currentUser.providerData[0].providerId != "password"){
       this.passwordChangeEnabled = false;
     }
+
+    this.flt_code = this.globals.flat.flt_code;
   }
 
   ionViewDidLoad() {
@@ -58,6 +60,12 @@ export class SettingsPage {
 
 
   changeFlatCode() {
+
+    if(this.flt_code == this.globals.flat.flt_code){
+      this.globals.makeToast("Podany kod jest taki sam jak obecny.");
+      return;
+    }
+
     console.log(this.flt_code);
     if(this.flt_code != ""){
       this.db.list('flats')
@@ -66,7 +74,6 @@ export class SettingsPage {
           flt_code: this.flt_code
         }).then(() => {
           this.globals.makeToast("Zmieniono kod !");
-          this.flt_code = "";
         });
 
     } else {
@@ -77,7 +84,30 @@ export class SettingsPage {
 
 
 
-  leaveFlat() {
+  async leaveFlat() {
+
+    if(this.globals.user.usr_rights == 1){
+      var b = false;
+      await new Promise(resolve => {
+        this.db.list('users', ref => ref.orderByChild('usr_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(u => {
+          
+          if(u.length > 1){
+            u.forEach(usr => {
+              var user = usr.payload.val() as User;
+              if (user.usr_rights == 1) b = true;
+            });
+          }
+
+          
+          resolve();
+        });
+      });
+
+      if(!b){
+        this.globals.makeToast("Jesteś jedynym adminem na mieszkaniu, napierw przekaż innemu użytkownikowi admina!");
+        return;
+      }
+    }
 
     this.db.list('users')
     .update(this.globals.user.$key, 
@@ -86,6 +116,13 @@ export class SettingsPage {
         usr_fltId : "null"
       });
       
+      this.db.list('users', ref => ref.orderByChild('usr_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(u => {
+        if (u.length == 0){
+          this.globals.makeToast("Usuwanie mieszkania.")
+          this.db.object('flats' + this.globals.flat.$key).remove();
+        }
+      });
+
     this.navCtrl.push(UserConfigPage).then(() => {
       this.navCtrl.getViews().forEach(v => {
         if (v.index != 0 && v.name != this.navCtrl.getActive().name) {

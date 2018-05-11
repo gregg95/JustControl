@@ -1,7 +1,7 @@
 import { User } from "./models/user.model";
 import { Injectable } from '@angular/core';
 import { Flat } from "./models/flat.model";
-import { ToastController, Loading, LoadingController } from "ionic-angular";
+import { ToastController, Loading, LoadingController, NavController, Platform } from "ionic-angular";
 
 @Injectable()
 export class Globals {
@@ -11,10 +11,12 @@ export class Globals {
     loading : Loading;
     errors = [];
     manageTasksMode: boolean = false;
+    navCtrl : NavController;
 
-    constructor(public toastCtrl: ToastController, public loadingCtrl : LoadingController){
+    constructor(public toastCtrl: ToastController, public loadingCtrl : LoadingController,  public platform: Platform){
       this.errors.push({required_tsk_title : "Tytuł jest wymagany"})
-      this.user = new User;
+      this.user = new User; 
+
     }
 
     makeToast(message) {
@@ -53,5 +55,11 @@ export class Globals {
       this.user = new User;
       this.flat = new Flat;
       this.manageTasksMode = false;
+    }
+
+    deletePreviousView(){
+      if(this.navCtrl && this.navCtrl.getPrevious().name != "MainPage"){
+        this.navCtrl.removeView(this.navCtrl.getPrevious());
+      }
     }
 }

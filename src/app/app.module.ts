@@ -108,6 +108,7 @@ const firebaseConfig = {
     LocalNotifications,
     Facebook,
     Camera
+    
   ]
 })
 export class AppModule {}

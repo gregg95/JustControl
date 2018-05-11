@@ -13,10 +13,10 @@
 <ion-item>
   <ion-label>Status</ion-label>
   <ion-select  interface="popover" [(ngModel)]="tsk_status" (ngModelChange)="filterExact('tsk_status', tsk_status)">
-    <ion-option [value]="0">Oczekujące na akceptacje</ion-option>
     <ion-option [value]="1">Zatwierdzone</ion-option>
     <ion-option [value]="2">Wykonane</ion-option>
     <ion-option [value]="3">Nie wykonane</ion-option>
+    <ion-option [value]="zero">Oczekujące na akceptacje</ion-option>
   </ion-select>
 </ion-item>
 

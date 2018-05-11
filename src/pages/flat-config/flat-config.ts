@@ -41,17 +41,16 @@ export class FlatConfigPage {
     }
 
     if (this.flt_address.length == 0){
-      this.globals.makeToast("Adres powinien być uzzupełniony.");
+      this.globals.makeToast("Adres powinien być uzupełniony.");
       return;
     }
-   
-    if (this.flt_code.length == 0) {
-      this.globals.makeToast("Nie podano kodu mieszkania.");
+
+    if (this.flt_code.length < 5) {
+      this.globals.makeToast("Kod mieszkania musi mieć conajmniej 5 znaków.");
       return;
     };
 
-    
-    
+
     var il = 0;
     
 

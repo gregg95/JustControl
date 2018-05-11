@@ -31,12 +31,13 @@ lol : string = "";
             // Register click event listener for each local notification
             this.localNotifications.on('click').subscribe(notification =>
             {
-              var title 	 	=	notification.title,
-                  message  		= 	JSON.stringify(notification.data);
+              var title 	 	=	notification.title;
+              var text 	 	=	notification.text;
+                  //message  		= 	JSON.stringify(notification.data);
 
               // Display the supplied message to the user
-              this.globals.makeLongToast(title + message + notification.id);
-
+              this.globals.makeToast(title + " " + text);
+ 
 
             });
 
@@ -175,8 +176,7 @@ lol : string = "";
         id: max + 1,
         title: "Nowe zadanie",
         text: task.tsk_category,
-        trigger: {at: new Date(Date.parse(task.tsk_minCompletationDate)) },
-        data: {mydata: "mu hidden message"}
+        trigger: {at: new Date(Date.parse(task.tsk_minCompletationDate)) }
       });
 
       this.db.object('tasks/' + task.$key)

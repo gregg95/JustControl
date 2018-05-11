@@ -133,8 +133,8 @@ export class TaskConfigPage {
     task.tsk_usrId = (this.taskForm.controls.tsk_usrId.value == "Brak") ? "" : this.taskForm.controls.tsk_usrId.value; 
     task.tsk_fltId = this.globals.flat.$key;
     task.tsk_createdAt = new Date().toLocaleString();
-    task.tsk_minCompletationDate = moment((this.taskForm.controls.tsk_minCompletationDate.value)).add(-2, 'hour').toLocaleString();
-    task.tsk_maxCompletationDate = moment((this.taskForm.controls.tsk_maxCompletationDate.value)).add(-2, 'hour').toLocaleString();
+    task.tsk_minCompletationDate = moment((this.taskForm.controls.tsk_minCompletationDate.value)).add(-2, 'hour').set('second', 0).toLocaleString();
+    task.tsk_maxCompletationDate = moment((this.taskForm.controls.tsk_maxCompletationDate.value)).add(-2, 'hour').set('second', 0).toLocaleString();
     task.tsk_description = this.taskForm.controls.tsk_description.value;
     task.tsk_commentary = this.taskForm.controls.tsk_commentary.value;
     task.tsk_status = (this.globals.user.usr_rights == 1) ? 1 : 0;

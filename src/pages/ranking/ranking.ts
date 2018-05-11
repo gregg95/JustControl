@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { User } from '../../app/models/user.model';
 import { Globals } from '../../app/Globals';
-
 /**
  * Generated class for the RankingPage page.
  *
@@ -23,9 +22,11 @@ export class RankingPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: AngularFireDatabase,
       public globals: Globals) {
 
+
+
     this.globals.showLoading();
 
-    this.db.list('users/', ref => ref.orderByChild('usr_points')).snapshotChanges().subscribe(u => {      
+    this.db.list('users/').snapshotChanges().subscribe(u => {      
       this.users = [];
      
       u.forEach(user => {
@@ -36,20 +37,24 @@ export class RankingPage {
         
       });
 
-      this.users.sort((userA: User, userB: User)  => {
-        if (userA.usr_points < userB.usr_points) return 1;
-        if (userA.usr_points > userB.usr_points) return 0;
-        return 0;
+      this.users = this.users.sort((userA: User, userB: User)  => {
+        return userB.usr_points - userA.usr_points;
       });
+      
       var i = 1;
       this.users.forEach(u => {
         u.usr_lp = i;
         i++;
       });
+      
       this.globals.dismissLoading();
     });
 
 
+  }
+
+  sortList(){
+    
   }
 
   ionViewDidLoad() {

@@ -32,7 +32,7 @@ export class LoginPage {
     private platform: Platform, public menuCtrl: MenuController,
     public db : AngularFireDatabase, public globals: Globals, public fb: Facebook) {
      
-
+      this.globals.navCtrl = navCtrl;
      
       this.afAuth.authState.subscribe(res => {
         
@@ -47,12 +47,19 @@ export class LoginPage {
       });
 
       
+      //wyłączenie menu bocznego na poszczególnuch stronach      
     navCtrl.viewDidEnter.subscribe((e) => {
       menuCtrl.enable(true, 'myMenu');
       switch (e.instance.constructor.name){
         case 'LoginPage':
         case 'RegisterPage':
         case 'TaskConfigPage':
+        case 'UsersManagementPage':
+        case 'CommonExpansesConfigPage':
+        case 'ExpenseDetailsPage':
+        case 'FlatConfigPage':
+        case 'UserConfigPage':
+        case 'HomePage':
           menuCtrl.enable(false, 'myMenu');
           break; 
       }
@@ -149,11 +156,13 @@ export class LoginPage {
         firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)
       ).then(r => {
         
+      }, err => {
+        this.globals.makeToast(err);
+        this.globals.dismissLoading();
       })
     } catch(err) {
       console.log(err);
       this.globals.dismissLoading();
-      this.globals.makeToast(err);
     }
   }
 
