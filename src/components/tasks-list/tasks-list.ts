@@ -52,6 +52,8 @@ lol : string = "";
         task = tsk.payload.val() as Task;
         task.$key = tsk.key;
         
+        console.log(task.tsk_category + " " + task.tsk_usrId + " " + this.globals.user.$key + " " + task.tsk_status);
+
         if (new Date(Date.parse(task.tsk_maxCompletationDate)) < (new Date()) && task.tsk_status != 2){
           this.db.object('tasks/' + task.$key).update(
             {
@@ -125,10 +127,12 @@ lol : string = "";
 
     let alert = this.alertCtrl.create({
       title: 'Komentarz',
+      subTitle: 'Komentarz zadania pozwala administratorowi podjąć odpowiednie akcje w przypadku, gdy ktoś nie może wykonać zadania. Aby usunąc komentarz wystarczy wysłać pustą wartość.',
       inputs: [
         {
           name: 'comment',
           placeholder: 'komentarz ...'
+          
         }
       ],
       buttons: [
@@ -140,7 +144,7 @@ lol : string = "";
           }
         },
         {
-          text: 'Skomentuj',
+          text: 'Wyślij komentarz',
           handler: data => {            
             
               this.db.object('tasks/' + task.$key).update(

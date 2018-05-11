@@ -23,7 +23,7 @@
                           <p style="font-weight: bold; color: #00e759">S: {{tsk.tsk_minCompletationDate}}</p>
                           <p style="font-weight: bold; color: #ff0000">K: {{tsk.tsk_maxCompletationDate}}</p>
                           <p>Opis: {{tsk.tsk_description}}</p>
-                          <p *ngIf="globals.user.usr_rights == 1 && tsk.tsk_commentary.length > 0">Komentarz: {{tsk.tsk_commentary}}</p>
+                          <p *ngIf="globals.user.usr_rights == 1 && tsk.tsk_commentary.length > 0" style="font-weight: bold; color:#c10070;">Komentarz: {{tsk.tsk_commentary}}</p>
                           <p>Utworzono: {{tsk.tsk_createdAt}}, przez: {{tsk.tsk_createdBy}}</p>  
                         </ion-col>
                       </ion-row>                                   
@@ -62,7 +62,7 @@
                           <p style="font-weight: bold; color: #00e759">S: {{tsk.tsk_minCompletationDate}}</p>
                           <p style="font-weight: bold; color: #ff0000">K: {{tsk.tsk_maxCompletationDate}}</p>
                           <p>Opis: {{tsk.tsk_description}}</p>
-                          <p *ngIf="globals.user.usr_rights == 1 && tsk.tsk_commentary.length > 0">Komentarz: {{tsk.tsk_commentary}}</p>
+                          <p *ngIf="globals.user.usr_rights == 1 && tsk.tsk_commentary.length > 0" style="font-weight: bold; color:#c10070;">Komentarz: {{tsk.tsk_commentary}}</p>
                           <p>Utworzono: {{tsk.tsk_createdAt}}, przez: {{tsk.tsk_createdBy}}</p>  
                         </ion-col>
                       </ion-row>                                   
@@ -72,7 +72,7 @@
               </ion-row>
               <ion-row>
                 <ion-col>
-                  <button *ngIf="tsk.tsk_usrId == globals.user.$key && !tsk.tsk_status == 2" ion-button block (click)="commentTask(tsk)" icon-start>
+                  <button *ngIf="tsk.tsk_usrId == globals.user.$key && tsk.tsk_status != 2" ion-button block (click)="commentTask(tsk)" icon-start>
                       <ion-icon name="md-chatbubbles"></ion-icon>Skomentuj</button>
                   <button *ngIf="!tsk.tsk_usrName && tsk.tsk_status != 0" ion-button block (click)="takeATask(tsk)" icon-start>
                       <ion-icon name="ios-filing"></ion-icon>Przyjmij zadanie</button>
