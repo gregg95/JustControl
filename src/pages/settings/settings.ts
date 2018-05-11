@@ -94,8 +94,11 @@ export class SettingsPage {
           if(u.length > 1){
             u.forEach(usr => {
               var user = usr.payload.val() as User;
-              if (user.usr_rights == 1) b = true;
+              user.$key = usr.key;
+              if (user.usr_rights == 1 && user.$key != this.globals.user.$key) b = true;
             });
+          } else {
+            b = true;
           }
 
           
@@ -119,7 +122,7 @@ export class SettingsPage {
       this.db.list('users', ref => ref.orderByChild('usr_fltId').equalTo(this.globals.flat.$key)).snapshotChanges().subscribe(u => {
         if (u.length == 0){
           this.globals.makeToast("Usuwanie mieszkania.")
-          this.db.object('flats' + this.globals.flat.$key).remove();
+          this.db.object('flats/' + this.globals.flat.$key).remove();
         }
       });
 
